@@ -1,0 +1,1 @@
+../../agents/opencode/papercut-scene.md
