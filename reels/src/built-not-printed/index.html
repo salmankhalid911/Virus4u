@@ -1,0 +1,246 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:BS;src:url(bigshoulders.ttf);font-weight:900}
+@font-face{font-family:BG;src:url(bricolage.ttf);font-weight:800}
+:root{--paper:#F4F3F1;--ink:#15161A;--red:#B0212F;--cyan:#00CEFF}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--ink)}
+.layer{position:absolute;inset:0}
+#bgRed{background:var(--red);clip-path:circle(0px at 50% 62%)}
+#bgInk{background:var(--ink);clip-path:polygon(0 0,0 0,0 100%,0 100%)}
+#ring{inset:auto;left:50%;top:62%;width:10px;height:10px;border:14px solid var(--cyan);border-radius:50%;transform:translate(-50%,-50%) scale(0);opacity:0}
+canvas{position:absolute;inset:0;width:1080px;height:1920px}
+.txt{position:absolute;left:90px;top:300px;width:760px}
+.ln{display:block;overflow:hidden;line-height:.92;padding:4px 0 6px}
+.ln>span{display:inline-block;transform-origin:0% 80%}
+.h{font-family:BS,Impact,sans-serif;font-weight:900;text-transform:uppercase;color:var(--paper);letter-spacing:-.005em}
+.s{font-family:BG,sans-serif;font-weight:800;color:var(--paper);font-size:42px;letter-spacing:.02em}
+.red{color:var(--red)}.cy{color:var(--cyan)}
+#t3 .mega{font-size:400px;line-height:.8;font-variant-numeric:tabular-nums}
+.chk{display:flex;align-items:center;gap:24px;font-size:84px;white-space:nowrap}
+.chk i{width:78px;height:78px;border-radius:50%;background:var(--cyan);display:grid;place-items:center;flex:none}
+.pill{display:inline-block;border:9px solid var(--cyan);border-radius:28px;padding:14px 36px 6px;color:var(--cyan)}
+</style></head><body>
+<div class="layer" id="bgRed"></div>
+<div class="layer" id="bgInk"></div>
+<div class="layer" id="ring"></div>
+<canvas id="c" width="1080" height="1920"></canvas>
+
+<div class="txt" id="t1">
+  <span class="ln h" style="font-size:150px"><span id="a1">Stop putting</span></span>
+  <span class="ln h" style="font-size:150px"><span id="a2">your logo</span></span>
+  <span class="ln h red" style="font-size:190px"><span id="a3">on blanks.</span></span>
+</div>
+<div class="txt" id="t2">
+  <span class="ln s"><span id="b0">CUT &amp; SEW. NOT PRINTED.</span></span>
+  <span class="ln h" style="font-size:170px"><span id="b1">Build your</span></span>
+  <span class="ln h" style="font-size:170px"><span id="b2">own.</span></span>
+  <div style="position:absolute;left:0;top:70px;width:760px;height:340px;overflow:hidden">
+    <span class="h" id="r1" style="position:absolute;left:0;top:0;font-size:170px;line-height:.92">Your<br>pattern.</span>
+    <span class="h" id="r2" style="position:absolute;left:0;top:0;font-size:170px;line-height:.92">Your<br>fabric.</span>
+    <span class="h" id="r3" style="position:absolute;left:0;top:0;font-size:170px;line-height:.92">Your<br><span class="cy">fit.</span></span>
+  </div>
+</div>
+<div class="txt" id="t3">
+  <span class="ln s"><span id="c0">FROM ONLY</span></span>
+  <span class="ln h mega"><span id="c1">0</span></span>
+  <span class="ln h" style="font-size:130px"><span id="c2">pieces.</span></span>
+  <div id="checks" style="display:flex;flex-direction:column;gap:22px;margin-top:40px">
+    <div class="chk h" id="k1"><i><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#15161A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Sample before bulk</div>
+    <div class="chk h" id="k2"><i><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#15161A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i>Live factory call</div>
+  </div>
+</div>
+<div class="txt" id="t4">
+  <span class="ln h" style="font-size:180px"><span id="d1">Built,</span></span>
+  <span class="ln h red" style="font-size:180px"><span id="d2">not printed.</span></span>
+  <div style="margin-top:36px"><span class="h pill" id="d3" style="font-size:104px;white-space:nowrap">Comment “PRICE”</span></div>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { TTFLoader } from 'three/addons/loaders/TTFLoader.js';
+import { Font } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const W=1080,H=1920, PAPER=0xF4F3F1, INK=0x15161A, RED=0xB0212F, CYAN=0x00CEFF;
+const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true,alpha:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(1); renderer.setSize(W,H,false); renderer.setClearColor(0,0);
+renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.0;
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+const scene=new THREE.Scene();
+scene.environment=new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(),0.04).texture;
+const cam=new THREE.PerspectiveCamera(35,W/H,0.1,200);
+scene.add(new THREE.HemisphereLight(0xffffff,0x222233,0.6));
+const key=new THREE.DirectionalLight(0xffffff,2.2); key.position.set(-6,8,10); scene.add(key);
+const rim=new THREE.PointLight(CYAN,60,40); rim.position.set(6,3,-6); scene.add(rim);
+const fill=new THREE.PointLight(RED,40,40); fill.position.set(-5,-6,4); scene.add(fill);
+
+// seeded random
+let seed=7; const rnd=()=>{seed=(seed*16807)%2147483647;return (seed-1)/2147483646;};
+
+// ---------- 3D words ----------
+const ttf=await new Promise(r=>new TTFLoader().load('bigshoulders.ttf',r));
+const font=new Font(ttf);
+const wordMat=new THREE.MeshStandardMaterial({color:PAPER,roughness:.35,metalness:.15});
+const sideMat=new THREE.MeshStandardMaterial({color:0xbdbab4,roughness:.5,metalness:.2});
+function makeWord(str){
+  const g=new THREE.Group(), size=1.25, scale=size/font.data.resolution;
+  let x=0; const letters=[];
+  for(const ch of str){
+    const geo=new TextGeometry(ch,{font,size,height:.42,curveSegments:6,bevelEnabled:true,bevelThickness:.05,bevelSize:.035,bevelSegments:3});
+    geo.computeBoundingBox(); const bb=geo.boundingBox;
+    geo.translate(-(bb.max.x+bb.min.x)/2,-(bb.max.y+bb.min.y)/2,-.21);
+    const m=new THREE.Mesh(geo,[wordMat,sideMat]);
+    const adv=font.data.glyphs[ch].ha*scale;
+    m.userData.base=new THREE.Vector3(x+adv/2,0,0);
+    const a=rnd()*Math.PI*2, b=(rnd()-.5)*1.4;
+    m.userData.dir=new THREE.Vector3(Math.cos(a)*Math.cos(b),Math.sin(b)+.2,Math.sin(a)*Math.cos(b)+.6).normalize();
+    m.userData.axis=new THREE.Vector3(rnd()-.5,rnd()-.5,rnd()-.5).normalize();
+    m.userData.spin=4+rnd()*5;
+    x+=adv+.06; letters.push(m); g.add(m);
+  }
+  letters.forEach(m=>m.userData.base.x-=x/2);
+  g.userData.letters=letters; return g;
+}
+const blank=makeWord('BLANK'), built=makeWord('BUILT');
+scene.add(blank,built);
+function scatter(word,p){ // p 0 = assembled, 1 = blown apart
+  for(const m of word.userData.letters){
+    const u=m.userData;
+    m.position.copy(u.base).addScaledVector(u.dir,p*p*16+p*2);
+    m.quaternion.setFromAxisAngle(u.axis,p*u.spin);
+    m.scale.setScalar(1-p*.35);
+  }
+}
+
+// ---------- spool + thread ----------
+const spool=new THREE.Group();
+const stripes=document.createElement('canvas'); stripes.width=64; stripes.height=512;
+const sx=stripes.getContext('2d'); sx.fillStyle='#F4F3F1'; sx.fillRect(0,0,64,512);
+for(let y=0;y<512;y+=8){sx.fillStyle=y%16?'#d9d6d0':'#ffffff';sx.fillRect(0,y,64,4);}
+const stex=new THREE.CanvasTexture(stripes); stex.colorSpace=THREE.SRGBColorSpace; stex.wrapS=stex.wrapT=THREE.RepeatWrapping;
+const barrel=new THREE.Mesh(new THREE.CylinderGeometry(.95,.95,2.1,64,1),new THREE.MeshStandardMaterial({map:stex,roughness:.8}));
+const flangeMat=new THREE.MeshStandardMaterial({color:INK,roughness:.3,metalness:.4});
+const f1=new THREE.Mesh(new THREE.CylinderGeometry(1.35,1.35,.18,64),flangeMat); f1.position.y=1.14;
+const f2=f1.clone(); f2.position.y=-1.14;
+const core=new THREE.Mesh(new THREE.CylinderGeometry(.28,.28,2.6,32),new THREE.MeshStandardMaterial({color:CYAN,roughness:.3,metalness:.3}));
+spool.add(barrel,f1,f2,core);
+const spoolHolder=new THREE.Group(); spoolHolder.add(spool); spoolHolder.rotation.set(.35,0,-.28); scene.add(spoolHolder);
+const curve=new THREE.CatmullRomCurve3([
+  new THREE.Vector3(.95,.3,0),new THREE.Vector3(2.2,1.2,.6),new THREE.Vector3(1.0,3.2,1.2),
+  new THREE.Vector3(-2.2,3.6,.4),new THREE.Vector3(-2.8,1.0,-.4),new THREE.Vector3(-1.2,-2.4,.6),
+  new THREE.Vector3(2.4,-3.4,1.4),new THREE.Vector3(6,-2,2)]);
+const tubeGeo=new THREE.TubeGeometry(curve,600,.045,8,false);
+const thread=new THREE.Mesh(tubeGeo,new THREE.MeshStandardMaterial({color:PAPER,emissive:0x555555,roughness:.6}));
+scene.add(thread);
+const threadCount=tubeGeo.index.count;
+
+// ---------- buttons ----------
+const buttons=new THREE.Group(); scene.add(buttons);
+function makeButton(color){
+  const b=new THREE.Group(), mat=new THREE.MeshStandardMaterial({color,roughness:.25,metalness:.2});
+  const disc=new THREE.Mesh(new THREE.CylinderGeometry(.6,.6,.16,48),mat);
+  const rimT=new THREE.Mesh(new THREE.TorusGeometry(.56,.07,12,48),mat); rimT.rotation.x=Math.PI/2; rimT.position.y=.07;
+  b.add(disc,rimT);
+  const holeMat=new THREE.MeshStandardMaterial({color:INK,roughness:.9});
+  for(const [x,z] of [[-.16,-.16],[.16,-.16],[-.16,.16],[.16,.16]]){const h=new THREE.Mesh(new THREE.CylinderGeometry(.075,.075,.18,16),holeMat);h.position.set(x,.005,z);b.add(h);}
+  return b;
+}
+const bspecs=[[PAPER,-1.9,-5.6,0],[CYAN,1.9,-5.3,-1.5],[PAPER,.4,-6.9,1],[RED,-2.4,-7.4,-2],[PAPER,2.4,-7.6,-.5]];
+bspecs.forEach(([c,x,y,z],i)=>{const b=makeButton(c);b.userData={x,y,z,ph:i*1.3};buttons.add(b);});
+
+// ---------- timeline state ----------
+const S={camZ:26,camX:-1.2,camY:.4,roll:0,lookY:2.1,
+  blankP:0,blankScale:1,builtP:1,spoolS:0,threadP:0,btnS:0,orbit:0};
+const tl=gsap.timeline({paused:true});
+const ease='expo.out';
+// scene 1: push in on BLANK, text hook
+tl.to(S,{camZ:19,camX:0,camY:0,duration:2.25,ease:'power2.inOut'},0);
+tl.fromTo('#a1',{yPercent:0,scale:1.12},{yPercent:0,scale:1,duration:.45,ease},0);
+tl.fromTo('#a2',{yPercent:110},{yPercent:0,duration:.5,ease:'back.out(2)'},.5);
+tl.fromTo('#a3',{yPercent:170,scale:1.5},{yPercent:0,scale:1,duration:.5,ease:'back.out(2.4)'},1.0);
+tl.to(S,{blankScale:.9,duration:.25,ease:'power2.in'},2.0);                 // anticipation
+tl.to(['#a1','#a2','#a3'],{yPercent:-115,duration:.3,stagger:.06,ease:'power3.in'},2.1);
+tl.to(S,{blankP:1,blankScale:1,duration:.9,ease:'power2.out'},2.5);           // explode on the beat
+tl.to(S,{roll:.5,camZ:12,duration:.5,ease:'power3.in'},2.5);                 // camera whip
+tl.to('#bgRed',{clipPath:'circle(1300px at 50% 62%)',duration:.55,ease:'power3.inOut'},2.5);
+// scene 2: spool on red
+tl.set(S,{roll:-.35,camZ:14,camX:0,camY:0,lookY:1.3},3.0);
+tl.to(S,{roll:0,camZ:15.5,duration:1.2,ease},3.0);
+tl.fromTo(S,{spoolS:0},{spoolS:1,duration:.7,ease:'back.out(1.8)'},3.0);
+tl.to(S,{orbit:1,duration:4.5,ease:'none'},3.0);
+tl.fromTo(S,{threadP:0},{threadP:1,duration:4.2,ease:'power1.inOut'},3.25);
+tl.fromTo('#b0',{yPercent:110},{yPercent:0,duration:.4,ease},3.0);
+tl.fromTo(['#b1','#b2'],{yPercent:110},{yPercent:0,duration:.5,stagger:.12,ease:'back.out(2)'},3.1);
+tl.to(['#b1','#b2'],{yPercent:-110,duration:.3,stagger:.05,ease:'power3.in'},4.2);
+['#r1','#r2','#r3'].forEach((id,i)=>{
+  tl.fromTo(id,{yPercent:125},{yPercent:0,duration:.45,ease:'back.out(1.8)'},4.5+i);
+  if(i<2) tl.to(id,{yPercent:-105,duration:.35,ease:'power3.in'},5.25+i);
+});
+tl.to(['#r3','#b0'],{yPercent:-110,duration:.3,ease:'power3.in'},7.2);
+// transition: diagonal ink wipe carries the thread off
+tl.to('#bgInk',{clipPath:'polygon(0 0,140% 0,100% 100%,0 100%)',duration:.5,ease:'power3.inOut'},7.5);
+tl.to(S,{spoolS:0,duration:.45,ease:'back.in(2)'},7.5);
+tl.to(S,{threadP:0,duration:.5,ease:'power2.in'},7.5);
+// scene 3: 50 pieces + checklist, buttons drifting
+tl.set(S,{camZ:16,camX:0,camY:0,lookY:-3.8},8.0);
+tl.to(S,{camZ:14,camY:-.6,duration:4,ease:'none'},8.0);
+tl.fromTo(S,{btnS:0},{btnS:1,duration:.6,ease:'back.out(2)'},8.0);
+tl.fromTo('#c0',{yPercent:110},{yPercent:0,duration:.4,ease},8.0);
+tl.fromTo('#c1',{yPercent:110},{yPercent:0,duration:.45,ease:'back.out(1.6)'},8.0);
+const counter={v:0};
+tl.to(counter,{v:50,duration:1.0,ease:'power2.out',onUpdate:()=>{document.getElementById('c1').textContent=Math.round(counter.v)}},8.0);
+tl.fromTo('#c1',{scale:1},{scale:1.08,duration:.12,yoyo:true,repeat:1,ease:'power2.out'},9.0);
+tl.fromTo('#c2',{yPercent:110},{yPercent:0,duration:.45,ease:'back.out(2)'},8.5);
+tl.fromTo('#k1',{x:-900,opacity:1},{x:0,opacity:1,duration:.5,ease:'back.out(1.6)'},9.5);
+tl.fromTo('#k2',{x:-900,opacity:1},{x:0,opacity:1,duration:.5,ease:'back.out(1.6)'},10.25);
+tl.to(['#c0','#c1','#c2'],{yPercent:-115,duration:.3,stagger:.04,ease:'power3.in'},11.5);
+tl.to(['#k1','#k2'],{x:1200,duration:.35,stagger:.06,ease:'power3.in'},11.5);
+tl.to(S,{btnS:0,duration:.4,ease:'back.in(2)'},11.6);
+// transition: cyan ring pulse
+tl.fromTo('#ring',{scale:0,opacity:1},{scale:28,duration:.4,ease:'power3.out'},12.0);tl.to('#ring',{opacity:0,duration:.18,ease:'power1.in'},12.18);
+// scene 4: BUILT assembles, camera pulls back to frame-0 framing (loop)
+tl.set(S,{camZ:12,camX:.8,camY:-.3,roll:.18,lookY:2.1},12.0);
+tl.to(S,{builtP:0,duration:1.1,ease:'expo.out'},12.0);
+tl.to(S,{camZ:26,camX:-1.2,camY:.4,roll:0,duration:3.0,ease:'power2.inOut'},12.0);
+tl.fromTo('#d1',{yPercent:110},{yPercent:0,duration:.45,ease:'back.out(2)'},12.5);
+tl.fromTo('#d2',{yPercent:170,scale:1.4},{yPercent:0,scale:1,duration:.5,ease:'back.out(2.2)'},13.0);
+tl.fromTo('#d3',{scale:0,opacity:1},{scale:1,opacity:1,duration:.5,ease:'back.out(2.6)'},13.5);
+tl.to(['#d1','#d2','#d3'],{yPercent:-115,opacity:0,duration:.3,stagger:.04,ease:'power3.in'},14.6);
+tl.set({}, {}, 15.0);
+
+// visibility per scene for DOM blocks
+const vis=(id,a,b,t)=>{document.getElementById(id).style.visibility=(t>=a&&t<b)?'visible':'hidden';};
+
+window.renderAt=(t)=>{
+  tl.seek(t,false);
+  vis('t1',0,3.0,t); vis('t2',3.0,8.0,t); vis('t3',8.0,12.0,t); vis('t4',12.4,15.1,t);
+  // 3D state
+  blank.visible=t<3.6; built.visible=t>=12.0;
+  scatter(blank,S.blankP); blank.scale.setScalar(S.blankScale); blank.position.set(-.35,0,0);
+  scatter(built,S.builtP); built.position.set(-.35,0,0);
+  blank.rotation.y=Math.sin(t*1.2)*.08*(1-S.blankP); built.rotation.y=Math.sin(t*1.2)*.08;
+  spoolHolder.visible=t>=3.0&&t<8.0; spoolHolder.scale.setScalar(Math.max(.0001,S.spoolS));
+  spoolHolder.position.set(.3,-1.6,0); spool.rotation.y=t*3.2; stex.offset.y=-t*.6;
+  thread.visible=spoolHolder.visible&&S.threadP>0; thread.position.copy(spoolHolder.position);
+  thread.geometry.setDrawRange(0,Math.floor(threadCount*S.threadP/3)*3);
+  buttons.visible=t>=8.0&&t<12.1;
+  buttons.children.forEach(b=>{const u=b.userData;b.position.set(u.x,u.y+Math.sin(t*1.4+u.ph)*.25,u.z);
+    b.rotation.set(1.1+Math.sin(t+u.ph)*.5,t*.9+u.ph,Math.cos(t*.8+u.ph)*.4);b.scale.setScalar(Math.max(.0001,S.btnS));});
+  // camera: orbit only in scene 2
+  const a=(t>=3&&t<8)?(S.orbit-.5)*1.1:0;
+  const R=S.camZ; cam.position.set(S.camX+Math.sin(a)*R*.35,S.camY,Math.cos(a)*R);
+  cam.up.set(Math.sin(S.roll),Math.cos(S.roll),0);
+  const target=(t>=3&&t<8)?new THREE.Vector3(.3,S.lookY-1.2,0):new THREE.Vector3(0,S.lookY,0);
+  cam.lookAt(target);
+  renderer.render(scene,cam);
+};
+window.DURATION=15;
+window.renderAt(0);
+window.ready=true;
+</script>
+</body></html>
