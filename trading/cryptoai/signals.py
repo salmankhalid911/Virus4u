@@ -88,7 +88,7 @@ def build_card(sig: Signal, entry: float, current: float, bar_close_ms: int, tf:
                          acct.equity, lim.max_leverage)
     if size.skipped:
         return None, size.reason
-    ts = datetime.fromtimestamp((bar_close_ms + 1) / 1000, timezone.utc).strftime("%Y-%m-%d %H:%M UTC (closed %s candle)" % tf)
+    ts = datetime.fromtimestamp((bar_close_ms + 1) / 1000, timezone.utc).strftime("%Y-%m-%d %H:%M UTC") + f" (closed {tf} candle)"
     inval = (f"Close {'below' if side == 1 else 'above'} {stop:,.6g}, or no entry fill within one candle.")
     card = TradeCard(sig.symbol, sig.side, STRATEGY_NAMES.get(sig.strategy, sig.strategy), current, entry, stop, *tps,
                      reward_risk(sig.side, entry, stop, tps[0]), size.qty, size.notional, size.loss_at_stop, confidence, tf,
