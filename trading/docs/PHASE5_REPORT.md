@@ -1,6 +1,6 @@
 # Phase 5 strategy comparison
 
-Generated 2026-11-11 02:08 UTC. Rules and protocol: `docs/STRATEGY_RULES.md`, committed before this run.
+Generated 2026-11-11 02:13 UTC. Rules and protocol: `docs/STRATEGY_RULES.md`, committed before this run.
 BTC, ETH, SOL; 5m / 15m / 1h / 4h; each strategy x timeframe x side tested on its own with the $100 account and all risk limits.
 Train 2024-11-01 to 2025-08-31, validation 2025-09-01 to 2026-02-28, test 2026-03-01 to 2026-11-11.
 
@@ -31,37 +31,45 @@ Expectancy is in R (multiples of the planned risk) after fees, slippage and fund
 | 7 | C Liquidity/CHOCH | 15m | LONG | 40 / -0.23 | 15 / +0.08 | 39 | 38.5 | 0.80 | -0.10 | +1.29 / -0.97 | -2.33 | 4.44 | yes | rejected: negative OOS |
 | 8 | B Breakout-retest | 4h | SHORT | 6 / +0.09 | 16 / -0.07 | 10 | 30.0 | 0.76 | -0.14 | +1.65 / -0.91 | -0.76 | 2.16 | yes | rejected: negative OOS |
 | 9 | A Trend pullback | 1h | LONG | 99 / -0.14 | 32 / +0.13 | 77 | 32.5 | 0.70 | -0.20 | +1.38 / -0.95 | -7.17 | 9.65 | yes | rejected: negative OOS |
-| 10 | A Trend pullback | 1h | SHORT | 91 / -0.22 | 72 / +0.07 | 73 | 31.5 | 0.66 | -0.23 | +1.36 / -0.96 | -7.64 | 8.52 | yes | rejected: negative OOS |
-| 11 | A Trend pullback | 15m | SHORT | 158 / -0.19 | 161 / -0.13 | 159 | 35.8 | 0.61 | -0.26 | +1.02 / -0.97 | -16.38 | 20.59 | yes | PASS all gates |
-| 12 | D Range | 1h | LONG | 27 / -0.43 | 5 / -1.00 | 28 | 35.7 | 0.54 | -0.28 | +1.01 / -1.00 | -4.01 | 4.18 | yes | rejected: negative OOS |
-| 13 | A Trend pullback | 15m | LONG | 233 / -0.22 | 94 / -0.29 | 182 | 34.1 | 0.49 | -0.31 | +0.96 / -0.97 | -24.47 | 24.47 | yes | PASS all gates |
-| 14 | B Breakout-retest | 15m | LONG | 238 / -0.30 | 114 / -0.42 | 180 | 31.1 | 0.44 | -0.37 | +0.90 / -0.94 | -25.36 | 26.15 | yes | PASS all gates |
-| 15 | D Range | 4h | LONG | 3 / -0.43 | 0 / +0.00 | 6 | 33.3 | 0.38 | -0.41 | +0.77 / -1.00 | -1.23 | 1.33 | yes | rejected: negative OOS |
-| 16 | C Liquidity/CHOCH | 15m | SHORT | 38 / +0.01 | 33 / -0.27 | 35 | 28.6 | 0.37 | -0.41 | +0.83 / -0.91 | -6.76 | 6.76 | yes | rejected: negative OOS |
-| 17 | B Breakout-retest | 1h | SHORT | 73 / -0.20 | 49 / -0.30 | 59 | 27.1 | 0.39 | -0.44 | +1.04 / -0.99 | -11.95 | 12.05 | yes | rejected: negative OOS |
-| 18 | D Range | 15m | LONG | 65 / -0.35 | 43 / -0.65 | 33 | 30.3 | 0.36 | -0.46 | +0.80 / -1.00 | -7.10 | 7.37 | yes | rejected: negative OOS |
-| 19 | D Range | 15m | SHORT | 55 / -0.33 | 39 / -0.21 | 45 | 28.9 | 0.34 | -0.48 | +0.81 / -1.00 | -10.20 | 12.90 | yes | rejected: negative OOS |
-| 20 | D Range | 1h | SHORT | 28 / -0.27 | 16 / -0.05 | 13 | 23.1 | 0.37 | -0.50 | +1.22 / -1.01 | -3.02 | 4.75 | yes | rejected: negative OOS |
-| 21 | B Breakout-retest | 15m | SHORT | 202 / -0.27 | 170 / -0.34 | 161 | 22.4 | 0.24 | -0.56 | +0.81 / -0.95 | -33.86 | 33.86 | yes | PASS all gates |
-| 22 | A Trend pullback | 4h | LONG | 27 / -0.22 | 6 / -0.35 | 20 | 30.0 | 0.20 | -0.56 | +0.46 / -1.00 | -5.44 | 5.44 | yes | rejected: negative OOS |
-| 23 | B Breakout-retest | 4h | LONG | 11 / +0.01 | 3 / -1.00 | 13 | 7.7 | 0.06 | -0.87 | +0.66 / -1.00 | -5.49 | 5.49 | yes | rejected: negative OOS |
-| 24 | C Liquidity/CHOCH | 4h | LONG | 2 / +0.24 | 1 / +1.89 | 2 | 0.0 | 0.00 | -1.00 | +0.00 / -1.00 | -0.99 | 0.99 | no | rejected: negative OOS |
+| 10 | C Liquidity/CHOCH | 5m | SHORT | 67 / -0.23 | 74 / -0.27 | 76 | 39.5 | 0.63 | -0.20 | +1.00 / -0.98 | -7.74 | 7.98 | yes | rejected: negative OOS |
+| 11 | A Trend pullback | 1h | SHORT | 91 / -0.22 | 72 / +0.07 | 73 | 31.5 | 0.66 | -0.23 | +1.36 / -0.96 | -7.64 | 8.52 | yes | rejected: negative OOS |
+| 12 | A Trend pullback | 15m | SHORT | 158 / -0.19 | 161 / -0.13 | 159 | 35.8 | 0.61 | -0.26 | +1.02 / -0.97 | -16.38 | 20.59 | yes | PASS all gates |
+| 13 | D Range | 1h | LONG | 27 / -0.43 | 5 / -1.00 | 28 | 35.7 | 0.54 | -0.28 | +1.01 / -1.00 | -4.01 | 4.18 | yes | rejected: negative OOS |
+| 14 | C Liquidity/CHOCH | 5m | LONG | 82 / -0.40 | 36 / -0.56 | 78 | 35.9 | 0.52 | -0.31 | +0.89 / -0.98 | -10.79 | 11.59 | yes | rejected: negative OOS |
+| 15 | A Trend pullback | 15m | LONG | 233 / -0.22 | 94 / -0.29 | 182 | 34.1 | 0.49 | -0.31 | +0.96 / -0.97 | -24.47 | 24.47 | yes | PASS all gates |
+| 16 | B Breakout-retest | 15m | LONG | 238 / -0.30 | 114 / -0.42 | 180 | 31.1 | 0.44 | -0.37 | +0.90 / -0.94 | -25.36 | 26.15 | yes | PASS all gates |
+| 17 | D Range | 4h | LONG | 3 / -0.43 | 0 / +0.00 | 6 | 33.3 | 0.38 | -0.41 | +0.77 / -1.00 | -1.23 | 1.33 | yes | rejected: negative OOS |
+| 18 | C Liquidity/CHOCH | 15m | SHORT | 38 / +0.01 | 33 / -0.27 | 35 | 28.6 | 0.37 | -0.41 | +0.83 / -0.91 | -6.76 | 6.76 | yes | rejected: negative OOS |
+| 19 | B Breakout-retest | 1h | SHORT | 73 / -0.20 | 49 / -0.30 | 59 | 27.1 | 0.39 | -0.44 | +1.04 / -0.99 | -11.95 | 12.05 | yes | rejected: negative OOS |
+| 20 | D Range | 15m | LONG | 65 / -0.35 | 43 / -0.65 | 33 | 30.3 | 0.36 | -0.46 | +0.80 / -1.00 | -7.10 | 7.37 | yes | rejected: negative OOS |
+| 21 | B Breakout-retest | 5m | LONG | 436 / -0.47 | 189 / -0.58 | 306 | 27.8 | 0.24 | -0.47 | +0.55 / -0.87 | -47.98 | 47.98 | yes | PASS all gates |
+| 22 | D Range | 15m | SHORT | 55 / -0.33 | 39 / -0.21 | 45 | 28.9 | 0.34 | -0.48 | +0.81 / -1.00 | -10.20 | 12.90 | yes | rejected: negative OOS |
+| 23 | A Trend pullback | 5m | SHORT | 271 / -0.36 | 220 / -0.42 | 246 | 27.2 | 0.32 | -0.48 | +0.78 / -0.96 | -40.49 | 40.51 | yes | PASS all gates |
+| 24 | D Range | 1h | SHORT | 28 / -0.27 | 16 / -0.05 | 13 | 23.1 | 0.37 | -0.50 | +1.22 / -1.01 | -3.02 | 4.75 | yes | rejected: negative OOS |
+| 25 | D Range | 5m | SHORT | 150 / -0.46 | 57 / -0.07 | 102 | 27.5 | 0.24 | -0.52 | +0.52 / -0.91 | -21.81 | 23.67 | yes | PASS all gates |
+| 26 | A Trend pullback | 5m | LONG | 341 / -0.38 | 116 / -0.55 | 248 | 25.8 | 0.26 | -0.53 | +0.74 / -0.98 | -44.49 | 44.49 | yes | PASS all gates |
+| 27 | B Breakout-retest | 15m | SHORT | 202 / -0.27 | 170 / -0.34 | 161 | 22.4 | 0.24 | -0.56 | +0.81 / -0.95 | -33.86 | 33.86 | yes | PASS all gates |
+| 28 | A Trend pullback | 4h | LONG | 27 / -0.22 | 6 / -0.35 | 20 | 30.0 | 0.20 | -0.56 | +0.46 / -1.00 | -5.44 | 5.44 | yes | rejected: negative OOS |
+| 29 | D Range | 5m | LONG | 138 / -0.45 | 80 / -0.65 | 111 | 25.2 | 0.21 | -0.56 | +0.56 / -0.94 | -24.68 | 24.68 | yes | PASS all gates |
+| 30 | B Breakout-retest | 5m | SHORT | 395 / -0.45 | 306 / -0.54 | 335 | 19.7 | 0.16 | -0.62 | +0.57 / -0.91 | -58.85 | 58.85 | yes | PASS all gates |
+| 31 | B Breakout-retest | 4h | LONG | 11 / +0.01 | 3 / -1.00 | 13 | 7.7 | 0.06 | -0.87 | +0.66 / -1.00 | -5.49 | 5.49 | yes | rejected: negative OOS |
+| 32 | C Liquidity/CHOCH | 4h | LONG | 2 / +0.24 | 1 / +1.89 | 2 | 0.0 | 0.00 | -1.00 | +0.00 / -1.00 | -0.99 | 0.99 | no | rejected: negative OOS |
 
 ## Long versus short (test period, base costs, all strategies and timeframes)
 
-- LONG: 646 trades, average -0.286R per trade, -79.5% summed across combinations
-- SHORT: 601 trades, average -0.359R per trade, -90.2% summed across combinations
+- LONG: 1389 trades, average -0.395R per trade, -207.5% summed across combinations
+- SHORT: 1360 trades, average -0.449R per trade, -219.0% summed across combinations
 
 ## By strategy (test period, base costs, all timeframes and both sides)
 
-- A Trend pullback: 532 trades, -0.268R per trade
-- B Breakout-retest: 480 trades, -0.395R per trade
-- C Liquidity/CHOCH: 98 trades, -0.175R per trade
-- D Range: 137 trades, -0.375R per trade
+- A Trend pullback: 1026 trades, -0.384R per trade
+- B Breakout-retest: 1121 trades, -0.484R per trade
+- C Liquidity/CHOCH: 252 trades, -0.225R per trade
+- D Range: 350 trades, -0.476R per trade
 
 ## By timeframe (test period, base costs)
 
-- 5m: 0 trades, +0.000R per trade
+- 5m: 1502 trades, -0.505R per trade
 - 15m: 834 trades, -0.371R per trade
 - 1h: 328 trades, -0.198R per trade
 - 4h: 85 trades, -0.312R per trade
@@ -96,9 +104,9 @@ Low = 0.04% fee + 0.02% slippage per side. Base = 0.10% + 0.05%. High = 0.10% + 
 | C Liquidity/CHOCH | 15m | LONG | +0.05 | -0.10 | -0.21 |
 | B Breakout-retest | 4h | SHORT | -0.07 | -0.14 | -0.21 |
 | A Trend pullback | 1h | LONG | -0.12 | -0.20 | -0.26 |
+| C Liquidity/CHOCH | 5m | SHORT | +0.03 | -0.20 | -0.33 |
 | A Trend pullback | 1h | SHORT | -0.11 | -0.23 | -0.28 |
 | A Trend pullback | 15m | SHORT | -0.10 | -0.26 | -0.34 |
-| D Range | 1h | LONG | -0.16 | -0.28 | -0.37 |
 
 ## Live-trading gates
 
