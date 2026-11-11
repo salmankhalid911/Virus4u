@@ -34,6 +34,8 @@ def summarize(res: AccountResult, start_equity: float) -> dict:
         avg_loss=sum(losses) / len(losses) if losses else 0.0,
         expectancy=sum(pnl) / n if n else 0.0,
         expectancy_r=sum(r) / n if n else 0.0,
+        avg_win_r=(sum(x for x in r if x > 0) / len([x for x in r if x > 0])) if any(x > 0 for x in r) else 0.0,
+        avg_loss_r=(sum(x for x in r if x <= 0) / len([x for x in r if x <= 0])) if any(x <= 0 for x in r) else 0.0,
         max_consecutive_losses=longest,
         final_equity=res.final_equity,
         pnl_by=by,
