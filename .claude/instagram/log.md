@@ -6,3 +6,4 @@
 | 2026-11-10 | #2 Negative Command (hook score 81.6) | Stop putting your logo on blanks. | 15s motion graphic, no footage (reels/kickster-built-not-printed-15s.mp4). Script awaiting approval. Not posted. |
 | 2026-11-11 | #2 Negative Command (hook score 94.8) | Stop paying for blanks. These 6 pieces should be yours. | Script approved. 21s, 9 animation styles, no footage (reels/kickster-9-styles-21s.mp4). Not posted. |
 | 2026-11-11 | #2 Negative Command (hook score 94.8) | Stop paying for blanks. These 6 pieces should be yours. | 15s cut, all 9 styles (reels/kickster-9-styles-15s.mp4). Not posted. |
+| 2026-11-11 | #2 Negative Command (hook score 92.6) | Stop printing on blanks. This is cut and sew, from 50 pieces. | Script approved. 20s, 9 styles + garciago footage (reels/kickster-garciago-20s.mp4). Not posted. |
