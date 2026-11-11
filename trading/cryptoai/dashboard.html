@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Paper Trading Desk</title>
+<style>
+:root{--bg:#0b0e13;--panel:#121722;--line:#1f2633;--fg:#dbe2ee;--mut:#7d889b;--up:#2fd08a;--dn:#ff5c6c;--warn:#f4b740;--acc:#59a8ff;--vio:#b18cff;
+--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 var(--sans)}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px max(16px,env(safe-area-inset-left));border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
+h1{font-size:16px;margin:0;letter-spacing:.04em}h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin:0 0 10px;font-weight:600}
+.badge{font:600 11px var(--mono);padding:4px 9px;border-radius:999px;border:1px solid var(--line)}
+.paper{color:var(--acc);border-color:#23466e;background:#0f1d2e}.lock{color:var(--mut)}
+main{padding:16px max(16px,env(safe-area-inset-right)) 40px max(16px,env(safe-area-inset-left));display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
+section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.s12{grid-column:span 12}.s8{grid-column:span 8}.s6{grid-column:span 6}.s4{grid-column:span 4}
+@media(max-width:1000px){.s8,.s6,.s4{grid-column:span 12}}
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.kpi{border:1px solid var(--line);border-radius:8px;padding:10px 12px}.kpi b{display:block;font:600 20px var(--mono);margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi span{color:var(--mut);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.up{color:var(--up)}.dn{color:var(--dn)}.mut{color:var(--mut)}
+table{width:100%;border-collapse:collapse;font:12px var(--mono);font-variant-numeric:tabular-nums}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}th{color:var(--mut);font-weight:500}
+th:first-child,td:first-child{text-align:left}.scroll{overflow-x:auto}
+.sigs{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
+.sig{border:1px solid var(--line);border-left:4px solid var(--st);border-radius:8px;padding:10px 12px;font:12px var(--mono)}
+.sig .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-family:var(--sans)}
+.chip{font:600 10px var(--mono);padding:3px 7px;border-radius:999px;background:color-mix(in srgb,var(--st) 18%,transparent);color:var(--st);letter-spacing:.04em}
+.sig dl{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:0}.sig dt{color:var(--mut)}.sig dd{margin:0;text-align:right}
+.st-WAITING{--st:#7d889b}.st-SETUP{--st:var(--warn)}.st-ENTRY{--st:var(--acc)}.st-ACTIVE{--st:var(--vio)}.st-TP{--st:var(--up)}.st-SL{--st:var(--dn)}.st-INV{--st:#5b6475}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+canvas{width:100%;height:180px;display:block}
+.empty{color:var(--mut);padding:18px 4px}
+.verdict{font:600 11px var(--mono);padding:2px 6px;border-radius:4px}.pass{background:#103222;color:var(--up)}.fail{background:#3a161c;color:var(--dn)}
+.dir{font:600 12px var(--mono)}
+</style></head><body>
+<header><h1>PAPER TRADING DESK</h1><div style="display:flex;gap:8px;align-items:center">
+<span class="badge paper" id="mode">PAPER MODE · $100 START</span><span class="badge lock" id="live">LIVE TRADING LOCKED</span>
+<span class="mut" id="clock" style="font:12px var(--mono)"></span></div></header>
+<main>
+<section class="s12"><h2>Account</h2><div class="kpis" id="kpis"></div></section>
+<section class="s8"><h2>Equity (closed trades)</h2><canvas id="eq" width="900" height="180"></canvas></section>
+<section class="s4"><h2>Risk exposure and limits</h2><div id="risk"></div></section>
+<section class="s12"><h2>Signal center</h2>
+<div class="legend" id="legend"></div><div class="sigs" id="sigs"></div></section>
+<section class="s6"><h2>Market watchlist</h2><div class="scroll" id="watch"></div></section>
+<section class="s6"><h2>Active trades</h2><div class="scroll" id="active"></div></section>
+<section class="s12"><h2>Strategy validation (backtest, after fees)</h2><div class="scroll" id="bt"></div></section>
+<section class="s8"><h2>Trading history</h2><div class="scroll" id="hist"></div></section>
+<section class="s4"><h2>Activity log</h2><div class="scroll" id="log"></div></section>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const money=v=>v==null?'—':(v<0?'-':'')+'$'+Math.abs(v).toFixed(2);
+const cls=v=>v>0?'up':v<0?'dn':'';
+const t=ms=>ms?new Date(ms).toISOString().slice(5,16).replace('T',' '):'—';
+const px=v=>v==null?'—':Number(v).toPrecision(6).replace(/\.?0+$/,'');
+const ST={'WAITING':'WAITING','SETUP DETECTED':'SETUP','ENTRY CONFIRMED':'ENTRY','TRADE ACTIVE':'ACTIVE','TAKE PROFIT HIT':'TP','STOP LOSS HIT':'SL','SIGNAL INVALIDATED':'INV'};
+$('legend').innerHTML=Object.entries(ST).map(([k,v])=>`<span class="st-${v}"><span class="chip">${k}</span></span>`).join('');
+function table(rows,cols){if(!rows.length)return'<div class="empty">Nothing yet.</div>';
+ return `<table><tr>${cols.map(c=>`<th>${c[0]}</th>`).join('')}</tr>${rows.map(r=>`<tr>${cols.map(c=>`<td>${c[1](r)}</td>`).join('')}</tr>`).join('')}</table>`}
+function chart(curve,start){const c=$('eq'),g=c.getContext('2d'),W=c.width=c.clientWidth*2,H=c.height=360;g.clearRect(0,0,W,H);
+ const pts=[[0,start],...curve.map((p,i)=>[i+1,p[1]])];if(pts.length<2){g.fillStyle='#7d889b';g.font='26px system-ui';g.fillText('No closed trades yet',20,60);return}
+ const ys=pts.map(p=>p[1]),lo=Math.min(...ys,start)*0.998,hi=Math.max(...ys,start)*1.002,X=i=>20+i/(pts.length-1)*(W-40),Y=v=>H-20-(v-lo)/(hi-lo)*(H-40);
+ g.strokeStyle='#1f2633';g.lineWidth=2;g.beginPath();g.moveTo(20,Y(start));g.lineTo(W-20,Y(start));g.stroke();
+ g.strokeStyle=ys[ys.length-1]>=start?'#2fd08a':'#ff5c6c';g.lineWidth=4;g.beginPath();pts.forEach((p,i)=>i?g.lineTo(X(i),Y(p[1])):g.moveTo(X(i),Y(p[1])));g.stroke()}
+async function load(){let s;try{s=await (await fetch('/api/state')).json()}catch(e){$('kpis').innerHTML='<div class="empty">Backend not reachable.</div>';return}
+ $('clock').textContent=new Date(s.server_time_ms||Date.now()).toISOString().slice(0,16).replace('T',' ')+' UTC';
+ if(!s.ready){$('kpis').innerHTML=`<div class="empty">${s.message}</div>`;return}
+ $('live').textContent=s.live_allowed?'LIVE TRADING ENABLED':'LIVE TRADING LOCKED';
+ const k=[['Balance',money(s.balance),''],['Available',money(s.available),''],['Total P/L',money(s.total_pnl),cls(s.total_pnl)],['Today',money(s.daily_pnl),cls(s.daily_pnl)],
+ ['This week',money(s.weekly_pnl),cls(s.weekly_pnl)],['This month',money(s.monthly_pnl),cls(s.monthly_pnl)],['Trades',s.trades,''],['Win rate',s.win_rate==null?'—':s.win_rate.toFixed(1)+'%',''],
+ ['Profit factor',s.profit_factor==null?'—':s.profit_factor.toFixed(2),''],['Max drawdown',s.max_drawdown_pct.toFixed(2)+'%',s.max_drawdown_pct>0?'dn':'']];
+ $('kpis').innerHTML=k.map(([a,b,c])=>`<div class="kpi"><span>${a}</span><b class="${c}">${b}</b></div>`).join('');
+ chart(s.equity_curve,s.starting);
+ const L=s.limits;$('risk').innerHTML=`<table>
+ <tr><td>Open risk</td><td>${money(s.open_risk)} (${s.open_risk_pct.toFixed(2)}%)</td></tr>
+ <tr><td>Risk per trade</td><td>${(L.default_risk_pct*100).toFixed(1)}% (max ${(L.max_risk_pct*100).toFixed(0)}%)</td></tr>
+ <tr><td>Daily loss stop</td><td>${(L.max_daily_loss_pct*100).toFixed(0)}% · today ${money(s.daily_pnl)}</td></tr>
+ <tr><td>Weekly drawdown stop</td><td>${(L.max_weekly_drawdown_pct*100).toFixed(0)}%</td></tr>
+ <tr><td>Trades per day</td><td>max ${L.max_trades_per_day}</td></tr><tr><td>Min reward/risk</td><td>1:${L.min_reward_risk}</td></tr>
+ <tr><td>Leverage</td><td>none (spot sizing)</td></tr></table>`;
+ $('sigs').innerHTML=s.signals.length?s.signals.map(g=>{const c=g.card,v=ST[g.status]||'INV';return `<div class="sig st-${v}"><div class="top">
+ <span><b>${g.symbol.replace('USDT','/USDT')}</b> <span class="dir ${g.side=='LONG'?'up':'dn'}">${g.side}</span></span><span class="chip">${g.status}</span></div>
+ ${c?`<dl><dt>Strategy</dt><dd>${c.strategy}</dd><dt>Entry</dt><dd>${px(c.entry)}</dd><dt>Stop</dt><dd class="dn">${px(c.stop)}</dd>
+ <dt>TP1 / TP2 / TP3</dt><dd class="up">${px(c.tp1)} / ${px(c.tp2)} / ${px(c.tp3)}</dd><dt>Reward/risk</dt><dd>1:${c.reward_risk.toFixed(2)}</dd>
+ <dt>At risk</dt><dd>${money(c.capital_at_risk)}</dd><dt>Confidence</dt><dd style="white-space:normal">${c.confidence}</dd></dl>`:`<div class="mut">${g.strategy} · ${g.reason||''}</div>`}
+ <div class="mut" style="margin-top:6px">${t(g.created_ms)} UTC · ${g.timeframe}${g.reason&&c?' · '+g.reason:''}</div></div>`}).join(''):'<div class="empty">NO TRADE — WAIT FOR A BETTER SETUP.</div>';
+ $('watch').innerHTML=table(s.watchlist,[['Pair',r=>r.symbol],['Price',r=>px(r.close)],['4h trend',r=>`<span class="${r.trend_4h=='up'?'up':r.trend_4h=='down'?'dn':'mut'}">${r.trend_4h}</span>`],['1h structure',r=>r.structure_1h],['RSI',r=>r.rsi.toFixed(0)],['ATR %',r=>r.atr_pct.toFixed(2)],['Data',r=>t(r.data_ms)]]);
+ $('active').innerHTML=table(s.active,[['Pair',r=>r.symbol],['Side',r=>`<span class="${r.side=='LONG'?'up':'dn'}">${r.side}</span>`],['Strategy',r=>r.strategy],['Entry',r=>px(r.entry)],['Stop',r=>px(r.stop)],['Left',r=>(r.remaining*100).toFixed(0)+'%'],['Opened',r=>t(r.opened_ms)]]);
+ $('hist').innerHTML=table(s.history,[['Closed',r=>t(r.closed_ms)],['Pair',r=>r.symbol],['Side',r=>r.side],['Strategy',r=>r.strategy],['Entry',r=>px(r.entry)],['Outcome',r=>r.outcome],['P/L',r=>`<span class="${cls(r.pnl)}">${money(r.pnl)}</span>`]]);
+ $('log').innerHTML=table(s.events,[['Time',r=>t(r.ts_ms)],['Event',r=>r.kind],['Detail',r=>`<span style="white-space:normal">${r.detail}</span>`]]);
+ const bt=s.backtest;$('bt').innerHTML=!bt?'<div class="empty">Run scripts/run_backtest.py to fill this in.</div>':table(bt,[['Strategy',r=>r.strategy],['TF',r=>r.tf],['Sides',r=>r.sides],
+ ['Train exp',r=>`<span class="${cls(r.train.expectancy)}">${r.train.expectancy.toFixed(3)}</span>`],['Valid exp',r=>`<span class="${cls(r.validation.expectancy)}">${r.validation.expectancy.toFixed(3)}</span>`],
+ ['Test trades',r=>r.test.trades],['Test win%',r=>r.test.win_rate.toFixed(1)],['Test PF',r=>Number(r.test.profit_factor).toFixed(2)],['Test net',r=>`<span class="${cls(r.test.net_return_pct)}">${r.test.net_return_pct.toFixed(2)}%</span>`],
+ ['Test DD',r=>r.test.max_drawdown_pct.toFixed(2)+'%'],['Gates',r=>{const p=Object.values(r.gates).filter(Boolean).length;return `<span class="verdict ${p==5?'pass':'fail'}">${p}/5</span>`}]]);}
+load();setInterval(load,10000);
+</script></body></html>
