@@ -56,9 +56,9 @@ for name in STRATEGIES:
                     sub = [p for p in paths.get((name, tf, side, cname), []) if a <= p.entry_time < b]
                     row[f"{per}_{cname}"] = summarize(run_account(sub, R, L, COSTS[cname]), L.starting_equity)
             tr, va, te = row["train_base"], row["validation_base"], row["test_base"]
-            row["qualified"] = tr["expectancy"] > 0 and va["expectancy"] > 0 and tr["trades"] >= 30 and va["trades"] >= 30
-            row["test_negative"] = te["expectancy"] <= 0 or te["trades"] == 0
-            row["gates"] = gate_report(te)
+            row["qualified"] = bool(tr["expectancy"] > 0 and va["expectancy"] > 0 and tr["trades"] >= 30 and va["trades"] >= 30)
+            row["test_negative"] = bool(te["expectancy"] <= 0 or te["trades"] == 0)
+            row["gates"] = {k: bool(v) for k, v in gate_report(te).items()}
             rows.append(row)
 rows.sort(key=lambda r: (r["test_base"]["expectancy_r"] if r["test_base"]["trades"] else -9), reverse=True)
 out = {"generated": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()), "periods": {k: [time.strftime("%Y-%m-%d", time.gmtime(a / 1000)), time.strftime("%Y-%m-%d", time.gmtime(b / 1000 - 1))] for k, (a, b) in PERIODS.items()},

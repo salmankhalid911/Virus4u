@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-11 02:13 UTC",
+ "generated": "2026-11-11 02:14 UTC",
  "periods": {
   "train": [
    "2024-11-01",
@@ -264,14 +264,14 @@
     },
     "skipped": {}
    },
-   "qualified": "False",
+   "qualified": false,
    "test_negative": false,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "True",
+    "positive expectancy after fees": true,
     "profit factor > 1.3": true,
     "max drawdown < 5%": true,
-    "profitable without its best market condition": "False"
+    "profitable without its best market condition": false
    }
   },
   {
@@ -495,10 +495,10 @@
    "test_negative": false,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "True",
-    "profit factor > 1.3": "True",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": true,
+    "profit factor > 1.3": true,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -715,14 +715,14 @@
      "position already open on this symbol": 5
     }
    },
-   "qualified": "False",
+   "qualified": false,
    "test_negative": false,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "True",
-    "profit factor > 1.3": "True",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": true,
+    "profit factor > 1.3": true,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -954,14 +954,14 @@
      "position already open on this symbol": 6
     }
    },
-   "qualified": "False",
+   "qualified": false,
    "test_negative": false,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "True",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": true,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -1184,14 +1184,14 @@
      "position already open on this symbol": 19
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -1411,14 +1411,14 @@
      "position already open on this symbol": 1
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -1644,14 +1644,14 @@
      "position already open on this symbol": 2
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -1868,14 +1868,14 @@
     },
     "skipped": {}
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -2102,14 +2102,14 @@
      "position already open on this symbol": 43
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -2349,14 +2349,14 @@
      "position already open on this symbol": 2
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -2592,14 +2592,14 @@
      "already 3 trades today": 5
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -2846,14 +2846,14 @@
      "weekly drawdown limit reached": 4
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": true,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -3077,14 +3077,14 @@
      "position already open on this symbol": 4
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -3321,14 +3321,14 @@
      "position already open on this symbol": 5
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -3574,14 +3574,14 @@
      "order value": 2
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": true,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -3836,14 +3836,14 @@
      "order value": 2
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": true,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -4036,14 +4036,14 @@
     },
     "skipped": {}
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -4275,14 +4275,14 @@
     },
     "skipped": {}
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -4512,14 +4512,14 @@
     },
     "skipped": {}
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -4750,14 +4750,14 @@
      "position already open on this symbol": 2
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -5023,14 +5023,14 @@
      "position already open on this symbol": 8
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": true,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -5266,14 +5266,14 @@
      "already 3 trades today": 1
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -5528,14 +5528,14 @@
      "size": 10
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": true,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -5761,14 +5761,14 @@
      "position already open on this symbol": 1
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -6010,14 +6010,14 @@
      "already 3 trades today": 17
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": true,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -6268,14 +6268,14 @@
      "order value": 4
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": true,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -6532,14 +6532,14 @@
      "order value": 2
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": true,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -6762,14 +6762,14 @@
      "position already open on this symbol": 17
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -7010,14 +7010,14 @@
      "position already open on this symbol": 17
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": true,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -7289,14 +7289,14 @@
      "size": 1
     }
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": true,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -7513,14 +7513,14 @@
     },
     "skipped": {}
    },
-   "qualified": "False",
-   "test_negative": "True",
+   "qualified": false,
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "False",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": false,
+    "profitable without its best market condition": false
    }
   },
   {
@@ -7726,13 +7726,13 @@
     "skipped": {}
    },
    "qualified": false,
-   "test_negative": "True",
+   "test_negative": true,
    "gates": {
     "100+ trades": false,
-    "positive expectancy after fees": "False",
-    "profit factor > 1.3": "False",
-    "max drawdown < 5%": "True",
-    "profitable without its best market condition": "False"
+    "positive expectancy after fees": false,
+    "profit factor > 1.3": false,
+    "max drawdown < 5%": true,
+    "profitable without its best market condition": false
    }
   }
  ],
