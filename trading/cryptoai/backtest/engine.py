@@ -21,6 +21,7 @@ from ..risk.sizing import loss_per_unit, size_position
 from ..strategies import Context, Signal
 
 TP_R = (2.0, 3.0, 4.0)
+MAX_HOLD = {"5m": 288, "15m": 96, "1h": 48, "4h": 42}  # 1 day, 1 day, 2 days, 7 days
 TP_FRACTION = (0.5, 0.3, 0.2)
 SHORT_FUNDING_PER_8H = 0.0001  # shorts need a futures account; assume 0.01% per 8h paid
 
@@ -190,8 +191,8 @@ def run_account(paths: list[Path], rules: dict[str, SymbolRules], limits: RiskLi
 
 
 def build_paths(x: Context, signals: list[Signal], costs: CostModel) -> list[Path]:
-    max_hold = int(86400 / TIMEFRAME_SECONDS[x.tf]) if x.tf != "1h" else 48  # 1 day on 15m, 2 days on 1h
-    vr = volatility_rank(x)
+    max_hold = MAX_HOLD[x.tf]
+    vr = np.nan_to_num(x.vol_rank, nan=0.5)
     out = []
     for s in signals:
         p = simulate_path(x, s, costs, max_hold, vr)
