@@ -1,0 +1,1654 @@
+{
+ "results": [
+  {
+   "variant": "A_trend_1d",
+   "periods": {
+    "train": {
+     "base": {
+      "trades": 10,
+      "exp_r": 0.24024264707584359,
+      "win_rate": 40.0,
+      "pf": 1.6155185605189006,
+      "avg_win_r": 1.5763799837815748,
+      "avg_loss_r": -0.6505155773946439,
+      "hold_days": 25.19999998842593
+     },
+     "low fees": {
+      "trades": 10,
+      "exp_r": 0.25490523526494097,
+      "win_rate": 40.0,
+      "pf": 1.6564667893602734,
+      "avg_win_r": 1.608009969026448,
+      "avg_loss_r": -0.6471645872427303,
+      "hold_days": 25.19999998842593
+     },
+     "high costs": {
+      "trades": 10,
+      "exp_r": 0.21538547457444981,
+      "win_rate": 40.0,
+      "pf": 1.5468413364645683,
+      "avg_win_r": 1.5231436119102912,
+      "avg_loss_r": -0.6564532836494443,
+      "hold_days": 25.19999998842593
+     },
+     "entry delay +1": {
+      "trades": 10,
+      "exp_r": 0.19356032572110005,
+      "win_rate": 40.0,
+      "pf": 1.5002890428088942,
+      "avg_win_r": 1.451143293941857,
+      "avg_loss_r": -0.6448283197594046,
+      "hold_days": 24.19999998842593
+     },
+     "stops 0.5% worse": {
+      "trades": 10,
+      "exp_r": 0.23709099434330022,
+      "win_rate": 40.0,
+      "pf": 1.6025781331411346,
+      "avg_win_r": 1.5763799837815748,
+      "avg_loss_r": -0.6557683319488828,
+      "hold_days": 25.19999998842593
+     },
+     "account": {
+      "trades": 2,
+      "win_rate": 100.0,
+      "profit_factor": Infinity,
+      "net_return_pct": 2.210714837231748,
+      "max_drawdown_pct": 0.0,
+      "expectancy": 1.105357418615877,
+      "max_consecutive_losses": 0,
+      "skipped": {
+       "maximum open positions": 3,
+       "position already open on this symbol": 1,
+       "order value": 4
+      }
+     },
+     "trades_per_month": 0.8333333333333334,
+     "regime_r": {
+      "bull": {
+       "trades": 10,
+       "exp_r": 0.24024264707584359
+      }
+     },
+     "boot_p_le_0": 0.2773
+    },
+    "validation": {
+     "base": {
+      "trades": 6,
+      "exp_r": 0.31557435892878244,
+      "win_rate": 33.333333333333336,
+      "pf": 1.9097684814327913,
+      "avg_win_r": 1.987342856552026,
+      "avg_loss_r": -0.5203098898828393,
+      "hold_days": 25.666666655092595
+     },
+     "low fees": {
+      "trades": 6,
+      "exp_r": 0.33024864885806715,
+      "win_rate": 33.333333333333336,
+      "pf": 1.9626611843754076,
+      "avg_win_r": 2.019920034669397,
+      "avg_loss_r": -0.5145870440475979,
+      "hold_days": 25.666666655092595
+     },
+     "high costs": {
+      "trades": 6,
+      "exp_r": 0.29064719512843235,
+      "win_rate": 33.333333333333336,
+      "pf": 1.821993706805205,
+      "avg_win_r": 1.9327058931489434,
+      "avg_loss_r": -0.5303821538818232,
+      "hold_days": 25.666666655092595
+     },
+     "entry delay +1": {
+      "trades": 6,
+      "exp_r": 0.05683000305539861,
+      "win_rate": 33.333333333333336,
+      "pf": 1.1628331800111587,
+      "avg_win_r": 1.2175125456941471,
+      "avg_loss_r": -0.5235112682639756,
+      "hold_days": 24.83333332175926
+     },
+     "stops 0.5% worse": {
+      "trades": 6,
+      "exp_r": 0.30171570960086913,
+      "win_rate": 33.333333333333336,
+      "pf": 1.8363987267672834,
+      "avg_win_r": 1.987342856552026,
+      "avg_loss_r": -0.5410978638747093,
+      "hold_days": 25.666666655092595
+     },
+     "account": {
+      "trades": 4,
+      "win_rate": 25.0,
+      "profit_factor": 0.7065848728049294,
+      "net_return_pct": -0.28665825677548185,
+      "max_drawdown_pct": 0.970273706560926,
+      "expectancy": -0.07166456419387159,
+      "max_consecutive_losses": 3,
+      "skipped": {
+       "order value": 2
+      }
+     },
+     "trades_per_month": 0.5,
+     "regime_r": {
+      "bull": {
+       "trades": 6,
+       "exp_r": 0.31557435892878244
+      }
+     },
+     "boot_p_le_0": 0.2859
+    },
+    "test": {
+     "base": {
+      "trades": 3,
+      "exp_r": -0.18378492680397226,
+      "win_rate": 33.333333333333336,
+      "pf": 0.45505313999942504,
+      "avg_win_r": 0.46040401825578275,
+      "avg_loss_r": -0.5058793993338497,
+      "hold_days": 26.33333332175926
+     },
+     "low fees": {
+      "trades": 3,
+      "exp_r": -0.17267699542941328,
+      "win_rate": 33.333333333333336,
+      "pf": 0.4821962277367878,
+      "avg_win_r": 0.4824078170523279,
+      "avg_loss_r": -0.5002194016702839,
+      "hold_days": 26.33333332175926
+     },
+     "high costs": {
+      "trades": 3,
+      "exp_r": -0.2032528740135283,
+      "win_rate": 33.333333333333336,
+      "pf": 0.4089924481011157,
+      "avg_win_r": 0.421968671597972,
+      "avg_loss_r": -0.5158636468192784,
+      "hold_days": 26.33333332175926
+     },
+     "entry delay +1": {
+      "trades": 3,
+      "exp_r": 0.33447525071562195,
+      "win_rate": 33.333333333333336,
+      "pf": 5.442096017473978,
+      "avg_win_r": 1.2293159058490073,
+      "avg_loss_r": -0.1129450768510706,
+      "hold_days": 25.666666655092595
+     },
+     "stops 0.5% worse": {
+      "trades": 3,
+      "exp_r": -0.18378492680397226,
+      "win_rate": 33.333333333333336,
+      "pf": 0.45505313999942504,
+      "avg_win_r": 0.46040401825578275,
+      "avg_loss_r": -0.5058793993338497,
+      "hold_days": 26.33333332175926
+     },
+     "account": {
+      "trades": 2,
+      "win_rate": 0.0,
+      "profit_factor": 0.0,
+      "net_return_pct": -0.5006945370194984,
+      "max_drawdown_pct": 0.5006945370194984,
+      "expectancy": -0.2503472685097491,
+      "max_consecutive_losses": 2,
+      "skipped": {
+       "maximum open positions": 1
+      }
+     },
+     "trades_per_month": 0.2904162633107454,
+     "regime_r": {
+      "bull": {
+       "trades": 3,
+       "exp_r": -0.18378492680397226
+      }
+     },
+     "boot_p_le_0": 0.6332
+    }
+   },
+   "verdict": "INSUFFICIENT EVIDENCE",
+   "reasons": [
+    "fewer than 10 trades in validation, test"
+   ]
+  },
+  {
+   "variant": "A_trend_4h",
+   "periods": {
+    "train": {
+     "base": {
+      "trades": 62,
+      "exp_r": 0.07918479483713935,
+      "win_rate": 30.64516129032258,
+      "pf": 1.1834026762357113,
+      "avg_win_r": 1.6672731749978373,
+      "avg_loss_r": -0.6225286754664249,
+      "hold_days": 4.849462354017324
+     },
+     "low fees": {
+      "trades": 62,
+      "exp_r": 0.10698829129907564,
+      "win_rate": 30.64516129032258,
+      "pf": 1.2516210146750895,
+      "avg_win_r": 1.7366019207382304,
+      "avg_loss_r": -0.613073544964737,
+      "hold_days": 4.849462354017324
+     },
+     "high costs": {
+      "trades": 62,
+      "exp_r": 0.03325720734647244,
+      "win_rate": 30.64516129032258,
+      "pf": 1.0750951533208133,
+      "avg_win_r": 1.55367029463953,
+      "avg_loss_r": -0.6385532265737158,
+      "hold_days": 4.849462354017324
+     },
+     "entry delay +1": {
+      "trades": 61,
+      "exp_r": 0.09642418553576979,
+      "win_rate": 37.704918032786885,
+      "pf": 1.2416735876240554,
+      "avg_win_r": 1.3139118578446742,
+      "avg_loss_r": -0.6404762477038303,
+      "hold_days": 4.789617474764723
+     },
+     "stops 0.5% worse": {
+      "trades": 62,
+      "exp_r": 0.051196082341505,
+      "win_rate": 30.64516129032258,
+      "pf": 1.1116131609925237,
+      "avg_win_r": 1.6638458563355711,
+      "avg_loss_r": -0.6613700968651752,
+      "hold_days": 4.849462354017324
+     },
+     "account": {
+      "trades": 33,
+      "win_rate": 24.242424242424242,
+      "profit_factor": 1.0855276853975846,
+      "net_return_pct": 0.5560378545528124,
+      "max_drawdown_pct": 3.449744552901363,
+      "expectancy": 0.016849631956145843,
+      "max_consecutive_losses": 7,
+      "skipped": {
+       "maximum open positions": 17,
+       "position already open on this symbol": 12
+      }
+     },
+     "trades_per_month": 5.166666666666667,
+     "regime_r": {
+      "bull": {
+       "trades": 49,
+       "exp_r": 0.21320146142773694
+      },
+      "sideways": {
+       "trades": 9,
+       "exp_r": -0.510293298607369
+      },
+      "bear": {
+       "trades": 4,
+       "exp_r": -0.23619366064753702
+      }
+     },
+     "boot_p_le_0": 0.3463
+    },
+    "validation": {
+     "base": {
+      "trades": 34,
+      "exp_r": 0.17732692091356184,
+      "win_rate": 32.35294117647059,
+      "pf": 1.4457248293821525,
+      "avg_win_r": 1.7777869642315478,
+      "avg_loss_r": -0.5881104911080836,
+      "hold_days": 4.406862733523965
+     },
+     "low fees": {
+      "trades": 34,
+      "exp_r": 0.21591304835669795,
+      "win_rate": 32.35294117647059,
+      "pf": 1.5560115377459394,
+      "avg_win_r": 1.8676441427271724,
+      "avg_loss_r": -0.5740453011248331,
+      "hold_days": 4.406862733523965
+     },
+     "high costs": {
+      "trades": 34,
+      "exp_r": 0.1156514174983524,
+      "win_rate": 32.35294117647059,
+      "pf": 1.2796550950517984,
+      "avg_win_r": 1.6357140573874653,
+      "avg_loss_r": -0.6113350624486147,
+      "hold_days": 4.406862733523965
+     },
+     "entry delay +1": {
+      "trades": 34,
+      "exp_r": 0.12206569728917331,
+      "win_rate": 35.294117647058826,
+      "pf": 1.3251560776856823,
+      "avg_win_r": 1.409504491118519,
+      "avg_loss_r": -0.5801736447995608,
+      "hold_days": 4.264705870778867
+     },
+     "stops 0.5% worse": {
+      "trades": 34,
+      "exp_r": 0.14979108519255213,
+      "win_rate": 32.35294117647059,
+      "pf": 1.3548166498447165,
+      "avg_win_r": 1.767863515988732,
+      "avg_loss_r": -0.6240696425795338,
+      "hold_days": 4.406862733523965
+     },
+     "account": {
+      "trades": 18,
+      "win_rate": 33.333333333333336,
+      "profit_factor": 1.9817170331841765,
+      "net_return_pct": 3.5024312582922903,
+      "max_drawdown_pct": 1.6350468089067163,
+      "expectancy": 0.19457951434957033,
+      "max_consecutive_losses": 5,
+      "skipped": {
+       "maximum open positions": 11,
+       "position already open on this symbol": 5
+      }
+     },
+     "trades_per_month": 2.8333333333333335,
+     "regime_r": {
+      "bull": {
+       "trades": 33,
+       "exp_r": 0.12417284136111637
+      },
+      "sideways": {
+       "trades": 1,
+       "exp_r": 1.931411546144262
+      }
+     },
+     "boot_p_le_0": 0.25
+    },
+    "test": {
+     "base": {
+      "trades": 41,
+      "exp_r": -0.27781201835669983,
+      "win_rate": 19.51219512195122,
+      "pf": 0.47864252798602025,
+      "avg_win_r": 1.3071354133845952,
+      "avg_loss_r": -0.6620416987788319,
+      "hold_days": 3.5040650290763327
+     },
+     "low fees": {
+      "trades": 41,
+      "exp_r": -0.25537320320417345,
+      "win_rate": 19.51219512195122,
+      "pf": 0.5128888165548326,
+      "avg_win_r": 1.3780479286162586,
+      "avg_loss_r": -0.6513540836454903,
+      "hold_days": 3.5040650290763327
+     },
+     "high costs": {
+      "trades": 41,
+      "exp_r": -0.31391772633038983,
+      "win_rate": 19.51219512195122,
+      "pf": 0.426263517046722,
+      "avg_win_r": 1.1952958371682825,
+      "avg_loss_r": -0.6797876811179467,
+      "hold_days": 3.5040650290763327
+     },
+     "entry delay +1": {
+      "trades": 41,
+      "exp_r": -0.3174438889192043,
+      "win_rate": 21.951219512195124,
+      "pf": 0.38251955562501483,
+      "avg_win_r": 0.8958571263606918,
+      "avg_loss_r": -0.6586847994666751,
+      "hold_days": 3.3536585250112925
+     },
+     "stops 0.5% worse": {
+      "trades": 41,
+      "exp_r": -0.3247700694924463,
+      "win_rate": 19.51219512195122,
+      "pf": 0.43987862518761983,
+      "avg_win_r": 1.3071354133845952,
+      "avg_loss_r": -0.7203835198868807,
+      "hold_days": 3.5040650290763327
+     },
+     "account": {
+      "trades": 22,
+      "win_rate": 18.181818181818183,
+      "profit_factor": 0.5499676861739773,
+      "net_return_pct": -2.4921439477423206,
+      "max_drawdown_pct": 3.0252206756171773,
+      "expectancy": -0.11327927035192266,
+      "max_consecutive_losses": 7,
+      "skipped": {
+       "maximum open positions": 12,
+       "position already open on this symbol": 7
+      }
+     },
+     "trades_per_month": 3.9690222652468536,
+     "regime_r": {
+      "bear": {
+       "trades": 26,
+       "exp_r": -0.2822346150555054
+      },
+      "sideways": {
+       "trades": 4,
+       "exp_r": -0.06050027465867544
+      },
+      "bull": {
+       "trades": 11,
+       "exp_r": -0.3463810602315319
+      }
+     },
+     "boot_p_le_0": 0.97355
+    }
+   },
+   "verdict": "FAIL",
+   "reasons": [
+    "test expectancy <= 0",
+    "test expectancy <= 0 with low fees",
+    "test expectancy <= 0 with high costs",
+    "test expectancy <= 0 with entry delay +1",
+    "test expectancy <= 0 with stops 0.5% worse"
+   ]
+  },
+  {
+   "variant": "B_pullback_1d",
+   "periods": {
+    "train": {
+     "base": {
+      "trades": 49,
+      "exp_r": 0.1992893305083245,
+      "win_rate": 22.448979591836736,
+      "pf": 1.4011083077898927,
+      "avg_win_r": 3.1009694953859874,
+      "avg_loss_r": -0.64067071721942,
+      "hold_days": 20.632653049650415
+     },
+     "low fees": {
+      "trades": 49,
+      "exp_r": 0.21499168847602748,
+      "win_rate": 22.448979591836736,
+      "pf": 1.435445906559515,
+      "avg_win_r": 3.1570225520344803,
+      "avg_loss_r": -0.6366488246593142,
+      "hold_days": 20.632653049650415
+     },
+     "high costs": {
+      "trades": 49,
+      "exp_r": 0.17247089196048873,
+      "win_rate": 22.448979591836736,
+      "pf": 1.3433383183121583,
+      "avg_win_r": 3.005954009562603,
+      "avg_loss_r": -0.6477479052401233,
+      "hold_days": 20.632653049650415
+     },
+     "entry delay +1": {
+      "trades": 49,
+      "exp_r": 0.20574330093525525,
+      "win_rate": 26.53061224489796,
+      "pf": 1.4267924353441024,
+      "avg_win_r": 2.5925223910456268,
+      "avg_loss_r": -0.6561491482712678,
+      "hold_days": 19.612244886385106
+     },
+     "stops 0.5% worse": {
+      "trades": 49,
+      "exp_r": 0.18453675219468918,
+      "win_rate": 22.448979591836736,
+      "pf": 1.3607056688986043,
+      "avg_win_r": 3.1009694953859874,
+      "avg_loss_r": -0.6596937787291077,
+      "hold_days": 20.632653049650415
+     },
+     "account": {
+      "trades": 11,
+      "win_rate": 18.181818181818183,
+      "profit_factor": 1.3432133771523331,
+      "net_return_pct": 0.9237134458886374,
+      "max_drawdown_pct": 2.229924678774429,
+      "expectancy": 0.08397394962623786,
+      "max_consecutive_losses": 7,
+      "skipped": {
+       "maximum open positions": 11,
+       "position already open on this symbol": 16,
+       "order value": 11
+      }
+     },
+     "trades_per_month": 4.083333333333333,
+     "regime_r": {
+      "bull": {
+       "trades": 42,
+       "exp_r": -0.14849259150403812
+      },
+      "bear": {
+       "trades": 3,
+       "exp_r": 1.007173030612477
+      },
+      "sideways": {
+       "trades": 4,
+       "exp_r": 3.245086736560018
+      }
+     },
+     "boot_p_le_0": 0.20165
+    },
+    "validation": {
+     "base": {
+      "trades": 47,
+      "exp_r": -0.21238160706942028,
+      "win_rate": 21.27659574468085,
+      "pf": 0.5975072322336674,
+      "avg_win_r": 1.4818349917978613,
+      "avg_loss_r": -0.6702779851416586,
+      "hold_days": 15.553191477787625
+     },
+     "low fees": {
+      "trades": 47,
+      "exp_r": -0.20193825494910558,
+      "win_rate": 21.27659574468085,
+      "pf": 0.6149548056578399,
+      "avg_win_r": 1.5158211038955751,
+      "avg_loss_r": -0.6661975411233436,
+      "hold_days": 15.553191477787625
+     },
+     "high costs": {
+      "trades": 47,
+      "exp_r": -0.2300001915668725,
+      "win_rate": 21.27659574468085,
+      "pf": 0.5687137387082424,
+      "avg_win_r": 1.4254571007010812,
+      "avg_loss_r": -0.6774210813690221,
+      "hold_days": 15.553191477787625
+     },
+     "entry delay +1": {
+      "trades": 47,
+      "exp_r": -0.231664924532949,
+      "win_rate": 21.27659574468085,
+      "pf": 0.5674453570279013,
+      "avg_win_r": 1.428371613521963,
+      "avg_loss_r": -0.680323448331574,
+      "hold_days": 14.893617009702519
+     },
+     "stops 0.5% worse": {
+      "trades": 47,
+      "exp_r": -0.23223149760978504,
+      "win_rate": 21.27659574468085,
+      "pf": 0.5738126436359833,
+      "avg_win_r": 1.4695640958583973,
+      "avg_loss_r": -0.6921762526011856,
+      "hold_days": 15.553191477787625
+     },
+     "account": {
+      "trades": 9,
+      "win_rate": 22.22222222222222,
+      "profit_factor": 0.4373742207119962,
+      "net_return_pct": -1.3238941463231981,
+      "max_drawdown_pct": 1.3238941463231981,
+      "expectancy": -0.14709934959146564,
+      "max_consecutive_losses": 4,
+      "skipped": {
+       "maximum open positions": 17,
+       "position already open on this symbol": 15,
+       "order value": 6
+      }
+     },
+     "trades_per_month": 3.9166666666666665,
+     "regime_r": {
+      "bull": {
+       "trades": 47,
+       "exp_r": -0.21238160706942028
+      }
+     },
+     "boot_p_le_0": 0.89735
+    },
+    "test": {
+     "base": {
+      "trades": 11,
+      "exp_r": -0.3723181611983812,
+      "win_rate": 18.181818181818183,
+      "pf": 0.3346287144845877,
+      "avg_win_r": 1.0298549502405097,
+      "avg_loss_r": -0.6839121859625792,
+      "hold_days": 15.363636352062288
+     },
+     "low fees": {
+      "trades": 11,
+      "exp_r": -0.3608133197554243,
+      "win_rate": 18.181818181818183,
+      "pf": 0.35047133112187545,
+      "avg_win_r": 1.0707779623304465,
+      "avg_loss_r": -0.6789447157745068,
+      "hold_days": 15.363636352062288
+     },
+     "high costs": {
+      "trades": 11,
+      "exp_r": -0.39128217340617777,
+      "win_rate": 18.181818181818183,
+      "pf": 0.30944238806095753,
+      "avg_win_r": 0.964345456890678,
+      "avg_loss_r": -0.6925327579165902,
+      "hold_days": 15.363636352062288
+     },
+     "entry delay +1": {
+      "trades": 10,
+      "exp_r": -0.23840348000509892,
+      "win_rate": 10.0,
+      "pf": 0.5465677819666138,
+      "avg_win_r": 2.873718630860824,
+      "avg_loss_r": -0.5841948256568681,
+      "hold_days": 15.99999998842593
+     },
+     "stops 0.5% worse": {
+      "trades": 11,
+      "exp_r": -0.4020004083067381,
+      "win_rate": 18.181818181818183,
+      "pf": 0.31353029052418896,
+      "avg_win_r": 1.0098277707974015,
+      "avg_loss_r": -0.7157400036632136,
+      "hold_days": 15.363636352062288
+     },
+     "account": {
+      "trades": 4,
+      "win_rate": 25.0,
+      "profit_factor": 0.5994099268829406,
+      "net_return_pct": -0.37904059855070216,
+      "max_drawdown_pct": 0.8415806263134268,
+      "expectancy": -0.09476014963767712,
+      "max_consecutive_losses": 2,
+      "skipped": {
+       "maximum open positions": 2,
+       "position already open on this symbol": 5
+      }
+     },
+     "trades_per_month": 1.0648596321393997,
+     "regime_r": {
+      "bear": {
+       "trades": 1,
+       "exp_r": -0.21578997832986305
+      },
+      "bull": {
+       "trades": 10,
+       "exp_r": -0.38797097948523296
+      }
+     },
+     "boot_p_le_0": 0.94675
+    }
+   },
+   "verdict": "FAIL",
+   "reasons": [
+    "validation expectancy <= 0",
+    "test expectancy <= 0",
+    "test expectancy <= 0 with low fees",
+    "test expectancy <= 0 with high costs",
+    "test expectancy <= 0 with entry delay +1",
+    "test expectancy <= 0 with stops 0.5% worse"
+   ]
+  },
+  {
+   "variant": "B_pullback_4h",
+   "periods": {
+    "train": {
+     "base": {
+      "trades": 222,
+      "exp_r": 0.04220802209452483,
+      "win_rate": 32.88288288288288,
+      "pf": 1.103347834276501,
+      "avg_win_r": 1.3703647613136372,
+      "avg_loss_r": -0.6084996420866509,
+      "hold_days": 4.0735735619995
+     },
+     "low fees": {
+      "trades": 222,
+      "exp_r": 0.07456660448137191,
+      "win_rate": 33.333333333333336,
+      "pf": 1.1860258347461194,
+      "avg_win_r": 1.4262199566780491,
+      "avg_loss_r": -0.6012600716169668,
+      "hold_days": 4.0735735619995
+     },
+     "high costs": {
+      "trades": 222,
+      "exp_r": -0.009620528370926331,
+      "win_rate": 32.432432432432435,
+      "pf": 0.9771730268135395,
+      "avg_win_r": 1.269821115375188,
+      "avg_loss_r": -0.623752517369061,
+      "hold_days": 4.0735735619995
+     },
+     "entry delay +1": {
+      "trades": 221,
+      "exp_r": 0.012784345785445551,
+      "win_rate": 31.67420814479638,
+      "pf": 1.0312720421655284,
+      "avg_win_r": 1.3310358214639106,
+      "avg_loss_r": -0.598325609827088,
+      "hold_days": 4.02413271844101
+     },
+     "stops 0.5% worse": {
+      "trades": 222,
+      "exp_r": 0.009603136310668765,
+      "win_rate": 32.88288288288288,
+      "pf": 1.0219613837328099,
+      "avg_win_r": 1.3589954196396394,
+      "avg_loss_r": -0.6515085192800351,
+      "hold_days": 4.0735735619995
+     },
+     "account": {
+      "trades": 37,
+      "win_rate": 37.83783783783784,
+      "profit_factor": 1.9808682807769316,
+      "net_return_pct": 5.095840169392275,
+      "max_drawdown_pct": 1.9782000952566663,
+      "expectancy": 0.13772540998357455,
+      "max_consecutive_losses": 8,
+      "skipped": {
+       "position already open on this symbol": 102,
+       "maximum open positions": 77,
+       "order value": 6
+      }
+     },
+     "trades_per_month": 18.5,
+     "regime_r": {
+      "bull": {
+       "trades": 185,
+       "exp_r": 0.05345763486910934
+      },
+      "sideways": {
+       "trades": 30,
+       "exp_r": -0.1633592897553318
+      },
+      "bear": {
+       "trades": 7,
+       "exp_r": 0.6258995924084625
+      }
+     },
+     "boot_p_le_0": 0.3099
+    },
+    "validation": {
+     "base": {
+      "trades": 178,
+      "exp_r": -0.0532815200347101,
+      "win_rate": 19.662921348314608,
+      "pf": 0.8997245044307278,
+      "avg_win_r": 2.431326568492432,
+      "avg_loss_r": -0.6614023808630316,
+      "hold_days": 3.586142310523304
+     },
+     "low fees": {
+      "trades": 178,
+      "exp_r": -0.020087111181068297,
+      "win_rate": 19.662921348314608,
+      "pf": 0.9614910073598242,
+      "avg_win_r": 2.550659638825431,
+      "avg_loss_r": -0.649290861182659,
+      "hold_days": 3.586142310523304
+     },
+     "high costs": {
+      "trades": 178,
+      "exp_r": -0.10626564794262432,
+      "win_rate": 17.97752808988764,
+      "pf": 0.8058616031130421,
+      "avg_win_r": 2.4536462143199183,
+      "avg_loss_r": -0.6673422204933186,
+      "hold_days": 3.586142310523304
+     },
+     "entry delay +1": {
+      "trades": 176,
+      "exp_r": 0.018061331843889483,
+      "win_rate": 22.15909090909091,
+      "pf": 1.035856390407148,
+      "avg_win_r": 2.3546741422486197,
+      "avg_loss_r": -0.6471058185632965,
+      "hold_days": 3.5634469581228956
+     },
+     "stops 0.5% worse": {
+      "trades": 178,
+      "exp_r": -0.10106448662576527,
+      "win_rate": 19.662921348314608,
+      "pf": 0.8248117116255331,
+      "avg_win_r": 2.419915947739061,
+      "avg_loss_r": -0.7180876698619115,
+      "hold_days": 3.586142310523304
+     },
+     "account": {
+      "trades": 39,
+      "win_rate": 25.641025641025642,
+      "profit_factor": 0.9034717510135551,
+      "net_return_pct": -0.7868248494352201,
+      "max_drawdown_pct": 2.451969465410559,
+      "expectancy": -0.020174996139365308,
+      "max_consecutive_losses": 6,
+      "skipped": {
+       "maximum open positions": 64,
+       "position already open on this symbol": 74,
+       "order value": 1
+      }
+     },
+     "trades_per_month": 14.833333333333334,
+     "regime_r": {
+      "bull": {
+       "trades": 167,
+       "exp_r": -0.038961556162568765
+      },
+      "sideways": {
+       "trades": 7,
+       "exp_r": 0.08797449682438037
+      },
+      "bear": {
+       "trades": 4,
+       "exp_r": -0.8983380412000189
+      }
+     },
+     "boot_p_le_0": 0.67315
+    },
+    "test": {
+     "base": {
+      "trades": 190,
+      "exp_r": -0.22160771994792927,
+      "win_rate": 25.263157894736842,
+      "pf": 0.5644935650910227,
+      "avg_win_r": 1.1370031508612388,
+      "avg_loss_r": -0.6808564650101833,
+      "hold_days": 2.923684198952242
+     },
+     "low fees": {
+      "trades": 190,
+      "exp_r": -0.19087858891979706,
+      "win_rate": 25.263157894736842,
+      "pf": 0.6175234227362992,
+      "avg_win_r": 1.2198829749272742,
+      "avg_loss_r": -0.6677557372624691,
+      "hold_days": 2.923684198952242
+     },
+     "high costs": {
+      "trades": 190,
+      "exp_r": -0.2697016711612055,
+      "win_rate": 24.736842105263158,
+      "pf": 0.4862326551605141,
+      "avg_win_r": 1.0318510395870155,
+      "avg_loss_r": -0.6974847299385928,
+      "hold_days": 2.923684198952242
+     },
+     "entry delay +1": {
+      "trades": 188,
+      "exp_r": -0.22400373939687257,
+      "win_rate": 25.0,
+      "pf": 0.5304031261930687,
+      "avg_win_r": 1.0120364106502704,
+      "avg_loss_r": -0.6360171227459203,
+      "hold_days": 2.874113463603231
+     },
+     "stops 0.5% worse": {
+      "trades": 190,
+      "exp_r": -0.28262698259540425,
+      "win_rate": 25.263157894736842,
+      "pf": 0.5009622843649449,
+      "avg_win_r": 1.1230462620761867,
+      "avg_loss_r": -0.7577841357238294,
+      "hold_days": 2.923684198952242
+     },
+     "account": {
+      "trades": 42,
+      "win_rate": 30.952380952380953,
+      "profit_factor": 1.4042719422614394,
+      "net_return_pct": 2.9621126932464676,
+      "max_drawdown_pct": 1.2446591965418667,
+      "expectancy": 0.07052649269634359,
+      "max_consecutive_losses": 5,
+      "skipped": {
+       "position already open on this symbol": 70,
+       "maximum open positions": 78
+      }
+     },
+     "trades_per_month": 18.39303000968054,
+     "regime_r": {
+      "bear": {
+       "trades": 124,
+       "exp_r": -0.03752462514578307
+      },
+      "sideways": {
+       "trades": 19,
+       "exp_r": -0.7975885087985748
+      },
+      "bull": {
+       "trades": 47,
+       "exp_r": -0.47443045967779857
+      }
+     },
+     "boot_p_le_0": 0.99895
+    }
+   },
+   "verdict": "FAIL",
+   "reasons": [
+    "validation expectancy <= 0",
+    "test expectancy <= 0",
+    "test expectancy <= 0 with low fees",
+    "test expectancy <= 0 with high costs",
+    "test expectancy <= 0 with entry delay +1",
+    "test expectancy <= 0 with stops 0.5% worse"
+   ]
+  },
+  {
+   "variant": "C_breakout_1d",
+   "periods": {
+    "train": {
+     "base": {
+      "trades": 2,
+      "exp_r": -0.21318970918784996,
+      "win_rate": 0.0,
+      "pf": 0.0,
+      "avg_win_r": 0.0,
+      "avg_loss_r": -0.21318970918784996,
+      "hold_days": 14.999999988425927
+     },
+     "low fees": {
+      "trades": 2,
+      "exp_r": -0.2080417698388592,
+      "win_rate": 0.0,
+      "pf": 0.0,
+      "avg_win_r": 0.0,
+      "avg_loss_r": -0.2080417698388592,
+      "hold_days": 14.999999988425927
+     },
+     "high costs": {
+      "trades": 2,
+      "exp_r": -0.22237016604538967,
+      "win_rate": 0.0,
+      "pf": 0.0,
+      "avg_win_r": 0.0,
+      "avg_loss_r": -0.22237016604538967,
+      "hold_days": 14.999999988425927
+     },
+     "entry delay +1": {
+      "trades": 2,
+      "exp_r": -0.19319091899106322,
+      "win_rate": 0.0,
+      "pf": 0.0,
+      "avg_win_r": 0.0,
+      "avg_loss_r": -0.19319091899106322,
+      "hold_days": 13.999999988425927
+     },
+     "stops 0.5% worse": {
+      "trades": 2,
+      "exp_r": -0.21318970918784996,
+      "win_rate": 0.0,
+      "pf": 0.0,
+      "avg_win_r": 0.0,
+      "avg_loss_r": -0.21318970918784996,
+      "hold_days": 14.999999988425927
+     },
+     "account": {
+      "trades": 0,
+      "win_rate": 0.0,
+      "profit_factor": 0.0,
+      "net_return_pct": 0.0,
+      "max_drawdown_pct": 0.0,
+      "expectancy": 0.0,
+      "max_consecutive_losses": 0,
+      "skipped": {
+       "order value": 2
+      }
+     },
+     "trades_per_month": 0.16666666666666666,
+     "regime_r": {
+      "bull": {
+       "trades": 1,
+       "exp_r": -0.13544887782473472
+      },
+      "sideways": {
+       "trades": 1,
+       "exp_r": -0.2909305405509652
+      }
+     },
+     "boot_p_le_0": null
+    },
+    "validation": {
+     "base": {
+      "trades": 7,
+      "exp_r": 0.39144103318811646,
+      "win_rate": 71.42857142857143,
+      "pf": 3.4243829792763667,
+      "avg_win_r": 0.7740615373301185,
+      "avg_loss_r": -0.5651102271668892,
+      "hold_days": 23.85714284556878
+     },
+     "low fees": {
+      "trades": 7,
+      "exp_r": 0.40110725960422716,
+      "win_rate": 71.42857142857143,
+      "pf": 3.500285879482814,
+      "avg_win_r": 0.786144546053908,
+      "avg_loss_r": -0.5614859565199751,
+      "hold_days": 23.85714284556878
+     },
+     "high costs": {
+      "trades": 7,
+      "exp_r": 0.37446908446187177,
+      "win_rate": 71.42857142857143,
+      "pf": 3.2931222649182588,
+      "avg_win_r": 0.7528780727496296,
+      "avg_loss_r": -0.5715533862575228,
+      "hold_days": 23.85714284556878
+     },
+     "entry delay +1": {
+      "trades": 7,
+      "exp_r": 0.39977045329608973,
+      "win_rate": 42.857142857142854,
+      "pf": 3.805370959960005,
+      "avg_win_r": 1.2653019591525165,
+      "avg_loss_r": -0.24937817609623036,
+      "hold_days": 22.85714284556878
+     },
+     "stops 0.5% worse": {
+      "trades": 7,
+      "exp_r": 0.39144103318811646,
+      "win_rate": 71.42857142857143,
+      "pf": 3.4243829792763667,
+      "avg_win_r": 0.7740615373301185,
+      "avg_loss_r": -0.5651102271668892,
+      "hold_days": 23.85714284556878
+     },
+     "account": {
+      "trades": 0,
+      "win_rate": 0.0,
+      "profit_factor": 0.0,
+      "net_return_pct": 0.0,
+      "max_drawdown_pct": 0.0,
+      "expectancy": 0.0,
+      "max_consecutive_losses": 0,
+      "skipped": {
+       "order value": 7
+      }
+     },
+     "trades_per_month": 0.5833333333333334,
+     "regime_r": {
+      "bull": {
+       "trades": 7,
+       "exp_r": 0.39144103318811646
+      }
+     },
+     "boot_p_le_0": 0.10625
+    },
+    "test": {
+     "base": {
+      "trades": 9,
+      "exp_r": -0.3530345837277047,
+      "win_rate": 33.333333333333336,
+      "pf": 0.17722587711438753,
+      "avg_win_r": 0.2281313741373717,
+      "avg_loss_r": -0.6436175626602431,
+      "hold_days": 12.555555543981482
+     },
+     "low fees": {
+      "trades": 9,
+      "exp_r": -0.3471475621667695,
+      "win_rate": 33.333333333333336,
+      "pf": 0.18638854746000127,
+      "avg_win_r": 0.23858192874944936,
+      "avg_loss_r": -0.6400123076248789,
+      "hold_days": 12.555555543981482
+     },
+     "high costs": {
+      "trades": 9,
+      "exp_r": -0.3634539220672537,
+      "win_rate": 33.333333333333336,
+      "pf": 0.16124000468112823,
+      "avg_win_r": 0.2096069641705521,
+      "avg_loss_r": -0.6499843651861565,
+      "hold_days": 12.555555543981482
+     },
+     "entry delay +1": {
+      "trades": 9,
+      "exp_r": -0.3890246995170038,
+      "win_rate": 11.11111111111111,
+      "pf": 0.07175414835774836,
+      "avg_win_r": 0.27064728982227415,
+      "avg_loss_r": -0.4714836981844136,
+      "hold_days": 11.666666655092593
+     },
+     "stops 0.5% worse": {
+      "trades": 9,
+      "exp_r": -0.3637116218298158,
+      "win_rate": 33.333333333333336,
+      "pf": 0.17292292282254054,
+      "avg_win_r": 0.2281313741373717,
+      "avg_loss_r": -0.6596331198134094,
+      "hold_days": 12.555555543981482
+     },
+     "account": {
+      "trades": 3,
+      "win_rate": 33.333333333333336,
+      "profit_factor": 0.267321325148627,
+      "net_return_pct": -0.350132262177155,
+      "max_drawdown_pct": 0.4778796956908593,
+      "expectancy": -0.11671075405904952,
+      "max_consecutive_losses": 2,
+      "skipped": {
+       "position already open on this symbol": 1,
+       "maximum open positions": 1,
+       "order value": 4
+      }
+     },
+     "trades_per_month": 0.8712487899322362,
+     "regime_r": {
+      "bear": {
+       "trades": 6,
+       "exp_r": -0.6436175626602431
+      },
+      "sideways": {
+       "trades": 2,
+       "exp_r": 0.21334095288259614
+      },
+      "bull": {
+       "trades": 1,
+       "exp_r": 0.2577122166469227
+      }
+     },
+     "boot_p_le_0": 0.98665
+    }
+   },
+   "verdict": "FAIL",
+   "reasons": [
+    "test expectancy <= 0",
+    "test expectancy <= 0 with low fees",
+    "test expectancy <= 0 with high costs",
+    "test expectancy <= 0 with entry delay +1",
+    "test expectancy <= 0 with stops 0.5% worse"
+   ]
+  },
+  {
+   "variant": "C_breakout_4h",
+   "periods": {
+    "train": {
+     "base": {
+      "trades": 44,
+      "exp_r": -0.0009483269061162117,
+      "win_rate": 27.272727272727273,
+      "pf": 0.9968813094830455,
+      "avg_win_r": 1.111477503279494,
+      "avg_loss_r": -0.41810801322571994,
+      "hold_days": 2.950757564183502
+     },
+     "low fees": {
+      "trades": 44,
+      "exp_r": 0.020605604136924017,
+      "win_rate": 29.545454545454547,
+      "pf": 1.0699013689169614,
+      "avg_win_r": 1.0674627740171683,
+      "avg_loss_r": -0.41839901549027525,
+      "hold_days": 2.950757564183502
+     },
+     "high costs": {
+      "trades": 44,
+      "exp_r": -0.037251956299665594,
+      "win_rate": 25.0,
+      "pf": 0.8838497685102185,
+      "avg_win_r": 1.133880924031006,
+      "avg_loss_r": -0.4276295830765561,
+      "hold_days": 2.950757564183502
+     },
+     "entry delay +1": {
+      "trades": 44,
+      "exp_r": -0.049880802561272315,
+      "win_rate": 22.727272727272727,
+      "pf": 0.8441540223211765,
+      "avg_win_r": 1.1888093313779717,
+      "avg_loss_r": -0.41420143019046174,
+      "hold_days": 2.784090897516835
+     },
+     "stops 0.5% worse": {
+      "trades": 44,
+      "exp_r": -0.009124521745815324,
+      "win_rate": 27.272727272727273,
+      "pf": 0.9707785974485287,
+      "avg_win_r": 1.111477503279494,
+      "avg_loss_r": -0.42935028113030627,
+      "hold_days": 2.950757564183502
+     },
+     "account": {
+      "trades": 24,
+      "win_rate": 29.166666666666668,
+      "profit_factor": 1.3578633095464339,
+      "net_return_pct": 1.0164774691862561,
+      "max_drawdown_pct": 2.0885448807757623,
+      "expectancy": 0.0423532278827615,
+      "max_consecutive_losses": 10,
+      "skipped": {
+       "position already open on this symbol": 7,
+       "maximum open positions": 12,
+       "order value": 1
+      }
+     },
+     "trades_per_month": 3.6666666666666665,
+     "regime_r": {
+      "bull": {
+       "trades": 30,
+       "exp_r": 0.12682658103824565
+      },
+      "sideways": {
+       "trades": 9,
+       "exp_r": -0.5113235352513822
+      },
+      "bear": {
+       "trades": 5,
+       "exp_r": 0.15107760044919116
+      }
+     },
+     "boot_p_le_0": 0.52215
+    },
+    "validation": {
+     "base": {
+      "trades": 28,
+      "exp_r": -0.017462337972714806,
+      "win_rate": 28.571428571428573,
+      "pf": 0.9498160610707339,
+      "avg_win_r": 1.1567651520534699,
+      "avg_loss_r": -0.48715333398318866,
+      "hold_days": 2.7083333217592593
+     },
+     "low fees": {
+      "trades": 28,
+      "exp_r": 0.005032238474668517,
+      "win_rate": 32.142857142857146,
+      "pf": 1.014800529724147,
+      "avg_win_r": 1.073445900016888,
+      "avg_loss_r": -0.5010584433084881,
+      "hold_days": 2.7083333217592593
+     },
+     "high costs": {
+      "trades": 28,
+      "exp_r": -0.054746547481752374,
+      "win_rate": 25.0,
+      "pf": 0.8487748154426624,
+      "avg_win_r": 1.2290939732284887,
+      "avg_loss_r": -0.48269338771849946,
+      "hold_days": 2.7083333217592593
+     },
+     "entry delay +1": {
+      "trades": 28,
+      "exp_r": -0.02118500194231771,
+      "win_rate": 21.428571428571427,
+      "pf": 0.9419981214554397,
+      "avg_win_r": 1.605621837708027,
+      "avg_loss_r": -0.46485959457422993,
+      "hold_days": 2.541666655092592
+     },
+     "stops 0.5% worse": {
+      "trades": 28,
+      "exp_r": -0.02137548396714356,
+      "win_rate": 28.571428571428573,
+      "pf": 0.9392534519747134,
+      "avg_win_r": 1.1567651520534699,
+      "avg_loss_r": -0.49263173837538893,
+      "hold_days": 2.7083333217592593
+     },
+     "account": {
+      "trades": 17,
+      "win_rate": 29.41176470588235,
+      "profit_factor": 1.5783894217073735,
+      "net_return_pct": 1.5113691861087943,
+      "max_drawdown_pct": 1.1767117651742893,
+      "expectancy": 0.08890406977110492,
+      "max_consecutive_losses": 4,
+      "skipped": {
+       "order value": 2,
+       "position already open on this symbol": 4,
+       "maximum open positions": 5
+      }
+     },
+     "trades_per_month": 2.3333333333333335,
+     "regime_r": {
+      "bull": {
+       "trades": 21,
+       "exp_r": 0.10140224728522133
+      },
+      "bear": {
+       "trades": 4,
+       "exp_r": -0.475743488242518
+      },
+      "sideways": {
+       "trades": 3,
+       "exp_r": -0.23847290108519717
+      }
+     },
+     "boot_p_le_0": 0.5603
+    },
+    "test": {
+     "base": {
+      "trades": 32,
+      "exp_r": 0.17729745951567036,
+      "win_rate": 12.5,
+      "pf": 1.5798411508705061,
+      "avg_win_r": 3.864531823133162,
+      "avg_loss_r": -0.34945030671539995,
+      "hold_days": 2.2708333217592593
+     },
+     "low fees": {
+      "trades": 32,
+      "exp_r": 0.22606532754573205,
+      "win_rate": 21.875,
+      "pf": 1.772358507268807,
+      "avg_win_r": 2.3714749204656806,
+      "avg_loss_r": -0.3746493584718536,
+      "hold_days": 2.2708333217592593
+     },
+     "high costs": {
+      "trades": 32,
+      "exp_r": 0.10035950469253671,
+      "win_rate": 12.5,
+      "pf": 1.3042152027741036,
+      "avg_win_r": 3.442047355143618,
+      "avg_loss_r": -0.3770244739433321,
+      "hold_days": 2.2708333217592593
+     },
+     "entry delay +1": {
+      "trades": 32,
+      "exp_r": 0.3721814453009775,
+      "win_rate": 34.375,
+      "pf": 2.759076983796821,
+      "avg_win_r": 1.6982083944910433,
+      "avg_loss_r": -0.3224040995128663,
+      "hold_days": 2.260416655092593
+     },
+     "stops 0.5% worse": {
+      "trades": 32,
+      "exp_r": 0.17729745951567036,
+      "win_rate": 12.5,
+      "pf": 1.5798411508705061,
+      "avg_win_r": 3.864531823133162,
+      "avg_loss_r": -0.34945030671539995,
+      "hold_days": 2.2708333217592593
+     },
+     "account": {
+      "trades": 23,
+      "win_rate": 8.695652173913043,
+      "profit_factor": 1.0134843975992731,
+      "net_return_pct": 0.05100400596697341,
+      "max_drawdown_pct": 2.636474338562067,
+      "expectancy": 0.0022175654768246448,
+      "max_consecutive_losses": 11,
+      "skipped": {
+       "maximum open positions": 8,
+       "position already open on this symbol": 1
+      }
+     },
+     "trades_per_month": 3.0977734753146176,
+     "regime_r": {
+      "bear": {
+       "trades": 26,
+       "exp_r": 0.3048917253788582
+      },
+      "sideways": {
+       "trades": 2,
+       "exp_r": -0.4059256078521115
+      },
+      "bull": {
+       "trades": 4,
+       "exp_r": -0.3604537349111596
+      }
+     },
+     "boot_p_le_0": 0.384
+    }
+   },
+   "verdict": "FAIL",
+   "reasons": [
+    "train expectancy <= 0",
+    "validation expectancy <= 0"
+   ]
+  },
+  {
+   "variant": "D_rotation_1d",
+   "periods": {
+    "train": {
+     "base": {
+      "trades": 11,
+      "exp_r": 0.18473049808618536,
+      "win_rate": 45.45454545454545,
+      "pf": 1.4552806590170737,
+      "avg_win_r": 1.2990588870320003,
+      "avg_loss_r": -0.7438764927019937,
+      "hold_days": 19.454545442971384
+     },
+     "low fees": {
+      "trades": 11,
+      "exp_r": 0.19668355668432314,
+      "win_rate": 45.45454545454545,
+      "pf": 1.485852826512183,
+      "avg_win_r": 1.3233106115627244,
+      "avg_loss_r": -0.7421723223810114,
+      "hold_days": 19.454545442971384
+     },
+     "high costs": {
+      "trades": 11,
+      "exp_r": 0.1640716494581904,
+      "win_rate": 45.45454545454545,
+      "pf": 1.4027166671783928,
+      "avg_win_r": 1.2572642836506014,
+      "avg_loss_r": -0.7469222123688187,
+      "hold_days": 19.454545442971384
+     },
+     "entry delay +1": {
+      "trades": 11,
+      "exp_r": -0.03174737937732098,
+      "win_rate": 36.36363636363637,
+      "pf": 0.9291149749037669,
+      "avg_win_r": 1.1443412098927985,
+      "avg_loss_r": -0.7037980018173892,
+      "hold_days": 18.363636352062294
+     },
+     "stops 0.5% worse": {
+      "trades": 11,
+      "exp_r": 0.1719411295999944,
+      "win_rate": 45.45454545454545,
+      "pf": 1.4128800074453636,
+      "avg_win_r": 1.2944458346131316,
+      "avg_loss_r": -0.7634794579109533,
+      "hold_days": 19.454545442971384
+     },
+     "account": {
+      "trades": 3,
+      "win_rate": 66.66666666666667,
+      "profit_factor": 4.44303862892764,
+      "net_return_pct": 1.696436279883784,
+      "max_drawdown_pct": 0.4909441722267317,
+      "expectancy": 0.5654787599612593,
+      "max_consecutive_losses": 1,
+      "skipped": {
+       "order value": 6,
+       "maximum open positions": 2
+      }
+     },
+     "trades_per_month": 0.9166666666666666,
+     "regime_r": {
+      "bull": {
+       "trades": 9,
+       "exp_r": -0.08060888366231499
+      },
+      "sideways": {
+       "trades": 1,
+       "exp_r": -1.0
+      },
+      "bear": {
+       "trades": 1,
+       "exp_r": 3.7575154319088737
+      }
+     },
+     "boot_p_le_0": 0.35275
+    },
+    "validation": {
+     "base": {
+      "trades": 10,
+      "exp_r": 0.031781647677995295,
+      "win_rate": 30.0,
+      "pf": 1.092018094574758,
+      "avg_win_r": 1.257221364999196,
+      "avg_loss_r": -0.4934068026025193,
+      "hold_days": 17.699999988425922
+     },
+     "low fees": {
+      "trades": 10,
+      "exp_r": 0.042563267219003234,
+      "win_rate": 30.0,
+      "pf": 1.1244453939017136,
+      "avg_win_r": 1.281956373883301,
+      "avg_loss_r": -0.4886052070656959,
+      "hold_days": 17.699999988425922
+     },
+     "high costs": {
+      "trades": 10,
+      "exp_r": 0.012970131572617217,
+      "win_rate": 30.0,
+      "pf": 1.0369167208144905,
+      "avg_win_r": 1.2143500291184954,
+      "avg_loss_r": -0.5019069673756162,
+      "hold_days": 17.699999988425922
+     },
+     "entry delay +1": {
+      "trades": 10,
+      "exp_r": 0.02600483661663011,
+      "win_rate": 40.0,
+      "pf": 1.0673160949068006,
+      "avg_win_r": 1.0307854572067248,
+      "avg_loss_r": -0.6438489104434328,
+      "hold_days": 16.699999988425922
+     },
+     "stops 0.5% worse": {
+      "trades": 10,
+      "exp_r": 0.014311607297727513,
+      "win_rate": 30.0,
+      "pf": 1.039441691858219,
+      "avg_win_r": 1.257221364999196,
+      "avg_loss_r": -0.5183640031457589,
+      "hold_days": 17.699999988425922
+     },
+     "account": {
+      "trades": 4,
+      "win_rate": 25.0,
+      "profit_factor": 0.5618456878761964,
+      "net_return_pct": -0.40098627877804915,
+      "max_drawdown_pct": 0.8879593927082288,
+      "expectancy": -0.10024656969451326,
+      "max_consecutive_losses": 2,
+      "skipped": {
+       "order value": 4,
+       "maximum open positions": 2
+      }
+     },
+     "trades_per_month": 0.8333333333333334,
+     "regime_r": {
+      "bull": {
+       "trades": 10,
+       "exp_r": 0.031781647677995295
+      }
+     },
+     "boot_p_le_0": 0.46505
+    },
+    "test": {
+     "base": {
+      "trades": 4,
+      "exp_r": 0.28397154096451743,
+      "win_rate": 25.0,
+      "pf": 1.7014901901945392,
+      "avg_win_r": 2.75513355995218,
+      "avg_loss_r": -0.5397491320313701,
+      "hold_days": 25.499999988425927
+     },
+     "low fees": {
+      "trades": 4,
+      "exp_r": 0.29884459867846574,
+      "win_rate": 25.0,
+      "pf": 1.745113737164627,
+      "avg_win_r": 2.7996682300652056,
+      "avg_loss_r": -0.5347632784504476,
+      "hold_days": 25.499999988425927
+     },
+     "high costs": {
+      "trades": 4,
+      "exp_r": 0.2585085147173737,
+      "win_rate": 25.0,
+      "pf": 1.6283471169913561,
+      "avg_win_r": 2.6796755059420043,
+      "avg_loss_r": -0.5485471490241699,
+      "hold_days": 25.499999988425927
+     },
+     "entry delay +1": {
+      "trades": 4,
+      "exp_r": 0.5590414201578889,
+      "win_rate": 50.0,
+      "pf": 2.5638872109787445,
+      "avg_win_r": 1.8330211251656399,
+      "avg_loss_r": -0.714938284849862,
+      "hold_days": 24.499999988425927
+     },
+     "stops 0.5% worse": {
+      "trades": 4,
+      "exp_r": 0.26899356652189677,
+      "win_rate": 25.0,
+      "pf": 1.6407815327700253,
+      "avg_win_r": 2.75513355995218,
+      "avg_loss_r": -0.559719764621531,
+      "hold_days": 25.499999988425927
+     },
+     "account": {
+      "trades": 2,
+      "win_rate": 50.0,
+      "profit_factor": 2.9877849984977267,
+      "net_return_pct": 0.8824484307309461,
+      "max_drawdown_pct": 0.44393555208327484,
+      "expectancy": 0.44122421536547096,
+      "max_consecutive_losses": 1,
+      "skipped": {
+       "order value": 1,
+       "maximum open positions": 1
+      }
+     },
+     "trades_per_month": 0.3872216844143272,
+     "regime_r": {
+      "bear": {
+       "trades": 3,
+       "exp_r": 0.5787876549703165
+      },
+      "bull": {
+       "trades": 1,
+       "exp_r": -0.6004768010528798
+      }
+     },
+     "boot_p_le_0": 0.33065
+    }
+   },
+   "verdict": "INSUFFICIENT EVIDENCE",
+   "reasons": [
+    "fewer than 10 trades in test"
+   ]
+  }
+ ],
+ "buy_hold": {
+  "train": {
+   "BTCUSDT": {
+    "net_pct": 111.17345592248,
+    "max_dd_pct": 26.1513750538678
+   },
+   "ETHUSDT": {
+    "net_pct": 41.48459082349791,
+    "max_dd_pct": 45.256101161188745
+   }
+  },
+  "validation": {
+   "BTCUSDT": {
+    "net_pct": -7.618332892849356,
+    "max_dd_pct": 32.022515264497706
+   },
+   "ETHUSDT": {
+    "net_pct": -11.833430558746338,
+    "max_dd_pct": 60.04257684849963
+   }
+  },
+  "test": {
+   "BTCUSDT": {
+    "net_pct": -17.181862994990706,
+    "max_dd_pct": 39.532095233321144
+   },
+   "ETHUSDT": {
+    "net_pct": -31.860002539037136,
+    "max_dd_pct": 53.267440058183205
+   }
+  }
+ }
+}
