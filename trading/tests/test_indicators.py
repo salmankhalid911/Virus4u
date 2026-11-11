@@ -36,3 +36,19 @@ def test_align_closed_uses_only_closed_higher_timeframe_bars():
     ltf_close = np.array([14_399_999 - 900_000, 14_399_999, 28_799_999 - 1])
     out = ta.align_closed(h4_close, vals, ltf_close)
     assert np.isnan(out[0]) and out[1] == 1.0 and out[2] == 1.0
+
+def test_adx_bounds_no_lookahead_and_trend_response():
+    a, p, m = ta.adx(high, low, close)
+    assert np.nanmin(a) >= 0 and np.nanmax(a) <= 100
+    fut = close.copy(); fut[300:] *= 2; fh, fl = high.copy(), low.copy(); fh[300:] *= 2; fl[300:] *= 2
+    assert np.allclose(a[:300], ta.adx(fh, fl, fut)[0][:300], equal_nan=True)
+    up = np.arange(1, 200, dtype=float); a2, p2, m2 = ta.adx(up + 0.5, up - 0.5, up)
+    assert a2[-1] > 50 and p2[-1] > m2[-1]
+
+def test_weekly_candles_only_complete_weeks():
+    day = 86_400_000
+    t0 = 1704067200000  # 2024-01-01, a Monday
+    t = t0 + np.arange(17) * day   # 2 full weeks + 3 days
+    d = dict(open_time=t, close_time=t + day - 1, open=np.arange(17.), high=np.arange(17.) + 1, low=np.arange(17.) - 1, close=np.arange(17.) + .5, volume=np.ones(17))
+    w = ta.weekly_from_daily(d)
+    assert len(w["open_time"]) == 2 and w["open_time"][0] == t0 and w["close"][0] == 6.5 and w["high"][1] == 14 and w["volume"][0] == 7

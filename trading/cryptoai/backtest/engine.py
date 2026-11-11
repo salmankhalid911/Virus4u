@@ -140,7 +140,7 @@ def _week(ms: int) -> tuple:
 
 
 def run_account(paths: list[Path], rules: dict[str, SymbolRules], limits: RiskLimits, costs: CostModel,
-                start_equity: float | None = None) -> AccountResult:
+                start_equity: float | None = None, max_positions: int | None = None) -> AccountResult:
     eq = start_equity if start_equity is not None else limits.starting_equity
     res = AccountResult(equity_curve=[(paths[0].entry_time if paths else 0, eq)])
     open_: list[Fill] = []
@@ -169,6 +169,9 @@ def run_account(paths: list[Path], rules: dict[str, SymbolRules], limits: RiskLi
 
         if any(f.path.sig.symbol == p.sig.symbol for f in open_):
             skip("position already open on this symbol")
+            continue
+        if max_positions is not None and len(open_) >= max_positions:
+            skip("maximum open positions")
             continue
         acct = AccountState(eq, day_start, week_peak, trades_today, len(open_))
         gate = check_trade(TradeIdea(p.sig.side, p.entry, p.stop, p.tps[0], limits.default_risk_pct), acct, limits)

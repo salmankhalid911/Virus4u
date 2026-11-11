@@ -111,3 +111,51 @@ def trend_state(close: np.ndarray, fast: int = 20, slow: int = 50, slope_bars: i
         elif close[i] < e_s[i] and e_f[i] < e_s[i] and not rising:
             out[i] = -1
     return out
+
+
+def adx(high: np.ndarray, low: np.ndarray, close: np.ndarray, n: int = 14):
+    """Wilder's ADX with +DI / -DI. Returns (adx, plus_di, minus_di); uses past bars only."""
+    m = len(close)
+    up = np.zeros(m)
+    dn = np.zeros(m)
+    up[1:] = high[1:] - high[:-1]
+    dn[1:] = low[:-1] - low[1:]
+    plus_dm = np.where((up > dn) & (up > 0), up, 0.0)
+    minus_dm = np.where((dn > up) & (dn > 0), dn, 0.0)
+    prev = np.concatenate(([close[0]], close[:-1]))
+    tr = np.maximum(high - low, np.maximum(abs(high - prev), abs(low - prev)))
+    out_adx, pdi, mdi = (np.full(m, np.nan) for _ in range(3))
+    if m <= 2 * n:
+        return out_adx, pdi, mdi
+    s_tr, s_p, s_m = tr[1:n + 1].sum(), plus_dm[1:n + 1].sum(), minus_dm[1:n + 1].sum()
+    dx = np.full(m, np.nan)
+    for i in range(n, m):
+        if i > n:
+            s_tr = s_tr - s_tr / n + tr[i]
+            s_p = s_p - s_p / n + plus_dm[i]
+            s_m = s_m - s_m / n + minus_dm[i]
+        pdi[i] = 100 * s_p / s_tr if s_tr else 0.0
+        mdi[i] = 100 * s_m / s_tr if s_tr else 0.0
+        tot = pdi[i] + mdi[i]
+        dx[i] = 100 * abs(pdi[i] - mdi[i]) / tot if tot else 0.0
+    out_adx[2 * n - 1] = np.nanmean(dx[n:2 * n])
+    for i in range(2 * n, m):
+        out_adx[i] = (out_adx[i - 1] * (n - 1) + dx[i]) / n
+    return out_adx, pdi, mdi
+
+
+def weekly_from_daily(d: dict) -> dict:
+    """Monday-to-Sunday weekly candles from daily candles. Only complete 7-day weeks."""
+    t = d["open_time"]
+    wk = (t // 86_400_000 + 3) // 7  # days since epoch; 1970-01-01 was a Thursday -> Monday buckets
+    out = {k: [] for k in ("open_time", "close_time", "open", "high", "low", "close", "volume")}
+    start = 0
+    for i in range(1, len(t) + 1):
+        if i == len(t) or wk[i] != wk[start]:
+            if i - start == 7:
+                out["open_time"].append(t[start]); out["close_time"].append(d["close_time"][i - 1])
+                out["open"].append(d["open"][start]); out["close"].append(d["close"][i - 1])
+                out["high"].append(d["high"][start:i].max()); out["low"].append(d["low"][start:i].min())
+                out["volume"].append(d["volume"][start:i].sum())
+            start = i
+    return {k: np.array(v) for k, v in out.items()}
