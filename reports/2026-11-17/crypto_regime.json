@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "as_of": "2026-11-17T04:19:50.005700+00:00",
+    "universe_size": 20
+  },
+  "components": {
+    "btc_trend": {
+      "score": 45,
+      "signal": "STACK INTACT, PRICE BELOW (deep pullback / early break); 200DMA falling",
+      "data_available": true,
+      "price": 64907.79,
+      "ma50": 79015.01,
+      "ma200": 72806.21,
+      "ma200_rising": false,
+      "ma200_direction": "falling"
+    },
+    "alt_breadth": {
+      "score": 20,
+      "signal": "21% of 19 tracked alts above 200DMA (5% above 50DMA); short-term breadth rolling over",
+      "data_available": true,
+      "pct_above_200dma": 21.1,
+      "pct_above_50dma": 5.3,
+      "universe_size": 19,
+      "skipped": []
+    },
+    "dominance": {
+      "score": 50,
+      "signal": "NO DATA: Need >= 31 daily dominance points",
+      "data_available": false
+    },
+    "funding": {
+      "score": 50,
+      "signal": "NO DATA: Need funding for >= 2 symbols",
+      "data_available": false
+    },
+    "drawdown_vol": {
+      "score": 45,
+      "signal": "Drawdown 33.0% from 1y high; volatility elevated (top third of 1y range)",
+      "data_available": true,
+      "drawdown_pct": 33.01,
+      "realized_vol_30d": 0.4477,
+      "vol_percentile_1y": 0.77
+    },
+    "momentum_thrust": {
+      "score": 35,
+      "signal": "WASHOUT (contrarian: near-total negative momentum): 5% of 20 coins positive over 30d",
+      "data_available": true,
+      "pct_positive_30d": 5.0,
+      "universe_size": 20
+    }
+  },
+  "composite": {
+    "score": 36.4,
+    "zone": "RISK_OFF",
+    "guidance": "Defensive market conditions observed; review existing risk controls",
+    "effective_weights": {
+      "btc_trend": 0.3571,
+      "alt_breadth": 0.2857,
+      "drawdown_vol": 0.2143,
+      "momentum_thrust": 0.1429
+    },
+    "components_available": 4,
+    "components_total": 6,
+    "available_weight": 0.7
+  }
+}
