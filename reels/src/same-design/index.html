@@ -1,0 +1,624 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:BS;src:url(bigshoulders.ttf);font-weight:900}
+@font-face{font-family:BG;src:url(bricolage.ttf);font-weight:800}
+:root{--paper:#F4F3F1;--ink:#0B0C0E;--red:#B0212F;--cyan:#00CEFF;--dim:#8A8D94}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--ink)}
+#world{position:absolute;inset:0}
+.scene{position:absolute;inset:0;visibility:hidden;will-change:transform,filter}
+svg.full{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible}
+.ov{position:absolute;inset:0;pointer-events:none}
+.h{font-family:BS,Impact,sans-serif;font-weight:900;text-transform:uppercase;letter-spacing:-.005em;line-height:.9;color:var(--paper)}
+.s{font-family:BG,sans-serif;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--paper)}
+.red{color:var(--red)}.cy{color:var(--cyan)}.dim{color:var(--dim)}.inkc{color:var(--ink)}
+.txt{position:absolute;left:80px;width:920px;visibility:hidden}
+.ln{display:block;overflow:hidden;padding:8px 0 2px}
+.ln>span{display:inline-block}
+.tagF{position:absolute;font-family:BS;font-weight:900;font-size:64px;line-height:1;text-transform:uppercase;padding:12px 22px 6px;white-space:nowrap;visibility:hidden}
+.tagF.r{background:var(--red);color:var(--paper)}
+.tagF.c{background:var(--cyan);color:var(--ink)}
+.lab{position:absolute;color:var(--paper);font-family:BG;font-weight:800;font-size:36px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;visibility:hidden}
+.chap{position:absolute;left:80px;top:140px;width:920px;visibility:hidden}
+.chap .rule{height:5px;background:var(--paper);transform-origin:0 50%}
+.chap .n{display:block;font-family:BS;font-weight:900;font-size:110px;line-height:.85;margin-top:22px;color:transparent;-webkit-text-stroke:3px var(--cyan)}
+.chap .t{display:block;font-family:BS;font-weight:900;font-size:128px;line-height:.85;text-transform:uppercase;color:var(--paper);margin-top:6px}
+.call{position:absolute;left:520px;visibility:hidden;background:rgba(11,12,14,.82);padding:18px 26px 20px;border-left:6px solid var(--cyan)}
+.call b{display:block;font-family:BS;font-weight:900;font-size:104px;line-height:.86;color:var(--cyan);text-transform:uppercase}
+.call i{display:block;font-style:normal;font-family:BG;font-weight:800;font-size:34px;letter-spacing:.06em;color:var(--paper);margin-top:10px;text-transform:uppercase;white-space:nowrap}
+.chk{display:flex;align-items:center;gap:26px;font-family:BS;font-weight:900;font-size:100px;text-transform:uppercase;color:var(--paper);line-height:1}
+.chk .o{width:84px;height:84px;border-radius:50%;border:6px solid var(--cyan);display:grid;place-items:center;flex:none}
+.chk .o svg{width:50px;height:50px}
+.step{display:flex;align-items:center;gap:34px;font-family:BS;font-weight:900;font-size:84px;text-transform:uppercase;color:var(--ink);line-height:1;height:134px}
+.step .d{width:44px;height:44px;border-radius:50%;background:var(--ink);flex:none}
+.pill{display:inline-block;border:8px solid var(--cyan);border-radius:30px;padding:18px 40px 8px;color:var(--cyan);font-family:BS;font-weight:900;font-size:104px;text-transform:uppercase;white-space:nowrap}
+#paper{position:absolute;inset:0;background:var(--paper);clip-path:inset(100% 0 0 0)}
+#topfade{position:absolute;left:0;top:0;width:1080px;height:560px;background:linear-gradient(#0B0C0E 55%,rgba(11,12,14,0));visibility:hidden}
+#sweep{position:absolute;left:0;top:-400px;width:260px;height:2800px;background:linear-gradient(90deg,rgba(0,206,255,0),rgba(0,206,255,.22),rgba(255,255,255,.35),rgba(0,206,255,.22),rgba(0,206,255,0));transform:translateX(-600px) rotate(18deg);mix-blend-mode:screen;opacity:0}
+#grain{position:absolute;inset:0;width:1080px;height:1920px;mix-blend-mode:overlay;opacity:.55;pointer-events:none}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse 88% 72% at 50% 46%,rgba(0,0,0,0) 52%,rgba(0,0,0,.62) 100%);pointer-events:none}
+#flash{position:absolute;inset:0;background:#fff;opacity:0}
+#black{position:absolute;inset:0;background:var(--ink);opacity:0}
+</style></head><body>
+<div id="world">
+  <div id="paper"></div>
+
+  <!-- S1/S2 : comparison -->
+  <div class="scene" id="sc1"><svg class="full" viewBox="0 0 1080 1920">
+    <defs><filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <line id="split" x1="540" y1="640" x2="540" y2="1300" stroke="#00CEFF" stroke-width="4" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1"/>
+    <g id="dims" opacity="0"></g>
+    <g id="hAglitch"></g><g id="hA"></g><g id="hB"></g><g id="shards"></g><g id="pills"></g>
+    <text id="eq" x="540" y="1010" text-anchor="middle" font-family="BS" font-weight="900" font-size="150" fill="#00CEFF" opacity="0">=</text>
+  </svg></div>
+
+  <!-- S3 : exploded layers -->
+  <div class="scene" id="sc3"><svg class="full" viewBox="0 0 1080 1920"><g id="guides"></g><g id="planes"></g></svg></div>
+
+  <!-- S4 : fabric -->
+  <div class="scene" id="sc4"><svg class="full" viewBox="0 0 1080 1920">
+    <defs><clipPath id="loupeClip"><circle id="loupeC" cx="300" cy="700" r="170"/></clipPath></defs>
+    <g id="knit"></g>
+    <g clip-path="url(#loupeClip)"><rect x="0" y="0" width="1080" height="1920" fill="#0B0C0E" id="loupeBg" opacity="0"/><g id="knitMag"></g></g>
+    <circle id="loupeRing" cx="300" cy="700" r="170" fill="none" stroke="#00CEFF" stroke-width="6" opacity="0"/>
+    <path id="loupeLead" d="" fill="none" stroke="#00CEFF" stroke-width="4" opacity="0"/>
+  </svg></div>
+
+  <!-- S5 : construction -->
+  <div class="scene" id="sc5"><svg class="full" viewBox="0 0 1080 1920">
+    <defs>
+      <pattern id="twillA" width="28" height="28" patternUnits="userSpaceOnUse"><rect width="28" height="28" fill="#15171C"/><path d="M-7,7 L7,-7 M0,28 L28,0 M21,35 L35,21" stroke="#23262E" stroke-width="5"/></pattern>
+      <pattern id="twillB" width="28" height="28" patternUnits="userSpaceOnUse"><rect width="28" height="28" fill="#1B1E24"/><path d="M-7,7 L7,-7 M0,28 L28,0 M21,35 L35,21" stroke="#2A2E37" stroke-width="5"/></pattern>
+      <pattern id="twillC" width="28" height="28" patternUnits="userSpaceOnUse"><rect width="28" height="28" fill="#15171C"/><path d="M-7,7 L7,-7 M0,28 L28,0 M21,35 L35,21" stroke="#23262E" stroke-width="5"/></pattern>
+      <pattern id="twillD" width="28" height="28" patternUnits="userSpaceOnUse"><rect width="28" height="28" fill="#1B1E24"/><path d="M-7,7 L7,-7 M0,28 L28,0 M21,35 L35,21" stroke="#2A2E37" stroke-width="5"/></pattern>
+    </defs>
+    <g id="sewA"></g><g id="sewB"></g><g id="rib"></g>
+  </svg></div>
+
+  <!-- S6 : decoration -->
+  <div class="scene" id="sc6"><svg class="full" viewBox="0 0 1080 1920">
+    <defs><clipPath id="logoClip"><text x="540" y="1060" text-anchor="middle" font-family="BS" font-weight="900" font-size="340" letter-spacing="8">LOGO</text></clipPath></defs>
+    <g id="grid"></g><g id="deco"></g>
+  </svg></div>
+
+  <!-- S7 : QC -->
+  <div class="scene" id="sc7"><svg class="full" viewBox="0 0 1080 1920"><g id="qc"></g></svg></div>
+
+  <!-- S8 : statement -->
+  <div class="scene" id="sc8"><svg class="full" viewBox="0 0 1080 1920"><g id="heroH"></g></svg></div>
+
+  <!-- S9 timeline thread (on paper) -->
+  <div class="scene" id="sc9"><svg class="full" viewBox="0 0 1080 1920">
+    <line id="thread" x1="122" y1="700" x2="122" y2="1300" stroke="#0B0C0E" stroke-width="6" stroke-dasharray="22 14" stroke-dashoffset="0"/>
+    <rect id="threadMask" x="100" y="700" width="50" height="620" fill="#F4F3F1"/>
+    <path id="needleP" d="M0,-60 L7,-6 L0,8 L-7,-6 Z" fill="#B0212F" opacity="0"/>
+  </svg></div>
+
+  <!-- S10 : payoff -->
+  <div class="scene" id="sc10"><svg class="full" viewBox="0 0 1080 1920">
+    <defs><clipPath id="wmClip"><rect id="wmReveal" x="30" y="700" width="0" height="320"/></clipPath></defs>
+    <g clip-path="url(#wmClip)"><text id="wmStitch" x="540" y="960" text-anchor="middle" font-family="BS" font-weight="900" font-size="236" letter-spacing="4" fill="none" stroke="#00CEFF" stroke-width="5" stroke-dasharray="16 11">KICKSTER</text></g>
+    <text id="wmFill" x="540" y="960" text-anchor="middle" font-family="BS" font-weight="900" font-size="236" letter-spacing="4" fill="#F4F3F1" opacity="0">KICKSTER</text>
+    <line id="wmThread" x1="150" y1="1010" x2="930" y2="1010" stroke="#00CEFF" stroke-width="7" stroke-dasharray="22 12"/>
+    <rect id="wmThreadMask" x="140" y="995" width="800" height="30" fill="#0B0C0E"/>
+  </svg></div>
+
+  <!-- ================= overlays (not moved by camera) ================= -->
+  <div class="ov" id="ov">
+    <div id="topfade"></div>
+    <div class="txt" id="t1" style="top:180px">
+      <span class="ln h" style="font-size:176px"><span id="t1a">Two hoodies.</span></span>
+      <span class="ln h cy" style="font-size:176px"><span id="t1b">Same design.</span></span>
+    </div>
+    <div class="lab dim" id="labA" style="left:200px;top:1300px">Hoodie A</div>
+    <div class="lab dim" id="labB" style="left:700px;top:1300px">Hoodie B</div>
+    <div class="txt" id="t2" style="top:180px">
+      <span class="ln h red" style="font-size:176px"><span id="t2a">One falls</span></span>
+      <span class="ln h red" style="font-size:176px"><span id="t2b">apart.</span></span>
+    </div>
+    <div class="tagF r" id="g1" style="left:70px;top:640px">Shrinks</div>
+    <div class="tagF r" id="g2" style="left:640px;top:860px">Print cracks</div>
+    <div class="tagF r" id="g3" style="left:70px;top:1330px">Seams split</div>
+    <div class="tagF c" id="g4" style="left:200px;top:1350px">Still holds its shape</div>
+
+    <div class="txt" id="t3" style="top:180px">
+      <span class="ln h" style="font-size:136px"><span id="t3a">The difference</span></span>
+      <span class="ln h" style="font-size:136px"><span id="t3b">isn't the design.</span></span>
+    </div>
+    <div class="txt" id="t3c" style="top:180px">
+      <span class="ln h" style="font-size:140px"><span id="t3d">It's what the</span></span>
+      <span class="ln h" style="font-size:140px"><span id="t3e">mockup</span></span>
+      <span class="ln h cy" style="font-size:140px"><span id="t3f">can't show you.</span></span>
+    </div>
+    <div class="lab" id="ly1" style="left:70px;top:800px;color:#00CEFF">Fabric</div>
+    <div class="lab" id="ly2" style="left:70px;top:990px">Construction</div>
+    <div class="lab" id="ly3" style="left:70px;top:1180px">Decoration</div>
+    <div class="lab" id="ly4" style="left:70px;top:1370px">Quality control</div>
+
+    <div class="chap" id="ch1"><div class="rule"></div><span class="n">01</span><span class="t">Fabric</span></div>
+    <div class="chap" id="ch2"><div class="rule"></div><span class="n">02</span><span class="t">Construction</span></div>
+    <div class="chap" id="ch3"><div class="rule"></div><span class="n">03</span><span class="t">Decoration</span></div>
+    <div class="chap" id="ch4"><div class="rule"></div><span class="n">04</span><span class="t">Quality control</span></div>
+
+    <div class="call" id="c1" style="top:610px"><b>Weight</b><i>GSM · how it hangs</i></div>
+    <div class="call" id="c2" style="top:930px"><b>Knit</b><i>How it holds shape</i></div>
+    <div class="call" id="c3" style="top:1250px"><b>Finish</b><i>Wash after wash</i></div>
+
+    <div class="tagF r" id="sA" style="left:80px;top:612px;font-size:56px">Shortcut</div>
+    <div class="tagF c" id="sB" style="left:80px;top:1012px;font-size:56px">Built right</div>
+    <div class="txt" id="t5" style="top:1270px">
+      <span class="ln h" style="font-size:96px"><span id="t5a">More stitches per inch.</span></span>
+      <span class="ln h cy" style="font-size:96px"><span id="t5b">Stronger seam.</span></span>
+    </div>
+    <div class="txt" id="t5r" style="top:1170px">
+      <span class="ln h" style="font-size:124px"><span id="t5c">Rib that</span></span>
+      <span class="ln h cy" style="font-size:124px"><span id="t5d">snaps back.</span></span>
+    </div>
+
+    <div class="lab cy" id="dl1" style="left:560px;top:1300px;font-size:32px">Centre line</div>
+    <div class="lab cy" id="dl2" style="left:80px;top:745px;font-size:32px">Placement</div>
+    <div class="txt" id="t6" style="top:1330px">
+      <span class="ln h" style="font-size:84px"><span id="t6a">Embroidery · Puff print</span></span>
+      <span class="ln h cy" style="font-size:84px"><span id="t6b">Screen print</span></span>
+    </div>
+
+    <div id="qcList" style="position:absolute;left:560px;top:560px;display:flex;flex-direction:column;gap:46px;visibility:hidden">
+      <div class="chk" id="q1"><span class="o"><svg viewBox="0 0 24 24" fill="none" stroke="#00CEFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Seams</div>
+      <div class="chk" id="q2"><span class="o"><svg viewBox="0 0 24 24" fill="none" stroke="#00CEFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Sizing</div>
+      <div class="chk" id="q3"><span class="o"><svg viewBox="0 0 24 24" fill="none" stroke="#00CEFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Print</div>
+      <div class="chk" id="q4"><span class="o"><svg viewBox="0 0 24 24" fill="none" stroke="#00CEFF" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Finish</div>
+    </div>
+    <div class="txt" id="t7" style="top:1290px">
+      <span class="ln h" style="font-size:128px"><span id="t7a">Every piece.</span></span>
+      <span class="ln h cy" style="font-size:128px"><span id="t7b">Before it ships.</span></span>
+    </div>
+
+    <div class="txt" id="t8" style="top:300px">
+      <span class="ln h" style="font-size:116px"><span id="h1">Your clothing brand</span></span>
+      <span class="ln h" style="font-size:204px"><span id="h2">is only</span></span>
+      <span class="ln h red" style="font-size:204px"><span id="h3">as good as</span></span>
+      <div id="under" style="height:16px;width:860px;background:#B0212F;transform-origin:0 50%;margin:4px 0 14px"></div>
+      <span class="ln h" style="font-size:204px"><span id="h4">the people</span></span>
+      <span class="ln h cy" style="font-size:204px"><span id="h5">making it.</span></span>
+    </div>
+
+    <div class="txt" id="t9" style="top:190px">
+      <span class="ln s" style="font-size:40px;color:#B0212F"><span id="k0">Kickster · Sialkot</span></span>
+      <span class="ln h inkc" style="font-size:128px"><span id="k1">Cut &amp; sew for</span></span>
+      <span class="ln h inkc" style="font-size:128px"><span id="k2">independent brands.</span></span>
+    </div>
+    <div id="steps" style="position:absolute;left:100px;top:640px;visibility:hidden">
+      <div class="step" id="p1"><span class="d"></span>Idea</div>
+      <div class="step" id="p2"><span class="d"></span>Pattern</div>
+      <div class="step" id="p3"><span class="d"></span>Sample</div>
+      <div class="step" id="p4" style="color:#B0212F"><span class="d" style="background:#B0212F"></span>You approve</div>
+      <div class="step" id="p5"><span class="d"></span>Bulk</div>
+    </div>
+    <div id="stats" style="position:absolute;left:680px;top:660px;width:340px;visibility:hidden">
+      <div id="st1"><div class="s" style="font-size:38px;color:#0B0C0E">From</div><div class="h inkc" style="font-size:230px;line-height:.82">50</div><div class="s" style="font-size:38px;color:#0B0C0E">pieces</div></div>
+      <div id="st2" style="margin-top:64px"><div class="h" style="font-size:170px;line-height:.82;color:#B0212F">2–3</div><div class="s" style="font-size:38px;color:#0B0C0E">week<br>turnaround</div></div>
+    </div>
+
+    <div id="end" style="position:absolute;left:0;top:1060px;width:1080px;text-align:center;visibility:hidden">
+      <div class="s dim" id="e2" style="font-size:42px;letter-spacing:.2em">Cut &amp; sew · Sialkot</div>
+      <div id="e3" style="margin-top:80px"><span class="pill">Comment “PRICE”</span></div>
+      <div class="s" id="e4" style="font-size:38px;margin-top:44px;letter-spacing:.08em">@kickster_brandlab</div>
+    </div>
+    <div class="s dim" id="e0" style="position:absolute;left:0;top:640px;width:1080px;text-align:center;font-size:42px;letter-spacing:.24em;visibility:hidden">The people making it</div>
+  </div>
+
+  <svg class="full" id="fx" viewBox="0 0 1080 1920" style="pointer-events:none"></svg>
+  <div id="sweep"></div>
+  <div id="black"></div>
+  <div id="flash"></div>
+</div>
+<canvas id="grain" width="540" height="960"></canvas>
+<div id="vig"></div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+const NS='http://www.w3.org/2000/svg';
+const PAPER='#F4F3F1', CYAN='#00CEFF', RED='#B0212F', INK='#0B0C0E', DIM='#8A8D94';
+const $=id=>document.getElementById(id);
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function rnd(seed){let s=seed>>>0||1;return()=>{s^=s<<13;s>>>=0;s^=s>>>17;s^=s<<5;s>>>=0;return (s%100000)/100000;};}
+
+// ---------------- hoodie flat sketch ----------------
+const HOODIE={
+  body:'M230,132 L160,160 C130,172 118,190 112,220 L80,455 L132,462 L170,290 L182,600 L418,600 L430,290 L468,462 L520,455 L488,220 C482,190 470,172 440,160 L370,132',
+  hood:'M230,132 C214,62 256,26 300,26 C344,26 386,62 370,132',
+  hoodIn:'M254,144 C252,92 348,92 346,144',
+  hem:'M182,600 L180,644 L420,644 L418,600',
+  cuffL:'M80,455 L74,500 L128,506 L132,462',
+  cuffR:'M520,455 L526,500 L472,506 L468,462',
+  pocket:'M214,468 L386,468 L410,590 L190,590 Z',
+  strL:'M282,142 L276,246', strR:'M318,142 L324,246',
+  print:'M246,250 L354,250 L354,330 L246,330 Z'
+};
+const STITCH={s1:'M188,612 L412,612',s2:'M86,468 L126,473',s3:'M514,468 L474,473',s4:'M222,478 L378,478',s5:'M234,144 L166,170',s6:'M366,144 L434,170'};
+function hoodie(parent,{x,y,s,color=PAPER,w=3.2,stitches=true,print=true}){
+  const outer=el('g',{},parent);
+  const g=el('g',{transform:`translate(${x},${y}) scale(${s}) translate(-300,-340)`},outer);
+  const paths={};
+  for(const k in HOODIE){ if(k==='print'&&!print) continue;
+    paths[k]=el('path',{d:HOODIE[k],fill:'none',stroke:color,'stroke-width':w/s,'stroke-linejoin':'round','stroke-linecap':'round',pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},g);}
+  if(stitches) for(const k in STITCH) paths[k]=el('path',{d:STITCH[k],fill:'none',stroke:color,'stroke-width':(w*.6)/s,'stroke-dasharray':`${6/s} ${5/s}`,opacity:0},g);
+  return {g:outer,inner:g,paths};
+}
+const drawable=o=>Object.keys(o.paths).filter(k=>!/^s\d$/.test(k)).map(k=>o.paths[k]);
+const stitchesOf=o=>Object.keys(o.paths).filter(k=>/^s\d$/.test(k)).map(k=>o.paths[k]);
+
+// ---------------- S1/S2 build ----------------
+const HS=.88, AX=290, BX=790, HY=960;
+const W2=(px,py,cx)=>[(px-300)*HS+cx,(py-340)*HS+HY];
+const AG=hoodie($('hAglitch'),{x:AX,y:HY,s:HS,color:CYAN,w:3,stitches:false});
+$('hAglitch').style.opacity=0;
+const A=hoodie($('hA'),{x:AX,y:HY,s:HS});
+const B=hoodie($('hB'),{x:BX,y:HY,s:HS});
+const shardPolys=[[[246,250],[300,250],[288,290],[246,282]],[[300,250],[354,250],[354,286],[288,290]],[[246,282],[288,290],[276,330],[246,330]],[[288,290],[354,286],[354,330],[276,330]]];
+const shards=shardPolys.map(p=>el('polygon',{points:p.map(([a,b])=>W2(a,b,AX).join(',')).join(' '),fill:'none',stroke:PAPER,'stroke-width':3,opacity:0},$('shards')));
+const bPrint=el('g',{opacity:0},$('hB'));
+for(let i=0;i<5;i++){const [x1,y1]=W2(256,262+i*14,BX),[x2]=W2(344,0,BX);el('line',{x1,x2,y1,y2:y1,stroke:CYAN,'stroke-width':3.5},bPrint);}
+const pr=rnd(7);const pills=[];
+for(let i=0;i<46;i++){const [x,y]=W2(130+pr()*340,170+pr()*420,AX);pills.push(el('circle',{cx:x,cy:y,r:2+pr()*3,fill:RED,opacity:0},$('pills')));}
+const dims=$('dims');
+[AX,BX].forEach(cx=>{const [l]=W2(80,0,cx),[r]=W2(520,0,cx);
+  el('path',{d:`M${l},640 L${r},640 M${l},626 L${l},654 M${r},626 L${r},654`,stroke:CYAN,'stroke-width':3,fill:'none'},dims);
+  const t=el('text',{x:cx,y:614,'text-anchor':'middle','font-family':'BG','font-weight':800,'font-size':28,'letter-spacing':3,fill:CYAN},dims);t.textContent='SAME SPEC';});
+
+// ---------------- S3 planes ----------------
+const planes=[];
+for(let i=0;i<4;i++){const wrap=el('g',{},$('planes'));const o=hoodie(wrap,{x:0,y:0,s:.95,color:i===0?CYAN:PAPER,w:3,stitches:false,print:i!==1});
+  drawable(o).forEach(p=>p.setAttribute('stroke-dashoffset',0)); planes.push({wrap,o});}
+const S3={k:0,spread:0,drift:0};
+const guides=[el('line',{stroke:DIM,'stroke-width':2,'stroke-dasharray':'8 10',opacity:0},$('guides')),el('line',{stroke:DIM,'stroke-width':2,'stroke-dasharray':'8 10',opacity:0},$('guides'))];
+const leadLines=[0,1,2,3].map(i=>el('line',{stroke:i===0?CYAN:PAPER,'stroke-width':3,opacity:0},$('guides')));
+function planeFrame(){
+  const k=S3.k, sp=S3.spread;
+  planes.forEach((p,i)=>{
+    const y0=1150, yE=[800,990,1180,1370][i]+(i-1.5)*sp*36;
+    const y=y0+(yE-y0)*k, x=540+(640-540)*k+Math.sin(S3.drift*2+i)*6*k;
+    const sk=-30*k, sy=1-.62*k;
+    p.wrap.setAttribute('transform',`translate(${x},${y}) skewX(${sk}) scale(1,${sy})`);
+    p.wrap.setAttribute('opacity',k===0?(i===0?1:0):(1-i*.12));
+    leadLines[i].setAttribute('x1',330);leadLines[i].setAttribute('y1',[820,1010,1200,1390][i]);
+    leadLines[i].setAttribute('x2',x-200);leadLines[i].setAttribute('y2',y);
+  });
+  guides[0].setAttribute('x1',440);guides[0].setAttribute('x2',440);guides[1].setAttribute('x1',860);guides[1].setAttribute('x2',860);
+  guides.forEach(g=>{g.setAttribute('y1',760);g.setAttribute('y2',1420);});
+}
+
+// ---------------- S4 knit ----------------
+const KC=16,KR=31,KW=1080/KC,KH=64;
+function rowPath(y){let d='';for(let c=-1;c<=KC;c++){const x=c*KW;d+=`M${x+3},${y} Q${x+KW*.25},${y+KH*1.05} ${x+KW/2},${y+KH*1.12} Q${x+KW*.75},${y+KH*1.05} ${x+KW-3},${y} `;}return d;}
+const knitRows=[],magRows=[];
+for(let r=0;r<KR;r++){const d=rowPath(r*KH-20);
+  knitRows.push(el('path',{d,fill:'none',stroke:r%2?'#CFCDC8':'#A9A7A2','stroke-width':5,'stroke-linecap':'round',opacity:.42},$('knit')));
+  magRows.push(el('path',{d,fill:'none',stroke:r%2?PAPER:'#DCDAD5','stroke-width':4,'stroke-linecap':'round'},$('knitMag')));}
+const S4={wave:1,loupeX:300,loupeY:700,lead:0,leadTo:[540,690]};
+function knitFrame(t){
+  const tt=t-8;
+  const off=r=>`translate(${Math.sin(tt*2.1+r*.42)*14*S4.wave},${Math.sin(tt*1.4+r*.2)*5*S4.wave})`;
+  knitRows.forEach((p,r)=>p.setAttribute('transform',off(r)));
+  magRows.forEach((p,r)=>p.setAttribute('transform',off(r)));
+  const cx=S4.loupeX, cy=S4.loupeY;
+  ['loupeC','loupeRing'].forEach(id=>{$(id).setAttribute('cx',cx);$(id).setAttribute('cy',cy);});
+  $('knitMag').setAttribute('transform',`translate(${cx},${cy}) scale(2.4) translate(${-cx},${-cy})`);
+  const [lx,ly]=S4.leadTo, ex=cx+170, k=S4.lead;
+  $('loupeLead').setAttribute('d',`M${ex},${cy} L${ex+(lx-ex)*k},${cy+(ly-cy)*k}`);
+}
+
+// ---------------- S5 sewing simulation ----------------
+const NX=760, V=230;
+function sewPanel(gid,y0,pat1,pat2,color){
+  const g=$(gid);
+  el('rect',{x:-40,y:y0,width:1160,height:130,fill:`url(#${pat1})`},g);
+  const lower=el('rect',{x:-40,y:y0+130,width:1160,height:100,fill:`url(#${pat2})`},g);
+  el('line',{x1:-40,x2:1120,y1:y0+130,y2:y0+130,stroke:'#3A3E47','stroke-width':3},g);
+  const st=el('g',{},g);
+  el('rect',{x:NX-50,y:y0+98,width:100,height:26,rx:6,fill:'#2E323B',stroke:'#4A4F5A','stroke-width':2},g);
+  const bar=el('rect',{x:NX-10,y:y0-150,width:20,height:110,fill:'#555A66'},g);
+  const needle=el('line',{x1:NX,x2:NX,y1:y0-60,y2:y0+120,stroke:'#D8DCE3','stroke-width':6,'stroke-linecap':'round'},g);
+  const thread=el('line',{x1:NX+3,x2:NX+3,y1:y0-150,y2:y0+120,stroke:color,'stroke-width':3},g);
+  return {g,st,needle,bar,thread,lower,y0,seamY:y0+130};
+}
+const PA=sewPanel('sewA',600,'twillA','twillB',RED), PB=sewPanel('sewB',1000,'twillC','twillD',CYAN);
+const r5=rnd(42);
+const dropsA=[];for(let t=12.35;t<13.75;t+=.27+(r5()-.5)*.12) dropsA.push({t,jy:(r5()-.5)*22});
+const dropsB=[];for(let t=12.5;t<14.6;t+=1/16) dropsB.push({t,jy:0});
+window.DROPS_A=dropsA.map(d=>d.t);window.DROPS_B=dropsB.map(d=>d.t);
+const segA=dropsA.slice(0,-1).map(()=>el('line',{stroke:RED,'stroke-width':9,'stroke-linecap':'round',opacity:0},PA.st));
+const segB=dropsB.slice(0,-1).map(()=>el('line',{stroke:CYAN,'stroke-width':9,'stroke-linecap':'round',opacity:0},PB.st));
+const S5={snap:0,sepA:0};
+function sewFrame(t){
+  ['twillA','twillB','twillC','twillD'].forEach((id,i)=>{const run=i<2?Math.min(t,13.75):Math.min(t,14.6);$(id).setAttribute('patternTransform',`translate(${-Math.max(0,run-12.0)*V})`);});
+  dropsA.forEach((d,k)=>{if(k===dropsA.length-1)return;const n=dropsA[k+1];const s=segA[k];
+    if(t<n.t){s.setAttribute('opacity',0);return;}
+    const run=Math.min(t,13.75);
+    const x1=NX-V*(run-d.t)-6, x2=NX-V*(run-n.t)+6;
+    const lift=S5.snap*(k*0.9+1)*30, drift=S5.snap*(k%2?-1:1)*20;
+    s.setAttribute('x1',x1+drift);s.setAttribute('x2',x2+drift);
+    s.setAttribute('y1',PA.seamY+d.jy-lift);s.setAttribute('y2',PA.seamY+n.jy-lift*1.1);
+    s.setAttribute('opacity',Math.max(0,1-S5.snap*1.2));});
+  PA.lower.setAttribute('transform',`translate(0 ${S5.sepA*38}) rotate(${S5.sepA*-2.5} 540 ${PA.seamY})`);
+  dropsB.forEach((d,k)=>{if(k===dropsB.length-1)return;const n=dropsB[k+1];const s=segB[k];
+    if(t<n.t){s.setAttribute('opacity',0);return;}
+    const run=Math.min(t,14.6);
+    s.setAttribute('x1',NX-V*(run-d.t)-3);s.setAttribute('x2',NX-V*(run-n.t)+3);
+    s.setAttribute('y1',PB.seamY);s.setAttribute('y2',PB.seamY);s.setAttribute('opacity',1);});
+  const nd=(P,drops,end)=>{let y=-70;
+    if(t>=drops[0].t-.1&&t<end){let i=0;while(i<drops.length-1&&drops[i+1].t<=t)i++;
+      const a=drops[i].t,b=(drops[i+1]||{t:a+.25}).t;const ph=Math.min(1,Math.max(0,(t-a)/(b-a)));
+      y=-70*(1-Math.cos(2*Math.PI*ph))/2;}
+    P.needle.setAttribute('y1',P.y0-60+y);P.needle.setAttribute('y2',P.seamY+6+y);P.bar.setAttribute('y',P.y0-150+y);P.thread.setAttribute('y2',P.seamY+6+y);};
+  nd(PA,dropsA,13.75);nd(PB,dropsB,14.6);
+}
+const RIBN=40;const ribRects=[];const S5r={w:760};
+const ribG=$('rib');ribG.style.opacity=0;
+const ribBox=el('rect',{fill:'none',stroke:PAPER,'stroke-width':4},ribG);
+for(let i=0;i<RIBN;i++) ribRects.push(el('rect',{fill:i%2?'#2B2F38':'#16181D'},ribG));
+ribG.appendChild(ribBox);
+const ribArrL=el('path',{d:'',stroke:CYAN,'stroke-width':6,fill:'none'},ribG), ribArrR=el('path',{d:'',stroke:CYAN,'stroke-width':6,fill:'none'},ribG);
+function ribFrame(){const W=S5r.w,x0=540-W/2,y0=760,h=280;
+  ribBox.setAttribute('x',x0);ribBox.setAttribute('y',y0);ribBox.setAttribute('width',W);ribBox.setAttribute('height',h);
+  ribRects.forEach((r,i)=>{r.setAttribute('x',x0+i*W/RIBN);r.setAttribute('y',y0);r.setAttribute('width',W/RIBN+.5);r.setAttribute('height',h);});
+  const ext=(W-760)/2;
+  ribArrL.setAttribute('d',`M${x0-14},900 L${x0-70},900 M${x0-48},876 L${x0-70},900 L${x0-48},924`);
+  ribArrR.setAttribute('d',`M${x0+W+14},900 L${x0+W+70},900 M${x0+W+48},876 L${x0+W+70},900 L${x0+W+48},924`);
+  const o=Math.min(1,ext/40);ribArrL.setAttribute('opacity',o);ribArrR.setAttribute('opacity',o);}
+
+// ---------------- S6 embroidery ----------------
+const gridG=$('grid');
+for(let x=-40;x<=1120;x+=48) el('line',{x1:x,x2:x,y1:560,y2:1360,stroke:'#1C1F25','stroke-width':2},gridG);
+for(let y=560;y<=1360;y+=48) el('line',{x1:-40,x2:1120,y1:y,y2:y,stroke:'#1C1F25','stroke-width':2},gridG);
+const deco=$('deco');
+const cross=el('g',{opacity:0},deco);
+el('line',{x1:540,x2:540,y1:560,y2:1340,stroke:CYAN,'stroke-width':2,'stroke-dasharray':'12 9'},cross);
+el('line',{x1:40,x2:1040,y1:950,y2:950,stroke:CYAN,'stroke-width':2,'stroke-dasharray':'12 9'},cross);
+const meas=[el('path',{d:'M200,800 L880,800 M200,784 L200,816 M880,784 L880,816',stroke:CYAN,'stroke-width':4,fill:'none',pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},deco),
+            el('path',{d:'M150,830 L150,1080 M134,830 L166,830 M134,1080 L166,1080',stroke:CYAN,'stroke-width':4,fill:'none',pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},deco)];
+const logoOutline=el('text',{x:540,y:1060,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':340,'letter-spacing':8,fill:'none',stroke:PAPER,'stroke-width':3,'stroke-dasharray':'2600','stroke-dashoffset':'2600'},deco);logoOutline.textContent='LOGO';
+const satinG=el('g',{'clip-path':'url(#logoClip)'},deco);
+const SATN=150, satin=[];
+for(let i=0;i<SATN;i++){const x=180+i*5;satin.push(el('line',{x1:x,y1:1080,x2:x+80,y2:780,stroke:i%4===0?CYAN:PAPER,'stroke-width':4,opacity:0},satinG));}
+const head=el('g',{opacity:0},deco);
+el('circle',{cx:0,cy:0,r:26,fill:'none',stroke:CYAN,'stroke-width':4},head);
+el('path',{d:'M-46,0 L-30,0 M30,0 L46,0 M0,-46 L0,-30 M0,30 L0,46',stroke:CYAN,'stroke-width':4},head);
+el('line',{x1:0,x2:0,y1:-400,y2:-4,stroke:'#D8DCE3','stroke-width':5},head);
+const S6={p:0};
+function decoFrame(t){const n=Math.floor(S6.p*SATN);satin.forEach((l,i)=>l.setAttribute('opacity',i<n?1:0));
+  const x=200+S6.p*760, y=930+Math.sin(t*44)*120;head.setAttribute('transform',`translate(${x},${y})`);
+  gridG.setAttribute('transform',`translate(${-(t-16)*18},${(t-16)*6})`);}
+
+// ---------------- S7 QC ----------------
+const Q=hoodie($('qc'),{x:280,y:960,s:.78,w:3});
+const scan=el('g',{opacity:0},$('qc'));
+el('rect',{x:20,y:-4,width:520,height:8,fill:CYAN},scan);el('rect',{x:20,y:-90,width:520,height:86,fill:CYAN,opacity:.13},scan);
+const qcDims=[el('path',{d:'M140,1060 L420,1060 M140,1046 L140,1074 M420,1046 L420,1074',stroke:CYAN,'stroke-width':4,fill:'none',pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},$('qc')),
+              el('path',{d:'M470,760 L470,1220 M456,760 L484,760 M456,1220 L484,1220',stroke:CYAN,'stroke-width':4,fill:'none',pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},$('qc'))];
+
+// ---------------- S8 ----------------
+const HH=hoodie($('heroH'),{x:540,y:1120,s:1.55,color:'#2B2E35',w:3,stitches:false});
+
+// ---------------- FX ----------------
+const fx=$('fx');
+function shock(tl,t,x,y,color=PAPER,R=1100,d=.9){const c=el('circle',{cx:x,cy:y,r:0,fill:'none',stroke:color,'stroke-width':14,opacity:0},fx);
+  tl.set(c,{attr:{r:10},opacity:.9},t);tl.to(c,{attr:{r:R,'stroke-width':1},opacity:0,duration:d,ease:'expo.out'},t);}
+function shake(tl,t,amp=22,d=.35){tl.to('#world',{keyframes:[{x:amp,y:-amp*.6},{x:-amp*.8,y:amp*.5},{x:amp*.5,y:amp*.3},{x:-amp*.3,y:-amp*.2},{x:0,y:0}],duration:d,ease:'none'},t);}
+const S10={tear:0};
+function tearFrame(){ if(S10.tear<=0)return; const B=1920*(1-S10.tear); const r=rnd(99); const pts=['0px 0px','1080px 0px',`1080px ${B}px`];
+  for(let x=1080;x>=0;x-=36) pts.push(`${x}px ${B+(r()-.5)*70}px`); pts.push(`0px ${B}px`); $('paper').style.clipPath=`polygon(${pts.join(',')})`;}
+
+// ---------------- TIMELINE ----------------
+const tl=gsap.timeline({paused:true});
+const E='expo.out', EI='expo.in';
+const show=(ids,t)=>tl.set(ids,{visibility:'visible'},t);
+const hide=(ids,t)=>tl.set(ids,{visibility:'hidden'},t);
+const rise=(ids,t,d=.5,st=.12)=>{gsap.set(ids,{yPercent:115});tl.fromTo(ids,{yPercent:115},{yPercent:0,duration:d,stagger:st,ease:E},t);};
+const slam=(id,t,s=1.3)=>{gsap.set(id,{yPercent:115});tl.fromTo(id,{yPercent:115,scale:s},{yPercent:0,scale:1,duration:.45,ease:E,transformOrigin:'0% 100%'},t);};
+const sink=(ids,t)=>tl.to(ids,{yPercent:-115,duration:.28,stagger:.04,ease:EI},t);
+const draw=(els,t,d,st=0,ease='power2.inOut')=>tl.to(els,{attr:{'stroke-dashoffset':0},duration:d,stagger:st,ease},t);
+const tagIn=(id,t)=>{show(id,t);tl.fromTo(id,{scale:1.6,opacity:0},{scale:1,opacity:1,duration:.28,ease:'back.out(3)',transformOrigin:'50% 50%'},t);};
+const whipOut=(id,t,dir=-1)=>tl.to(id,{x:dir*520,filter:'blur(28px)',opacity:0,duration:.24,ease:EI},t);
+const whipIn=(id,t,dir=1)=>{show(id,t);tl.fromTo(id,{x:dir*520,filter:'blur(28px)',opacity:0},{x:0,filter:'blur(0px)',opacity:1,duration:.32,ease:E},t);};
+const chapIn=(id,t)=>{show(id,t);tl.fromTo(id+' .rule',{scaleX:0},{scaleX:1,duration:.55,ease:'expo.inOut'},t);
+  tl.fromTo(id+' .n',{yPercent:70,opacity:0},{yPercent:0,opacity:1,duration:.45,ease:E},t+.06);
+  tl.fromTo(id+' .t',{xPercent:-10,opacity:0},{xPercent:0,opacity:1,duration:.45,ease:E},t+.14);};
+const chapOut=(id,t)=>tl.to(id,{opacity:0,y:-50,duration:.25,ease:EI},t);
+const sweep=(t,d=.7)=>{tl.set('#sweep',{opacity:1},t);tl.fromTo('#sweep',{x:-700},{x:1400,duration:d,ease:'power2.inOut'},t);tl.set('#sweep',{opacity:0},t+d);};
+
+/* S1 0.0-2.4 */
+show(['#sc1','#t1'],0);
+tl.fromTo('#sc1',{scale:1.14},{scale:1.0,duration:2.4,ease:'power2.out',transformOrigin:'50% 50%'},0);
+tl.to('#split',{attr:{'stroke-dashoffset':0},duration:.45,ease:'expo.inOut'},0.0);
+slam('#t1a',0.05,1.35);
+draw(drawable(A),.15,.65,.025);draw(drawable(B),.22,.65,.025);
+tl.to(stitchesOf(A).concat(stitchesOf(B)),{opacity:1,duration:.2},.8);
+tl.to(shards.concat([bPrint]),{opacity:1,duration:.15},.8);
+show(['#labA','#labB'],.8);tl.fromTo(['#labA','#labB'],{opacity:0},{opacity:1,duration:.3},.8);
+sweep(.75,.6);
+tl.to('#dims',{opacity:1,duration:.2},1.15);
+slam('#t1b',1.6,1.3);
+tl.fromTo('#eq',{opacity:0,scale:2.2},{opacity:1,scale:1,duration:.3,ease:'back.out(3)',svgOrigin:'540 960'},1.6);
+shock(tl,1.6,540,960,CYAN,700,.7);
+
+/* S2 2.4-4.8 */
+sink(['#t1a','#t1b'],2.25);
+tl.to(['#eq','#dims','#split'],{opacity:0,duration:.15},2.3);
+tl.to(['#labA','#labB'],{opacity:0,duration:.15},2.3);
+show('#t2',2.4);slam('#t2a',2.42,1.3);slam('#t2b',2.56,1.3);
+tl.to('#sc1',{scale:1.2,x:(540-AX)*1.2,duration:.45,ease:'expo.inOut'},2.4);
+tl.to(drawable(A),{stroke:RED,duration:.15},2.5);
+tl.to(stitchesOf(A),{stroke:RED,attr:{'stroke-dasharray':'2 26'},duration:.6,ease:'power2.in'},2.55);
+tl.to([A.paths.body,A.paths.hem,A.paths.cuffL,A.paths.cuffR,A.paths.hood],{attr:{'stroke-dasharray':'0.03 0.022'},duration:.8,ease:'power2.in'},2.6);
+tl.to(A.g,{scaleX:.9,scaleY:.83,skewX:4,svgOrigin:`${AX} 1240`,duration:.5,ease:'back.out(2)'},2.8);
+tagIn('#g1',2.8);
+tl.set('#hAglitch',{opacity:.8},2.8);tl.set(drawable(AG),{attr:{'stroke-dashoffset':0}},2.8);
+tl.to('#hAglitch',{keyframes:[{x:9,y:-4},{x:-11,y:3},{x:6,y:5},{x:-4,y:-2},{x:0,y:0}],duration:.45,ease:'none'},2.8);
+tl.to('#hAglitch',{opacity:0,duration:.1},3.3);
+tl.to('#hA',{keyframes:[{x:-8},{x:7},{x:-5},{x:4},{x:0}],duration:.4},2.8);
+shards.forEach((s,i)=>{tl.to(s,{attr:{stroke:RED},duration:.05},3.2);
+  tl.to(s,{x:[-90,80,-60,70][i],y:[300,340,460,420][i],rotation:[-50,40,-80,70][i],transformOrigin:'50% 50%',opacity:0,duration:1.0,ease:'expo.in'},3.22+i*.04);});
+tagIn('#g2',3.2);shock(tl,3.2,AX,W2(0,290,AX)[1],RED,420,.5);
+tl.to(A.paths.hem,{attr:{transform:'translate(0 24) rotate(-9 300 620)'},duration:.5,ease:'back.out(3)'},3.6);
+tl.to(A.paths.cuffL,{attr:{transform:'translate(-24 150) rotate(-38 100 480)'},opacity:0,duration:.8,ease:'expo.in'},3.6);
+tl.to(A.paths.cuffR,{attr:{transform:'translate(20 70) rotate(26 500 480)'},duration:.6,ease:'power2.in'},3.65);
+tl.to(pills,{opacity:.9,duration:.05,stagger:.006},3.6);
+tagIn('#g3',3.6);
+tl.to(['#g1','#g2','#g3'],{opacity:0,duration:.12},3.95);
+tl.to('#sc1',{x:(540-BX)*1.2,filter:'blur(22px)',duration:.18,ease:'power3.in'},4.0);
+tl.to('#sc1',{filter:'blur(0px)',duration:.15,ease:'power2.out'},4.18);
+tl.set(drawable(B),{stroke:CYAN},4.1);tl.set(B.g,{attr:{filter:'url(#glow)'}},4.1);
+tagIn('#g4',4.2);
+shock(tl,4.2,540,960,CYAN,800,.7);
+
+/* S3 4.8-8.0 */
+sink(['#t2a','#t2b'],4.62);
+tl.to('#g4',{opacity:0,duration:.12},4.7);
+whipOut('#sc1',4.78);hide('#sc1',5.05);
+whipIn('#sc3',4.82);
+show('#t3',4.9);rise(['#t3a','#t3b'],4.92,.45,.12);
+tl.fromTo('#sc3',{scale:1.0},{scale:1.08,duration:2.6,ease:'none',transformOrigin:'50% 60%'},4.82);
+sink(['#t3a','#t3b'],5.95);
+show('#t3c',6.05);rise(['#t3d','#t3e','#t3f'],6.08,.45,.1);
+tl.to(S3,{k:1,duration:.7,ease:'expo.inOut'},6.3);
+tl.to(S3,{spread:1,drift:2,duration:1.1,ease:'power1.inOut'},6.5);
+tl.to(guides,{opacity:1,duration:.3},6.7);
+['#ly1','#ly2','#ly3','#ly4'].forEach((id,i)=>{show(id,6.8+i*.1);tl.fromTo(id,{x:-40,opacity:0},{x:0,opacity:1,duration:.35,ease:E},6.8+i*.1);tl.to(leadLines[i],{opacity:.8,duration:.2},6.85+i*.1);});
+tl.to(['#t3c','#ly1','#ly2','#ly3','#ly4'],{opacity:0,duration:.15},7.4);
+tl.to('#sc3',{scale:5.5,transformOrigin:'60% 41%',filter:'blur(12px)',duration:.55,ease:'expo.in'},7.45);
+tl.to('#flash',{opacity:.85,duration:.05},7.96);tl.to('#flash',{opacity:0,duration:.3},8.01);
+hide('#sc3',8.0);
+
+/* S4 8.0-12.0 FABRIC */
+show(['#sc4','#topfade'],8.0);
+tl.fromTo('#sc4',{scale:1.5,rotation:-6},{scale:1.04,rotation:0,duration:4.0,ease:'power2.out',transformOrigin:'50% 50%'},8.0);
+chapIn('#ch1',8.05);
+sweep(8.3,.9);
+tl.to(['#loupeRing','#loupeBg'],{opacity:1,duration:.3},9.0);
+tl.fromTo(S4,{loupeX:-200,loupeY:520},{loupeX:300,loupeY:690,duration:.6,ease:E},9.0);
+[[9.6,'#c1',[300,690],[540,700]],[10.4,'#c2',[320,1010],[540,1020]],[11.2,'#c3',[290,1330],[540,1340]]].forEach(([t,id,pos,lead],i)=>{
+  if(i>0) tl.to(S4,{loupeX:pos[0],loupeY:pos[1],duration:.4,ease:'expo.inOut'},t-.42);
+  tl.set(S4,{leadTo:lead,lead:0},t-.05);tl.to(S4,{lead:1,duration:.15,ease:'power2.out'},t-.05);
+  show(id,t);tl.fromTo(id,{opacity:0,x:60},{opacity:1,x:0,duration:.35,ease:E},t);
+  if(i<2) tl.to(id,{opacity:.35,duration:.2},t+.75);});
+tl.to('#loupeLead',{opacity:1,duration:.1},9.55);
+chapOut('#ch1',11.75);
+whipOut('#sc4',11.76,-1);tl.to(['#c1','#c2','#c3'],{opacity:0,duration:.12},11.72);hide(['#sc4','#topfade'],12.0);
+
+/* S5 12.0-16.0 CONSTRUCTION */
+whipIn('#sc5',12.0);
+tl.fromTo('#sc5',{scale:1.06},{scale:1.0,duration:2.5,ease:'power1.out',transformOrigin:'50% 40%'},12.0);
+chapIn('#ch2',12.05);
+tagIn('#sA',12.2);tagIn('#sB',12.4);
+tl.to(S5,{snap:1,duration:.7,ease:'expo.out'},13.75);
+tl.to(S5,{sepA:1,duration:.5,ease:'back.out(2)'},13.78);
+shock(tl,13.75,NX,PA.seamY,RED,500,.5);
+show('#t5',13.95);rise(['#t5a','#t5b'],13.95,.4,.1);
+tl.to(['#t5','#sA','#sB'],{opacity:0,duration:.15},14.55);
+tl.to(['#sewA','#sewB'],{y:-700,opacity:0,duration:.3,ease:EI},14.55);
+tl.set(ribG,{opacity:1},14.6);tl.fromTo(ribG,{y:500},{y:0,duration:.3,ease:E},14.6);
+tl.fromTo(S5r,{w:760},{w:930,duration:.55,ease:'power2.in'},14.85);
+tl.to(S5r,{w:760,duration:.75,ease:'elastic.out(1.3,0.32)'},15.4);
+shock(tl,15.4,540,900,CYAN,900,.7);shake(tl,15.4,14,.3);
+show('#t5r',15.45);rise(['#t5c','#t5d'],15.45,.35,.08);
+chapOut('#ch2',15.75);whipOut('#sc5',15.76,-1);tl.to('#t5r',{opacity:0,duration:.15},15.72);hide('#sc5',16.0);
+
+/* S6 16.0-19.2 DECORATION */
+whipIn('#sc6',16.0);
+tl.fromTo('#sc6',{scale:1.12,rotation:3},{scale:1.0,rotation:-1.5,duration:3.2,ease:'power1.out',transformOrigin:'50% 50%'},16.0);
+chapIn('#ch3',16.05);
+tl.to(logoOutline,{attr:{'stroke-dashoffset':0},duration:.7,ease:'power2.inOut'},16.2);
+tl.to(head,{opacity:1,duration:.15},16.7);
+tl.fromTo(S6,{p:0},{p:1,duration:1.45,ease:'none'},16.75);
+tl.to(head,{opacity:0,duration:.15},18.2);
+sweep(18.25,.6);
+tl.to(cross,{opacity:1,duration:.15},17.6);
+draw(meas,17.7,.35,.1,'power2.out');
+show(['#dl1','#dl2'],17.75);tl.fromTo(['#dl1','#dl2'],{opacity:0},{opacity:1,duration:.2,stagger:.1},17.75);
+show('#t6',18.1);rise(['#t6a','#t6b'],18.1,.35,.08);
+chapOut('#ch3',18.95);whipOut('#sc6',18.96,-1);tl.to(['#dl1','#dl2','#t6'],{opacity:0,duration:.12},18.92);hide('#sc6',19.2);
+
+/* S7 19.2-22.4 QC */
+whipIn('#sc7',19.2);
+tl.fromTo('#sc7',{scale:1.0},{scale:1.06,duration:2.4,ease:'none',transformOrigin:'30% 50%'},19.2);
+chapIn('#ch4',19.25);
+draw(drawable(Q),19.25,.55,.02);tl.to(stitchesOf(Q),{opacity:1,duration:.2},19.7);
+show('#qcList',19.3);gsap.set(['#q1','#q2','#q3','#q4'],{opacity:.22});
+tl.to(scan,{opacity:1,duration:.1},19.5);tl.fromTo(scan,{y:700},{y:1240,duration:1.9,ease:'none'},19.5);
+draw(qcDims,19.9,.5,.3,'power2.out');
+[19.6,20.2,20.8,21.4].forEach((t,i)=>{const id='#q'+(i+1);tl.to(id,{opacity:1,duration:.08},t);
+  tl.to(id+' path',{attr:{'stroke-dashoffset':0},duration:.2,ease:'power2.out'},t);
+  tl.fromTo(id+' .o',{scale:1.5},{scale:1,duration:.3,ease:'back.out(3)'},t);});
+tl.to(scan,{opacity:0,duration:.1},21.45);
+show('#t7',21.5);rise(['#t7a','#t7b'],21.5,.38,.1);
+tl.to('#sc7',{scale:1.25,duration:.6,ease:EI},21.6);
+tl.to('#black',{opacity:1,duration:.06},22.16);
+hide(['#ch4','#sc7','#qcList','#t7'],22.3);
+
+/* S8 22.4-26.4 STATEMENT */
+tl.set('#black',{opacity:0},22.4);
+show(['#t8','#sc8'],22.4);gsap.set('#under',{scaleX:0});
+tl.to('#flash',{opacity:.85,duration:.02},22.4);tl.to('#flash',{opacity:0,duration:.3,ease:'power2.out'},22.43);
+shake(tl,22.4,30,.45);shock(tl,22.4,540,700,PAPER,1300,1.0);
+slam('#h1',22.4,1.4);slam('#h2',22.8,1.3);slam('#h3',23.2,1.35);
+tl.to('#under',{scaleX:1,duration:.35,ease:'expo.inOut'},23.45);shock(tl,23.2,540,1000,RED,1000,.8);
+slam('#h4',24.0,1.25);slam('#h5',24.4,1.35);shock(tl,24.4,540,1250,CYAN,1100,.9);shake(tl,24.4,14,.3);
+draw(drawable(HH),22.5,2.8,.08,'power1.inOut');
+tl.fromTo('#t8',{scale:1},{scale:1.06,transformOrigin:'50% 50%',duration:3.6,ease:'none'},22.4);
+tl.fromTo('#sc8',{scale:1.1},{scale:1,transformOrigin:'50% 58%',duration:3.6,ease:'none'},22.4);
+sweep(25.0,.8);
+tl.to('#paper',{clipPath:'inset(0% 0 0 0)',duration:.45,ease:'expo.inOut'},26.0);
+tl.to('#vig',{opacity:.25,duration:.4},26.0);tl.to('#grain',{opacity:.3,duration:.4},26.0);
+hide(['#t8','#sc8'],26.45);
+
+/* S9 26.4-30.4 */
+show(['#t9','#sc9'],26.4);rise(['#k0','#k1','#k2'],26.45,.45,.1);
+show('#steps',26.9);gsap.set(['#p1','#p2','#p3','#p4','#p5'],{opacity:0,x:-40});
+tl.fromTo('#threadMask',{attr:{y:700,height:620}},{attr:{y:1320,height:0},duration:1.7,ease:'none'},26.95);
+tl.set('#needleP',{opacity:1},26.95);tl.fromTo('#needleP',{x:122,y:700},{x:122,y:1320,duration:1.7,ease:'none'},26.95);
+tl.to('#needleP',{opacity:0,duration:.1},28.7);
+[27.0,27.4,27.8,28.2,28.6].forEach((t,i)=>tl.to('#p'+(i+1),{opacity:1,x:0,duration:.3,ease:E},t));
+tl.fromTo('#p4',{scale:1},{scale:1.1,transformOrigin:'0% 50%',duration:.14,yoyo:true,repeat:1},28.2);
+show('#stats',29.0);gsap.set(['#st1','#st2'],{opacity:0,y:50});
+tl.to('#st1',{opacity:1,y:0,duration:.4,ease:'back.out(2)'},29.0);
+tl.to('#st2',{opacity:1,y:0,duration:.4,ease:'back.out(2)'},29.4);
+tl.to(['#t9','#steps','#stats','#sc9'],{y:-260,opacity:0,duration:.45,ease:EI},29.95);
+tl.fromTo(S10,{tear:0.0001},{tear:1,duration:.45,ease:EI,immediateRender:false},29.95);
+tl.to('#vig',{opacity:1,duration:.3},30.0);tl.to('#grain',{opacity:.55,duration:.3},30.0);
+hide(['#t9','#steps','#stats','#sc9','#paper'],30.4);
+
+/* S10 30.4-33.6 PAYOFF */
+show(['#sc10','#e0'],30.4);
+tl.fromTo('#e0',{opacity:0,letterSpacing:'.5em'},{opacity:1,letterSpacing:'.24em',duration:.7,ease:E},30.4);
+tl.to('#flash',{opacity:.6,duration:.02},30.4);tl.to('#flash',{opacity:0,duration:.35},30.42);
+shock(tl,30.4,540,880,CYAN,1300,1.0);shake(tl,30.4,26,.4);
+tl.fromTo('#wmReveal',{attr:{width:0}},{attr:{width:1020},duration:.5,ease:'power2.inOut'},30.42);
+tl.fromTo('#sc10',{scale:1.15},{scale:1.0,duration:3.2,ease:'power3.out',transformOrigin:'50% 46%'},30.4);
+tl.fromTo('#wmFill',{opacity:0},{opacity:1,duration:.12,ease:'none'},31.0);tl.fromTo('#sc10',{y:0},{keyframes:[{y:-14,duration:.06},{y:0,duration:.3,ease:'back.out(3)'}]},31.0);
+shock(tl,31.0,540,880,PAPER,1200,.9);shake(tl,31.0,18,.3);
+sweep(31.05,.7);
+tl.fromTo('#wmThreadMask',{attr:{x:140,width:800}},{attr:{x:940,width:0},duration:.5,ease:'power2.inOut'},31.3);
+show('#end',31.3);gsap.set(['#e2','#e3','#e4'],{opacity:0});
+tl.fromTo('#e2',{opacity:0,y:20},{opacity:1,y:0,duration:.35},31.35);
+tl.fromTo('#e3',{opacity:0,scale:.7},{opacity:1,scale:1,duration:.4,ease:'back.out(2.5)'},31.7);
+tl.to('#e4',{opacity:.85,duration:.35},32.1);
+tl.to({},{duration:.01},33.6);
+
+// ---------------- frame hooks + grain ----------------
+const gc=$('grain').getContext('2d');const img=gc.createImageData(540,960);
+function grain(f){let s=(f*2654435761)>>>0||7;const d=img.data;
+  for(let i=0;i<d.length;i+=4){s^=s<<13;s>>>=0;s^=s>>>17;s^=s<<5;s>>>=0;const v=128+((s&255)-128)*.55;d[i]=d[i+1]=d[i+2]=v;d[i+3]=255;}
+  gc.putImageData(img,0,0);}
+window.renderAt=t=>{tl.seek(t,false);
+  if(t>=4.8&&t<8.1) planeFrame();
+  if(t>=7.9&&t<12.2) knitFrame(t);
+  if(t>=11.9&&t<16.1){sewFrame(t);ribFrame();}
+  if(t>=15.9&&t<19.3) decoFrame(t);
+  if(t>=29.9) tearFrame();
+  grain(Math.round(t*30));};
+window.DURATION=33.6;
+document.fonts.ready.then(()=>{renderAt(0);window.ready=true;});
+</script>
+</body></html>
