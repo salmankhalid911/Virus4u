@@ -1,0 +1,131 @@
+{
+  "brand": "Kickster Brandlab",
+  "goal": "Booked samples and bulk orders from US streetwear brand founders. Views only matter if they turn into leads.",
+  "dimensions": {
+    "hook_formula": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26"
+    ],
+    "format": [
+      "reel",
+      "carousel",
+      "single_image"
+    ],
+    "length_bucket": [
+      "under_15s",
+      "15_30s",
+      "30_60s",
+      "over_60s"
+    ],
+    "theme": [
+      "blanks_vs_cut_and_sew",
+      "scam_protection",
+      "factory_process",
+      "product_showcase",
+      "start_small_moq",
+      "fabric_and_trims",
+      "founder_story",
+      "offer"
+    ],
+    "visual_style": [
+      "motion_graphic",
+      "factory_footage",
+      "product_footage",
+      "talking_head",
+      "text_only",
+      "mixed"
+    ],
+    "cta": [
+      "comment_PRICE",
+      "dm",
+      "link_in_bio",
+      "follow",
+      "none"
+    ]
+  },
+  "priors_note": "Starting beliefs before any data (score units: +0.3 = expected ~35% better than a typical post). Real results override these after a few posts. Sources: ig-plan (Reels reach non-followers), voice.md (PRICE keyword is the business CTA).",
+  "priors": {
+    "format": {
+      "reel": 0.3,
+      "carousel": 0.1,
+      "single_image": -0.2
+    },
+    "length_bucket": {
+      "under_15s": 0.1,
+      "15_30s": 0.2,
+      "30_60s": 0.0,
+      "over_60s": -0.2
+    },
+    "visual_style": {
+      "factory_footage": 0.2,
+      "product_footage": 0.2,
+      "motion_graphic": 0.1,
+      "mixed": 0.1,
+      "talking_head": 0.0,
+      "text_only": -0.1
+    },
+    "cta": {
+      "comment_PRICE": 0.3,
+      "dm": 0.1,
+      "link_in_bio": 0.0,
+      "follow": -0.1,
+      "none": -0.2
+    },
+    "theme": {
+      "offer": -0.1
+    }
+  },
+  "metric_weights": {
+    "views": 0.1,
+    "hold_3s_pct": 0.15,
+    "sends_per_reach": 0.2,
+    "follows_per_reach": 0.15,
+    "leads": 0.4
+  },
+  "lead_stage_points": {
+    "keyword_comment": 1,
+    "dm": 1,
+    "whatsapp": 2,
+    "quote": 3,
+    "sample": 6,
+    "bulk": 10
+  },
+  "learning": {
+    "prior_strength": 2,
+    "min_posts_for_verdict": 3,
+    "verdict_margin": 0.1
+  },
+  "planning": {
+    "posts_per_week": 5,
+    "explore_share": 0.4,
+    "max_drafts_per_week": 2,
+    "variety_dimensions": [
+      "hook_formula",
+      "theme"
+    ]
+  }
+}
