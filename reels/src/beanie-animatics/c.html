@@ -1,0 +1,106 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"></head><body>
+<div id="world"><div id="ov"></div><svg id="fx" viewBox="0 0 1080 1920"></svg><div id="sweep"></div><div id="black"></div><div id="flash"></div></div>
+<canvas id="grain" width="540" height="960"></canvas><div id="vig"></div><div class="stamp">ANIMATIC C · PREVIEW</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script><script src="common.js"></script>
+<script>
+/* STORYBOARD C — "Cheap vs built" (28.8 s) */
+const DUR=28.8;
+const PB=photo('pb','assets/photoB.jpg'), PA=photo('pa','assets/photoA.jpg');
+
+/* S1 0-2.4 HOOK: two beanies, one is merch */
+const s1=scene('s1');show(s1.id,0);
+const split=el('line',{x1:540,x2:540,y1:760,y2:1500,stroke:CYAN,'stroke-width':4,pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},s1.svg);
+const L=beanie(s1.svg,{x:280,y:1150,s:.82}), R=beanie(s1.svg,{x:800,y:1150,s:.82});
+tl.to(split,{attr:{'stroke-dashoffset':0},duration:.4,ease:'expo.inOut'},0);HITS.push([0,'mid']);sfx(0,'hit',.6);
+drawB(L,.1,.55);drawB(R,.18,.55);tl.to([L.patchG,R.patchG],{opacity:1,duration:.15},.6);
+const eq=el('text',{x:540,y:1180,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':140,fill:CYAN,opacity:0},s1.svg);eq.textContent='=';
+tl.to(eq,{opacity:1,duration:.1},.9);sfx(.9,'tick',.6);
+const h1=lines('h1',200,[['Two beanies.',176],['One is <span class="red">merch.</span>',176]]);
+show('#h1',.05);slam(h1,.05,1.15);
+// left one deflates, logo cracks
+tl.to(eq,{opacity:0,duration:.1},1.45);
+tl.to(L.main.concat(L.ribs),{stroke:RED,duration:.15},1.5);
+tl.to(L.g,{scaleY:.8,scaleX:1.06,skewX:5,svgOrigin:'280 1310',duration:.5,ease:'back.out(2)'},1.55);sfx(1.55,'deflate',.7);
+const shardG=el('g',{},s1.svg);const sp=[[[180,1218],[280,1218],[262,1250],[180,1246]],[[280,1218],[382,1218],[382,1250],[262,1250]],[[180,1246],[262,1250],[250,1286],[180,1286]],[[262,1250],[382,1250],[382,1286],[250,1286]]];
+const shards=sp.map(p=>el('polygon',{points:p.map(q=>q.join(',')).join(' '),fill:'#1B1C20',stroke:RED,'stroke-width':3,opacity:0},shardG));
+tl.set(L.patchG,{opacity:0},1.8);tl.set(shards,{opacity:1},1.8);sfx(1.8,'crack',.8);
+shards.forEach((s,i)=>tl.to(s,{x:[-80,70,-50,60][i],y:[260,300,420,380][i],rotation:[-40,35,-70,60][i],transformOrigin:'50% 50%',opacity:0,duration:.8,ease:'expo.in'},1.82+i*.03));
+const t1=tag('t1','Merch','left:150px;top:1440px','r'),t2=tag('t2','Built','left:700px;top:1440px','c');tagIn(t1,1.85);tagIn(t2,2.0);
+textOut('h1',h1,2.3);hide([t1,t2],2.35);whipOut(s1.id,2.3);
+
+/* S2 2.4-5.6 WEIGHT: cross-section */
+const s2=scene('s2');whipIn(s2.id,2.45);const c1=chapter('c1','01','Weight');chapIn(c1,2.5);
+const thin=el('path',{d:'M90,1050 Q150,1020 210,1050 T330,1050 T450,1050',fill:'none',stroke:RED,'stroke-width':6,pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},s2.svg);
+let hv='M590,1100';for(let i=0;i<6;i++){const x=590+i*66;hv+=` C${x-4},960 ${x+70},960 ${x+66},1100`;}
+const heavy=el('g',{},s2.svg);el('path',{d:hv,fill:'none',stroke:PAPER,'stroke-width':30,'stroke-linecap':'round'},heavy);el('path',{d:hv,fill:'none',stroke:CYAN,'stroke-width':14,'stroke-linecap':'round'},heavy);
+tl.to(thin,{attr:{'stroke-dashoffset':0},duration:.5},2.8);
+const l1=div('lab','Thin knit','left:90px;top:1150px;color:#B0212F');l1.id='l1';fadeIn('#l1',3.0);
+tl.set(heavy,{opacity:0},0);tl.set(heavy,{opacity:1},3.55);tl.fromTo(heavy,{y:-700},{y:0,duration:.3,ease:'expo.in'},3.55);
+bigHit(3.85,800,1060,CYAN,'mid');sfx(3.85,'thud',1);
+const l2=div('lab cy','Heavy rib knit','left:590px;top:1150px');l2.id='l2';fadeIn('#l2',3.9);
+const w1=tag('w1','Heavyweight','left:590px;top:1240px','c');tagIn(w1,4.2);
+const ruler=el('path',{d:'M1010,960 L1010,1110 M994,960 L1026,960 M994,1110 L1026,1110',stroke:CYAN,'stroke-width':4,fill:'none',opacity:0},s2.svg);tl.to(ruler,{opacity:1,duration:.2},4.4);
+chapOut(c1,5.4);hide(['#l1','#l2',w1],5.5);whipOut(s2.id,5.45);
+
+/* S3 5.6-8.8 SHAPE: stretch test */
+const s3=scene('s3');whipIn(s3.id,5.6);const c2=chapter('c2','02','Shape');chapIn(c2,5.65);
+const L3=beanie(s3.svg,{x:280,y:1100,s:.72,color:RED,patch:false}), R3=beanie(s3.svg,{x:800,y:1100,s:.72,color:PAPER,patch:false});
+setDrawn(L3,5.6);setDrawn(R3,5.6);
+const arr=el('g',{opacity:0},s3.svg);
+[[60,1100,-1],[480,1100,1],[580,1100,-1],[1020,1100,1]].forEach(([x,y,d])=>el('path',{d:`M${x},${y} l${d*50},0 m${-d*20},-18 l${d*20},18 l${-d*20},18`,stroke:CYAN,'stroke-width':6,fill:'none'},arr));
+tl.to(arr,{opacity:1,duration:.15},6.0);
+tl.to(L3.g,{scaleX:1.35,duration:.6,ease:'power2.in',svgOrigin:'280 1100'},6.0);tl.to(R3.g,{scaleX:1.35,duration:.6,ease:'power2.in',svgOrigin:'800 1100'},6.0);sfx(6.0,'stretch:.6',.6);
+tl.to(arr,{opacity:0,duration:.1},6.6);
+tl.to(L3.g,{scaleX:1.18,scaleY:.86,duration:.6,ease:'power2.out',svgOrigin:'280 1100'},6.6);sfx(6.6,'deflate',.6);
+tl.to(R3.g,{scaleX:1,duration:.75,ease:'elastic.out(1.3,.32)',svgOrigin:'800 1100'},6.6);shock(6.65,800,1100,CYAN,800,.7);sfx(6.6,'snap',.9);HITS.push([6.6,'mid']);
+const s3a=tag('s3a','Loses shape','left:90px;top:1420px','r'),s3b=tag('s3b','Holds shape','left:620px;top:1420px','c');tagIn(s3a,7.0);tagIn(s3b,7.3);
+chapOut(c2,8.6);hide([s3a,s3b],8.7);whipOut(s3.id,8.65);
+
+/* S4 8.8-12.0 LOGO: printed vs moulded */
+const s4=scene('s4');whipIn(s4.id,8.8);const c3=chapter('c3','03','The logo');chapIn(c3,8.85);
+const pr=el('text',{x:270,y:1095,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':170,fill:PAPER},s4.svg);pr.textContent='LOGO';
+const crackG=el('g',{opacity:0},s4.svg);const rr=rnd(5);for(let i=0;i<14;i++){const x=150+rr()*260,y=980+rr()*110;el('path',{d:`M${x},${y} l${(rr()-.5)*40},${rr()*30} l${(rr()-.5)*40},${rr()*30}`,stroke:INK,'stroke-width':4,fill:'none'},crackG);}
+tl.to(crackG,{opacity:1,duration:.3},9.6);tl.to(pr,{opacity:.35,fill:'#9A8F8A',duration:.6},9.6);sfx(9.6,'crack',.6);
+const lp=tag('lp','Printed','left:150px;top:1200px','r');tagIn(lp,9.8);
+const M=patchMould(s4.svg,{x:790,y:1040,s:.68,logo:'LOGO'});tl.set([M.plate,M.fillL],{opacity:0},0);
+tl.set(M.pat,{opacity:1},10.3);const PS={s:.2};tl.to(PS,{s:1,duration:.4,ease:'back.out(2.2)'},10.3);FRAME.push(()=>M.pat.setAttribute('transform',`scale(${PS.s})`));
+bigHit(10.3,800,1040,CYAN,'mid');sfx(10.3,'snap',.9);sweep(10.8,.6);
+const lm=tag('lm','Moulded rubber','left:610px;top:1200px','c');tagIn(lm,10.6);
+chapOut(c3,11.8);hide([lp,lm],11.9);whipOut(s4.id,11.85);
+
+/* S5 12.0-17.6 HOW IT'S MADE: 4-step progress */
+const s5=scene('s5');whipIn(s5.id,12.0);
+const h5=lines('h5',150,[['How a heavy beanie',112],['is made',112,'cy']]);textIn('h5',12.05,h5,'rise');
+const bar=div('','', 'position:absolute;left:80px;top:430px;width:920px;height:10px;background:#22252C;visibility:hidden');bar.id='bar';
+const fill=div('','', 'position:absolute;left:80px;top:430px;width:920px;height:10px;background:#00CEFF;transform-origin:0 50%;transform:scaleX(0);visibility:hidden');fill.id='fill';
+show(['#bar','#fill'],12.3);
+const steps=['Knit','Crown','Cuff','Patch'];steps.forEach((n,i)=>{const d=div('lab',`<span class="cy">0${i+1}</span> ${n}`,`left:${80+i*235}px;top:460px;opacity:.3`);d.id='st'+i;show('#st'+i,12.3);});
+const K=knit(s5.svg,{x0:190,y0:620,w:700,h:700,cols:9,rows:11,color:PAPER});
+tl.set(K.st,{needles:1},12.4);tl.to(K.st,{p:1,duration:1.2,ease:'none'},12.45);sfx(12.45,'knit:1.2',.6);tl.to(K.st,{needles:0,duration:.1},13.65);
+tl.to('#st0',{opacity:1,duration:.1},12.45);tl.to('#fill',{scaleX:.25,duration:1.2,ease:'none'},12.45);
+tl.to(K.g,{opacity:0,duration:.2},13.7);
+const C=crown(s5.svg,{x:540,y:980,s:1.15});tl.set(C.g,{opacity:0},0);tl.to(C.g,{opacity:1,duration:.15},13.75);
+tl.to(C.st,{c:1,duration:.7,ease:'power2.inOut'},13.85);sfx(13.85,'stitch:.7',.5);tl.to('#st1',{opacity:1,duration:.1},13.85);tl.to('#fill',{scaleX:.5,duration:.7},13.85);
+tl.to(C.st,{f:1,duration:.5,ease:'back.out(1.6)'},14.7);sfx(14.7,'fold',.6);tl.to('#st2',{opacity:1,duration:.1},14.7);tl.to('#fill',{scaleX:.75,duration:.5},14.7);
+const fly=el('g',{opacity:0,transform:'translate(540,1110)'},s5.svg);const fp=el('g',{},fly);
+el('rect',{x:-130,y:-46,width:260,height:92,rx:10,fill:'#1B1C20',stroke:'#3A3D45','stroke-width':3},fp);const ft=el('text',{x:0,y:26,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':68,fill:PAPER},fp);ft.textContent='LOGO';
+tl.set(fly,{opacity:1},15.5);const FS={k:0};tl.to(FS,{k:1,duration:.36,ease:'expo.in'},15.5);FRAME.push(()=>{const k=FS.k;fp.setAttribute('transform',`translate(0,${-900*(1-k)}) rotate(${-25*(1-k)}) scale(${1.6-.6*k})`);});
+tl.to('#st3',{opacity:1,duration:.1},15.5);tl.to('#fill',{scaleX:1,duration:.36},15.5);
+bigHit(15.86,540,1110,PAPER,'mid');sfx(15.86,'snap',.9);
+textOut('h5',h5,17.3);hide(['#bar','#fill','#st0','#st1','#st2','#st3'],17.4);whipOut(s5.id,17.35);
+
+/* S6 17.6-24.0 THIS IS THE BUILT ONE */
+show(PB.id,17.6);bigHit(17.6,540,960,PAPER,'big');
+tl.fromTo(PB.cam,{x:831,y:1520,s:2.8,r:-6},{s:1.9,r:-2,duration:1.4,ease:'expo.out'},17.6);sweep(18.2,.7);
+const sh=div('shade','','top:0;height:700px;background:linear-gradient(rgba(11,12,14,.85) 60%,rgba(11,12,14,0));visibility:hidden');sh.id='sh';show('#sh',17.7);
+const h6=lines('h6',190,[['This is the',150],['built one.',190,'cy']]);tl.set('#h6',{visibility:'visible'},17.75);slam(h6,17.75,.45);
+textOut('h6',h6,19.1);
+[[1088,1069],[1030,1301],[831,1520],[580,1803]].forEach(([x,y],i)=>{const t=19.2+i*.4;tl.set(PB.cam,{x,y,s:1.7,r:i%2?3:-3},t);tl.to(PB.cam,{s:1.55,duration:.4,ease:'none'},t);sfx(t,'cut',.6);});
+show(PA.id,20.8);hide(PB.id,20.9);
+tl.fromTo(PA.cam,{x:966,y:1288,s:1.1,r:20},{s:.85,r:-8,duration:3.2,ease:'power2.out'},20.8);sfx(20.8,'whoosh',.5);
+const h7=lines('h7',190,[['Heavy knit.',150],['Rubber logo.',150,'cy'],['No shortcuts.',150]]);tl.set('#h7',{visibility:'visible'},21.0);slam(h7,21.0,.4);
+textOut('h7',h7,23.7);tl.to(PA.id,{opacity:0,duration:.2},23.8);hide(['#sh',PA.id],24.0);
+
+endCard(24.0);
+boot(DUR,{payoff:17.6,pulseFrom:2.4,riserFrom:16.0,end:24.0});
+</script></body></html>

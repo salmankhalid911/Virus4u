@@ -1,0 +1,102 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"></head><body>
+<div id="world"><div id="ov"></div><svg id="fx" viewBox="0 0 1080 1920"></svg><div id="sweep"></div><div id="black"></div><div id="flash"></div></div>
+<canvas id="grain" width="540" height="960"></canvas><div id="vig"></div><div class="stamp">ANIMATIC A · PREVIEW</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script><script src="common.js"></script>
+<script>
+/* STORYBOARD A — "One thread" (28.8 s) */
+const DUR=28.8;
+const PB=photo('pb','assets/photoB.jpg'), PA=photo('pa','assets/photoA.jpg');
+
+/* S1 0-2.4 HOOK: one red thread loops into knit, knit becomes a beanie */
+const s1=scene('s1');show(s1.id,0);
+let d='M-60,1250';for(let i=0;i<=14;i++){const x=40+i*80;d+=` C${x-10},${1250-160} ${x+90},${1250-160} ${x+40},${1250} S${x+20},${1250+120} ${x+80},${1250}`;}
+const thread=el('path',{d,fill:'none',stroke:RED,'stroke-width':10,'stroke-linecap':'round',pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},s1.svg);
+tl.to(thread,{attr:{'stroke-dashoffset':0},duration:.8,ease:'power2.in'},0.05);HITS.push([0,'mid']);sfx(0,'hit',.6);sfx(.05,'zip',.7);
+const K1=knit(s1.svg,{x0:0,y0:560,w:1080,h:1360,cols:12,rows:16,color:'#D8323F',needles:false});
+tl.to(thread,{opacity:0,duration:.15},.9);tl.to(K1.st,{p:1,duration:.75,ease:'power2.in'},.85);sfx(.85,'knit:.75',.6);
+const B1=beanie(s1.svg,{x:540,y:1180,s:1.3,color:'#E33B48',w:5,patch:false});
+tl.to(K1.g,{opacity:0,scale:.5,svgOrigin:'540 1180',duration:.3,ease:EI},1.6);drawB(B1,1.6,.45);
+const h1=lines('h1',200,[['This beanie started as',104],['one thread.',200,'red']]);
+textIn('h1',.12,h1,'slam',.6);
+// flash-cut teaser of the real product
+show(PB.id,2.1);tl.set(PB.cam,{x:1088,y:1069,s:1.9,r:-4},2.1);tl.to(PB.cam,{s:1.75,duration:.3},2.1);bigHit(2.1,540,960,PAPER,'mid');
+textOut('h1',h1,2.05);hide([s1.id,PB.id],2.4);
+
+/* S2 2.4-5.6 YARN */
+const s2=scene('s2');whipIn(s2.id,2.4);const c1=chapter('c1','01','Yarn');chapIn(c1,2.45);
+const cols=[YARN.red,YARN.black,YARN.blue,YARN.grey];
+const bed=el('rect',{x:140,y:760,width:800,height:26,rx:6,fill:'#2E323B',stroke:'#4A4F5A','stroke-width':2,opacity:0},s2.svg);
+cols.forEach((c,i)=>{const cx=200+i*226, g=el('g',{opacity:0},s2.svg);
+  el('path',{d:`M${cx-70},1500 L${cx+70},1500 L${cx+36},1230 L${cx-36},1230 Z`,fill:c,stroke:PAPER,'stroke-width':3},g);
+  for(let k=0;k<8;k++) el('line',{x1:cx-66+k*3.6,x2:cx+66-k*3.6,y1:1490-k*32,y2:1490-k*32,stroke:'rgba(255,255,255,.18)','stroke-width':3},g);
+  el('rect',{x:cx-14,y:1200,width:28,height:34,fill:'#555A66'},g);
+  const th=el('path',{d:`M${cx},1205 C${cx},1000 ${540+(i-1.5)*90},980 ${540+(i-1.5)*90},790`,fill:'none',stroke:c==YARN.black?'#55575E':c,'stroke-width':6,pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},s2.svg);
+  tl.to(g,{opacity:1,duration:.01},2.7+i*.15);tl.fromTo(g,{y:200},{y:0,duration:.45,ease:'back.out(2)'},2.7+i*.15);sfx(2.7+i*.15,'thud',.35);
+  tl.to(th,{attr:{'stroke-dashoffset':0},duration:.6,ease:'power2.inOut'},3.6+i*.08);});
+tl.to(bed,{opacity:1,duration:.2},3.5);sfx(3.6,'zip',.5);
+const y1=tag('y1','4 colourways','left:80px;top:1560px','w');tagIn(y1,4.3);
+tl.fromTo(s2.id,{scale:1.06},{scale:1,duration:3.2,ease:'none',transformOrigin:'50% 50%'},2.4);
+chapOut(c1,5.4);hide(y1,5.5);whipOut(s2.id,5.45);
+
+/* S3 5.6-9.6 HEAVY RIB KNIT */
+const s3=scene('s3');whipIn(s3.id,5.6);const c2=chapter('c2','02','Heavy rib knit');chapIn(c2,5.65);
+const K=knit(s3.svg,{x0:80,y0:560,w:920,h:760,cols:12,rows:13,color:PAPER});
+tl.set(K.st,{needles:1},5.75);tl.to(K.st,{p:1,duration:1.8,ease:'none'},5.8);sfx(5.8,'knit:1.8',.7);tl.to(K.st,{needles:0,duration:.1},7.6);
+// cross-section comparison
+const xs=el('g',{opacity:0},s3.svg);
+el('path',{d:'M90,1440 Q140,1420 190,1440 T290,1440 T390,1440 T490,1440',fill:'none',stroke:RED,'stroke-width':5},xs);
+let hv='M590,1460';for(let i=0;i<8;i++){const x=590+i*50;hv+=` C${x},1380 ${x+50},1380 ${x+50},1460`;}el('path',{d:hv,fill:'none',stroke:CYAN,'stroke-width':12,'stroke-linecap':'round'},xs);
+const xl1=div('lab','Thin','left:90px;top:1490px;color:#B0212F');xl1.id='xl1';const xl2=div('lab cy','Heavy rib','left:590px;top:1490px');xl2.id='xl2';
+tl.to(xs,{opacity:1,duration:.25},7.7);fadeIn(['#xl1','#xl2'],7.75);sfx(7.7,'thud',.6);
+const ht=tag('ht','Thick · stretchy · holds shape','left:80px;top:1580px','c');tagIn(ht,8.2);
+// masked dive into real knit
+tl.to(s3.id,{scale:3,filter:'blur(10px)',opacity:0,duration:.35,ease:EI,transformOrigin:'50% 40%'},8.75);hide(['#xl1','#xl2',ht],8.9);
+show(PB.id,8.95);tl.fromTo(PB.cam,{x:1095,y:451,s:3.2,r:0},{s:2.6,duration:.65,ease:'power2.out'},8.95);sfx(8.9,'whoosh',.5);
+const rk=tag('rk','The real knit','left:80px;top:1380px','w');tagIn(rk,9.1);chapOut(c2,9.45);hide([PB.id,rk,s3.id],9.6);
+
+/* S4 9.6-14.4 CROWN + CUFF */
+const s4=scene('s4');fadeIn(s4.id,9.6,.2);const c3=chapter('c3','03','Crown closed');chapIn(c3,9.65);
+const C=crown(s4.svg,{x:540,y:980,s:1.35});
+tl.to(C.st,{c:1,duration:1.1,ease:'power2.inOut'},10.0);sfx(10.0,'stitch:1.0',.6);
+const g1=tag('g1','Gathered + stitched','left:80px;top:1520px','w');tagIn(g1,10.9);
+chapOut(c3,11.85);hide(g1,11.9);const c4=chapter('c4','04','Cuff folded');chapIn(c4,12.0);
+tl.to(C.st,{f:1,duration:.6,ease:'back.out(1.6)'},12.3);sfx(12.3,'fold',.7);
+const cm=el('path',{d:'M880,1035 L880,1250 M864,1035 L896,1035 M864,1250 L896,1250',stroke:CYAN,'stroke-width':5,fill:'none',pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},s4.svg);
+tl.to(cm,{attr:{'stroke-dashoffset':0},duration:.4},13.0);
+const g2=tag('g2','Deep fold-over cuff','left:80px;top:1520px','c');tagIn(g2,13.1);
+tl.fromTo(s4.id,{scale:1.05},{scale:1,duration:4.8,ease:'none',transformOrigin:'50% 50%'},9.6);
+chapOut(c4,14.25);hide(g2,14.3);
+
+/* S5 14.4-19.2 RUBBER LOGO */
+const c5=chapter('c5','05','Rubber logo');chapIn(c5,14.4);
+tl.to(s4.id,{opacity:.0,duration:.2},14.35);
+const s5=scene('s5');show(s5.id,14.4);
+const M=patchMould(s5.svg,{x:540,y:1000,s:1.1,logo:'LOGO'});
+tl.to(M.cav,{attr:{'stroke-dashoffset':0},duration:.4},14.45);
+tl.set(M.st,{pour:1,pourX:-180},14.7);tl.to(M.st,{pourX:180,duration:.8},14.7);tl.to(M.st,{logo:1,duration:.75,ease:'power1.in'},14.75);sfx(14.7,'pour',.7);
+tl.set(M.st,{pourX:-180},15.55);tl.to(M.st,{pourX:180,duration:.6},15.55);tl.to(M.st,{base:1,duration:.6,ease:'power1.in'},15.55);tl.set(M.st,{pour:0},16.15);
+const g3=tag('g3','Moulded · raised · 3D','left:80px;top:1360px','w');tagIn(g3,15.9);
+tl.set([M.plate,M.fillL],{opacity:0},16.3);tl.set(M.pat,{opacity:1},16.3);bigHit(16.3,540,1000,CYAN,'mid');sfx(16.3,'snap',1);
+// patch onto the beanie
+tl.to(s5.id,{opacity:0,duration:.2},17.0);hide([s5.id,g3],17.2);
+tl.set(s4.id,{opacity:1},17.0);
+const fly=el('g',{opacity:0,transform:'translate(540,1150)'},s4.svg);const fp=el('g',{},fly);
+el('rect',{x:-150,y:-52,width:300,height:104,rx:10,fill:'#1B1C20',stroke:'#3A3D45','stroke-width':3},fp);const ft=el('text',{x:0,y:28,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':78,fill:PAPER},fp);ft.textContent='LOGO';
+tl.set(fly,{opacity:1},17.1);const FS={k:0};tl.to(FS,{k:1,duration:.36,ease:'expo.in'},17.1);FRAME.push(()=>{const k=FS.k;fp.setAttribute('transform',`translate(0,${-900*(1-k)}) rotate(${-25*(1-k)}) scale(${1.6-.6*k})`);});
+bigHit(17.46,540,1150,PAPER,'mid');sfx(17.46,'snap',.9);sweep(17.6,.6);
+chapOut(c5,18.9);tl.to(s4.id,{opacity:0,duration:.2},19.0);hide(s4.id,19.2);
+
+/* S6 19.2-24.0 PAYOFF on real product */
+show(PB.id,19.2);bigHit(19.2,540,960,PAPER,'big');
+const cw=[[1088,1069],[1030,1301],[831,1520],[580,1803]];
+cw.forEach(([x,y],i)=>{const t=19.2+i*.4;tl.set(PB.cam,{x,y,s:1.8,r:i%2?4:-4},t);tl.to(PB.cam,{s:1.6,duration:.4,ease:'none'},t);if(i)sfx(t,'cut',.6);});
+show(PA.id,20.8);hide(PB.id,20.9);
+tl.fromTo(PA.cam,{x:966,y:1288,s:1.1,r:-25},{x:966,y:1288,s:.85,r:10,duration:3.2,ease:'power2.out'},20.8);sfx(20.8,'whoosh',.5);
+const sh=div('shade','','top:0;height:760px;background:linear-gradient(rgba(11,12,14,.85) 60%,rgba(11,12,14,0));visibility:hidden');sh.id='sh';show('#sh',20.8);
+const h6=lines('h6',180,[['Your colours.',150],['Your patch.',150,'cy'],['Your spec.',150]]);
+tl.set('#h6',{visibility:'visible'},20.9);slam(h6,20.9,.4);
+textOut('h6',h6,23.7);tl.to(PA.id,{opacity:0,duration:.2},23.8);hide(['#sh',PA.id],24.0);
+
+endCard(24.0);
+boot(DUR,{payoff:19.2,pulseFrom:2.4,riserFrom:17.6,end:24.0});
+</script></body></html>

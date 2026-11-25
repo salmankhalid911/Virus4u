@@ -1,0 +1,9 @@
+assets/
+frames*/
+*.wav
+*.mp4
+still_*
+node_modules
+build.log
+events_*.json
+tmp_*.mp4

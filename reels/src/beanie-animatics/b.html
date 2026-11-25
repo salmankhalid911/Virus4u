@@ -1,0 +1,127 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"></head><body>
+<div id="world"><div id="ov"></div><svg id="fx" viewBox="0 0 1080 1920"></svg><div id="sweep"></div><div id="black"></div><div id="flash"></div></div>
+<canvas id="grain" width="540" height="960"></canvas><div id="vig"></div><div class="stamp">ANIMATIC B · PREVIEW</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script><script src="common.js"></script>
+<script>
+/* STORYBOARD B — "Made, not printed" (28.8 s, 75 BPM grid) */
+const DUR=28.8;
+
+/* S1 0.0-2.4 HOOK: liquid rubber pours into a logo mould */
+const s1=scene('s1');show(s1.id,0);
+const M1=patchMould(s1.svg,{x:540,y:1180,s:1.25,logo:'LOGO'});
+tl.fromTo(s1.id,{scale:1.25},{scale:1,duration:2.4,ease:'power2.out',transformOrigin:'50% 62%'},0);
+tl.to(M1.cav,{attr:{'stroke-dashoffset':0},duration:.45,ease:'power2.inOut'},0);HITS.push([0,'mid']);sfx(0,'hit',.6);
+tl.set(M1.st,{pour:1,pourX:-120},.15);tl.to(M1.st,{pourX:120,duration:1.2,ease:'power1.inOut'},.15);sfx(.15,'pour',.8);
+tl.to(M1.st,{logo:1,duration:1.3,ease:'power1.in'},.25);tl.set(M1.st,{pour:0},1.5);
+const h1=lines('h1',200,[['This logo was',112],['poured,',190,'cy'],['not printed.',190]]);
+textIn('h1',.12,h1,'slam',.55);
+tl.to(M1.st,{glow:1,duration:.25,yoyo:true,repeat:1},1.6);
+tl.set(M1.plate,{opacity:0},2.05);tl.set(M1.fillL,{opacity:0},2.05);tl.set(M1.pat,{opacity:1},2.05);
+tl.fromTo(M1.g,{y:0},{keyframes:[{y:-60,duration:.12},{y:0,duration:.35,ease:'back.out(3)'}]},2.05);
+bigHit(2.05,540,1180,CYAN,'mid');sfx(2.05,'snap',1);
+textOut('h1',h1,2.35);tl.to(s1.id,{opacity:0,duration:.2},2.3);hide(s1.id,2.5);
+
+/* S2 2.4-5.6 THE MOULD: technical drawing */
+const s2=scene('s2');whipIn(s2.id,2.45);
+const c1=chapter('c1','01','The mould');chapIn(c1,2.5);
+const M2=patchMould(s2.svg,{x:540,y:980,s:1.15,logo:'LOGO'});
+tl.to(M2.cav,{attr:{'stroke-dashoffset':0},duration:.8,ease:'power2.inOut'},2.7);
+const dimG=el('g',{opacity:0},s2.svg);
+el('path',{d:'M195,1150 L885,1150 M195,1134 L195,1166 M885,1134 L885,1166',stroke:CYAN,'stroke-width':4,fill:'none'},dimG);
+// side profile showing raised logo
+const prof=el('g',{opacity:0},s2.svg);
+el('path',{d:'M160,1420 L920,1420 L920,1380 L160,1380 Z',fill:'#1B1C20',stroke:PAPER,'stroke-width':3},prof);
+[[250,330],[380,470],[520,600],[650,760],[800,860]].forEach(([a,b])=>el('path',{d:`M${a},1380 L${a},1350 L${b},1350 L${b},1380`,fill:PAPER,stroke:PAPER,'stroke-width':2},prof));
+el('path',{d:'M950,1350 L950,1420 M936,1350 L964,1350 M936,1420 L964,1420',stroke:CYAN,'stroke-width':4,fill:'none'},prof);
+const l1=div('lab cy','Your logo · carved in reverse','left:80px;top:1190px');l1.id='l1';
+const l2=div('lab','Raised 3D · cross-section','left:80px;top:1460px');l2.id='l2';
+tl.to(dimG,{opacity:1,duration:.2},3.5);fadeIn('#l1',3.55);sfx(3.55,'tick',.5);
+tl.to(prof,{opacity:1,duration:.25},4.1);tl.fromTo(prof,{y:40},{y:0,duration:.4,ease:E},4.1);fadeIn('#l2',4.25);sfx(4.2,'tick',.5);
+tl.fromTo(s2.id,{rotation:-2},{rotation:1.5,duration:3.2,ease:'none',transformOrigin:'50% 50%'},2.4);
+hide(['#l1','#l2'],5.5);
+
+/* S3 5.6-8.8 FILLED LAYER BY LAYER */
+chapOut(c1,5.45);const c2=chapter('c2','02','Layer by layer');chapIn(c2,5.6);
+tl.to([dimG,prof],{opacity:0,duration:.2},5.5);
+tl.set(M2.st,{pour:1,pourX:-200},5.7);tl.to(M2.st,{pourX:200,duration:1.0,ease:'power1.inOut'},5.7);sfx(5.7,'pour',.6);
+tl.to(M2.st,{logo:1,duration:1.0,ease:'power1.in'},5.75);
+const g1=tag('g1','Logo layer','left:80px;top:1240px','w');tagIn(g1,6.3);
+tl.set(M2.st,{pourX:-200},6.85);tl.to(M2.st,{pourX:200,duration:.9,ease:'power1.inOut'},6.85);sfx(6.85,'pour',.6);
+tl.to(M2.st,{base:1,duration:.9,ease:'power1.in'},6.9);tl.set(M2.st,{pour:0},7.8);
+const g2=tag('g2','Base layer','left:80px;top:1330px','c');tagIn(g2,7.4);
+// exploded isometric layers
+const iso=el('g',{opacity:0},s2.svg);
+const slab=(y,fill,txt)=>{const o=el('g',{},iso);const g=el('g',{transform:`translate(540,${y}) skewX(-28) scale(1,.45)`},o);el('rect',{x:-280,y:-110,width:560,height:220,rx:18,fill,stroke:PAPER,'stroke-width':4},g);
+  if(txt){const t=el('text',{x:0,y:40,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':140,fill:txt},g);t.textContent='LOGO';}return o;};
+const sl1=slab(1000,'#1B1C20',null), sl2=slab(1000,'none',PAPER);
+tl.to(M2.g,{opacity:0,duration:.25},8.0);tl.set(iso,{opacity:1},8.0);
+tl.fromTo(sl2,{y:0},{y:-170,duration:.5,ease:'back.out(2)'},8.05);tl.fromTo(sl1,{y:0},{y:80,duration:.5,ease:'back.out(2)'},8.05);sfx(8.05,'snap',.6);
+hide([g1,g2],8.7);
+
+/* S4 8.8-12.0 HEAT-SET + TRIM */
+chapOut(c2,8.65);const c3=chapter('c3','03','Heat-set. Trimmed.');chapIn(c3,8.8);
+tl.to(iso,{opacity:0,duration:.2},8.75);
+const M3=patchMould(s2.svg,{x:540,y:1000,s:1.15,logo:'LOGO'});
+tl.set([M3.plate,M3.fillL],{opacity:0},0);tl.set(M3.pat,{opacity:0},0);
+tl.set(M3.pat,{opacity:1},8.9);const PS={s:.6};tl.to(PS,{s:1,duration:.4,ease:'back.out(2)'},8.9);FRAME.push(()=>M3.pat.setAttribute('transform',`scale(${PS.s})`));
+const heat=el('rect',{x:-330,y:-140,width:660,height:280,rx:24,fill:'#FF6A1A',opacity:0},M3.inner);
+tl.to(heat,{opacity:.35,duration:.25,yoyo:true,repeat:3},9.3);sfx(9.3,'sizzle',.6);
+const htag=tag('ht','Heat-set','left:80px;top:1280px','r');tagIn(htag,9.4);
+const trim=el('rect',{x:-300,y:-110,width:600,height:220,rx:18,fill:'none',stroke:CYAN,'stroke-width':6,pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},M3.inner);
+tl.to(trim,{attr:{'stroke-dashoffset':0},duration:.6,ease:'power2.inOut'},10.4);sfx(10.4,'trim',.7);
+const ttag=tag('tt','Trimmed clean','left:80px;top:1380px','c');tagIn(ttag,10.6);
+tl.to(trim,{opacity:0,duration:.3},11.1);
+tl.to(M3.g,{rotation:-8,duration:1.2,ease:'power1.inOut',svgOrigin:'540 1000'},10.8);
+sweep(11.0,.6);hide([htag,ttag],11.9);
+
+/* S5 12.0-17.6 THE KNIT BEHIND IT */
+chapOut(c3,11.85);whipOut(s2.id,11.88);
+const s5=scene('s5');whipIn(s5.id,12.0);
+const c4=chapter('c4','04','On heavy rib knit');chapIn(c4,12.0);
+const K=knit(s5.svg,{x0:80,y0:560,w:920,h:860,cols:12,rows:15,color:PAPER});
+tl.set(K.st,{needles:1},12.1);tl.to(K.st,{p:1,duration:1.9,ease:'none'},12.15);sfx(12.15,'knit:1.9',.7);
+tl.to(K.st,{needles:0,duration:.1},14.05);
+const kt=tag('kt','Heavy rib','left:80px;top:1460px','w');tagIn(kt,13.4);
+tl.to(K.g,{opacity:0,scale:.6,svgOrigin:'540 1000',duration:.35,ease:EI},14.2);hide(kt,14.3);
+const C=crown(s5.svg,{x:540,y:980,s:1.25});tl.set(C.g,{opacity:0},0);
+tl.to(C.g,{opacity:1,duration:.2},14.3);
+tl.to(C.st,{c:1,duration:.8,ease:'power2.inOut'},14.45);sfx(14.5,'stitch:.7',.5);
+const ct=tag('ct','Crown closed','left:80px;top:1500px','w');tagIn(ct,14.9);
+tl.to(C.st,{f:1,duration:.55,ease:'back.out(1.6)'},15.4);sfx(15.4,'fold',.6);
+const ft=tag('ft','Cuff folded','left:80px;top:1590px','w');tagIn(ft,15.7);
+// patch flies onto cuff
+const fly=el('g',{opacity:0,transform:'translate(540,1150)'},s5.svg);
+const fp=el('g',{},fly);el('rect',{x:-150,y:-52,width:300,height:104,rx:10,fill:'#1B1C20',stroke:'#3A3D45','stroke-width':3},fp);
+const ftx=el('text',{x:0,y:28,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':78,fill:PAPER},fp);ftx.textContent='LOGO';
+tl.set(fly,{opacity:1},16.2);const FS={k:0};tl.to(FS,{k:1,duration:.38,ease:'expo.in'},16.2);FRAME.push(()=>{const k=FS.k;fp.setAttribute('transform',`translate(0,${-900*(1-k)}) rotate(${-25*(1-k)}) scale(${1.6-.6*k})`);});
+bigHit(16.58,540,1150,CYAN,'mid');sfx(16.58,'snap',1);
+hide([ct,ft],17.4);chapOut(c4,17.3);
+
+/* S6 17.6-24.0 REAL PRODUCT (photos stand in for the video) */
+const PB=photo('pb','assets/photoB.jpg');
+tl.to(s5.id,{opacity:0,duration:.1},17.55);hide(s5.id,17.7);
+show(PB.id,17.6);bigHit(17.6,540,960,PAPER,'big');
+tl.fromTo(PB.cam,{x:831,y:1520,s:2.6,r:-6},{x:831,y:1520,s:1.9,r:-2,duration:1.6,ease:'power3.out'},17.6);
+sweep(18.3,.7);
+const rt=tag('rt','Raised rubber logo','left:80px;top:1380px','c');tagIn(rt,18.2);hide(rt,19.15);
+const cw=[[1088,1069,'Red'],[1030,1301,'Black'],[831,1520,'Royal blue'],[580,1803,'Heather grey']];
+const cl=tag('cl','RED','left:80px;top:1380px','w');
+cw.forEach(([x,y,n],i)=>{const t=19.2+i*.4;tl.set(PB.cam,{x,y,s:1.7,r:i%2?3:-3},t);tl.to(PB.cam,{s:1.55,duration:.4,ease:'none'},t);
+  tl.set('#cl',{innerHTML:n},t);sfx(t,'cut',.6);});
+show(cl,19.2);hide(cl,20.8);
+tl.to(PB.cam,{x:966,y:1288,s:.745,r:0,duration:.8,ease:'expo.inOut'},20.8);sfx(20.8,'whoosh',.5);
+const h6=lines('h6',190,[['Four colours.',150],['One standard.',150,'cy']]);
+tl.set('#h6',{visibility:'visible'},20.9);slam(h6,20.9,.4);
+textOut('h6',h6,21.9);
+const PA=photo('pa','assets/photoA.jpg');
+show(PA.id,22.0);tl.to(PB.id,{opacity:0,duration:.25},22.0);hide(PB.id,22.3);
+tl.fromTo(PA.cam,{x:966,y:1288,s:1.05,r:-20},{x:966,y:1288,s:.85,r:8,duration:2.0,ease:'power2.out'},22.0);sfx(22.0,'whoosh',.5);
+const h7=lines('h7',190,[['Your logo.',170],['Your beanie.',170,'cy']]);
+tl.set('#h7',{visibility:'visible'},22.4);slam(h7,22.4,.4);
+const sh=div('shade','',`top:0;height:620px;background:linear-gradient(rgba(11,12,14,.82),rgba(11,12,14,0));visibility:hidden`);sh.id='sh';show('#sh',20.9);
+textOut('h7',h7,23.75);tl.to(PA.id,{opacity:0,duration:.25},23.8);hide(['#sh',PA.id],24.05);
+
+/* S7 24.0-28.8 END CARD */
+endCard(24.0);
+boot(DUR,{payoff:17.6,pulseFrom:2.4,riserFrom:16.0,end:24.0});
+</script></body></html>
