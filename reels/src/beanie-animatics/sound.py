@@ -80,6 +80,7 @@ def thunk(fr=150, d=.06): return sine(fr, d) * expdec(d, 55)
 def swish(d=.6): t = tt(d); return band(noise(d), 300, 3500) * np.sin(np.pi * t / d) ** 2
 
 pay, end, pf, rf = MU['payoff'], MU['end'], MU['pulseFrom'], MU['riserFrom']
+B = MU.get('beat', .8)
 # drone bed until payoff (cut 0.25 s early for a breath)
 d = pay - .25; t = tt(d)
 bed = sine(f('A1'), d) * .55 + saw(f('A2'), d, harm=10) * .35 + saw(f('E2'), d, harm=6) * .22
@@ -88,11 +89,11 @@ put(band(bed, 30, 1800), 0, .5, 0, 'm')
 # ostinato from pulseFrom to payoff, 16ths in the last third
 riff = ['A2', 'A2', 'A2', 'C3', 'A2', 'A2', 'G2', 'A2']; x = pf; k = 0
 while x < pay - .3:
-    step = .2 if x > pf + (pay - pf) * .6 else .4
+    step = B / 4 if x > pf + (pay - pf) * .6 else B / 2
     put(pluck(riff[k % 8], bright=.35 + .3 * (k % 4 == 0)), x, .26, -.25 if k % 2 else .25, 'm'); k += 1; x += step
-b = pf + 3.2
+b = pf + 4 * B
 while b < pay - .3:
-    put(taiko(), b, .7, 0, 'm'); put(metal(), b + .4, .15, .4, 'm'); b += .8
+    put(taiko(), b, .7, 0, 'm'); put(metal(), b + B / 2, .15, .4, 'm'); b += B
 # riser into payoff
 d = pay - .25 - rf; t = tt(d)
 r = band(noise(d), 400, 9000) * (t / d) ** 2.6 + glide(180, 1100, d) * (t / d) ** 2 * .35
@@ -110,13 +111,13 @@ for i, ch in enumerate(seq):
     t0 = pay + i * seg; pad = sum(saw(f(n), seg + .3, harm=14) for n in ch) / 4; tp = tt(seg + .3)
     pad *= np.clip(tp / .1, 0, 1) * np.clip((seg + .3 - tp) / .3, 0, 1); put(band(pad, 60, 3000), t0, .3, 0, 'm')
     x = t0
-    while x < t0 + seg - 1e-6: put(pluck(ch[int((x - t0) / .2) % 4], d=.3, bright=.3), x, .2, .3 if int(x / .2) % 2 else -.3, 'm'); x += .2
+    while x < t0 + seg - 1e-6: put(pluck(ch[int((x - t0) / (B / 4)) % 4], d=.3, bright=.3), x, .2, .3 if int(x / (B / 4)) % 2 else -.3, 'm'); x += B / 4
 b = pay
-while b < end - .1: put(taiko(.5), b, .55, 0, 'm'); put(metal(), b + .4, .16, -.3, 'm'); b += .8
+while b < end - .1: put(taiko(.5), b, .55, 0, 'm'); put(metal(), b + B / 2, .16, -.3, 'm'); b += B
 # end card: A major resolve
 d = DUR - end; pad = sum(saw(f(n), d, harm=14) for n in ['A2', 'C#4', 'E3', 'A3']) / 4; tp = tt(d)
 pad *= np.clip(tp / .4, 0, 1) * np.clip((d - tp) / 1.5, 0, 1); put(band(pad, 80, 2500), end + .1, .3, 0, 'm')
-for i, n in enumerate(['A4', 'C#4', 'E5', 'A5']): put(bell(n, 2.0), end + .6 + i * .4, .12, .2, 'm')
+for i, n in enumerate(['A4', 'C#4', 'E5', 'A5']): put(bell(n, 2.0), end + B + i * B / 2, .12, .2, 'm')
 
 # ---------- SFX from the page ----------
 MIX = {n: load(n) for n in ['impact-cine', 'whoosh-fast', 'transition-snap', 'swoosh-quick', 'transition-soft']}
@@ -133,8 +134,8 @@ for t0, typ, g, pan in ev['sfx']:
     elif typ == 'pour':
         d = 1.2; tp = tt(d); x = band(noise(d), 200, 1800) * (0.6 + 0.4 * np.sin(2 * np.pi * 9 * tp) ** 2) * np.sin(np.pi * tp / d) ** .6
         put(x + glide(500, 260, d) * .06, t0, .35 * g, pan)
-    elif typ in ('knit', 'stitch'):
-        rate = 16 if typ == 'knit' else 12; x = t0
+    elif typ in ('knit', 'stitch', 'sew'):
+        rate = 16 if typ == 'knit' else (30 if typ == 'sew' else 12); x = t0
         while x < t0 + dur: put(S(thunk(170, .04) * .8, click(.015, 3200) * .6), x, .35 * g, .2 * np.sin(x * 7)); x += 1 / rate
         d = dur; tp = tt(d); put(band(saw(92, d, harm=20), 60, 1400) * (0.6 + 0.4 * np.sin(2 * np.pi * rate * tp) ** 2) * np.clip(tp / .05, 0, 1) * np.clip((d - tp) / .1, 0, 1), t0, .12 * g)
     elif typ == 'zip': put(band(noise(.7), 1500, 7000) * np.linspace(.2, 1, int(.7 * SR)) * expdec(.7, 1.5), t0, .35 * g, pan)

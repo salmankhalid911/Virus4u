@@ -7,3 +7,5 @@ node_modules
 build.log
 events_*.json
 tmp_*.mp4
+*.jpg
+build_final.log

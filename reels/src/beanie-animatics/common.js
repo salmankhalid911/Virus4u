@@ -135,20 +135,19 @@ function patchMould(parent,{x=540,y=1000,s=1,logo='LOGO'}){
   return {g:outer,inner:g,st,cav,pat,plate,fillL,fillB};}
 
 // ---------- end card: stitched KICKSTER ----------
-function endCard(t,sub='Cut &amp; sew · Sialkot'){
+function endCard(t,sub='Cut &amp; sew · Sialkot',wy=960){
   const S=scene('scEnd');const g=S.svg;
-  const defs=el('defs',{},g);const cp=el('clipPath',{id:'wmClip'},defs);const rv=el('rect',{x:30,y:700,width:0,height:320},cp);
+  const defs=el('defs',{},g);const cp=el('clipPath',{id:'wmClip'},defs);const rv=el('rect',{x:30,y:wy-260,width:0,height:320},cp);
   const sg=el('g',{'clip-path':'url(#wmClip)'},g);
-  const ts=el('text',{x:540,y:960,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':236,'letter-spacing':4,fill:'none',stroke:CYAN,'stroke-width':5,'stroke-dasharray':'16 11'},sg);ts.textContent='KICKSTER';
-  const tf=el('text',{x:540,y:960,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':236,'letter-spacing':4,fill:PAPER,opacity:0},g);tf.textContent='KICKSTER';
-  el('line',{x1:150,x2:930,y1:1010,y2:1010,stroke:CYAN,'stroke-width':7,'stroke-dasharray':'22 12'},g);
-  const mk=el('rect',{x:140,y:995,width:800,height:30,fill:INK},g);
-  const e=div('', `<div class="s dim" style="font-size:42px;letter-spacing:.2em">${sub}</div><div class="e3" style="margin-top:80px"><span class="pill">Comment “PRICE”</span></div><div class="s" style="font-size:38px;margin-top:44px;letter-spacing:.08em;opacity:.85">@kickster_brandlab</div>`,'position:absolute;left:0;top:1060px;width:1080px;text-align:center;visibility:hidden');e.id='endTxt';
-  show(S.id,t);bigHit(t,540,880,CYAN,'big');
+  const ts=el('text',{x:540,y:wy,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':236,'letter-spacing':4,fill:'none',stroke:CYAN,'stroke-width':5,'stroke-dasharray':'16 11'},sg);ts.textContent='KICKSTER';
+  const tf=el('text',{x:540,y:wy,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':236,'letter-spacing':4,fill:PAPER,opacity:0},g);tf.textContent='KICKSTER';
+  el('line',{x1:150,x2:930,y1:wy+50,y2:wy+50,stroke:CYAN,'stroke-width':7,'stroke-dasharray':'22 12'},g);
+  const mk=el('rect',{x:140,y:wy+35,width:800,height:30,fill:INK},g);
+  const e=div('', `<div class="s dim" style="font-size:40px;letter-spacing:.16em">${sub}</div><div class="e3" style="margin-top:64px"><span class="pill">Comment “PRICE”</span></div><div class="s" style="font-size:38px;margin-top:40px;letter-spacing:.08em;opacity:.85">@kickster_brandlab</div>`,`position:absolute;left:0;top:${wy+100}px;width:1080px;text-align:center;visibility:hidden`);e.id='endTxt';
+  show(S.id,t);bigHit(t,540,wy-80,CYAN,'big');
   tl.fromTo(rv,{attr:{width:0}},{attr:{width:1020},duration:.5,ease:'power2.inOut'},t+.02);
   for(let k=0;k<12;k++) sfx(t+.04+k*.04,'tick',.25,(k-6)/6);
-  tl.fromTo(S.id,{scale:1.15},{scale:1,duration:3,ease:'power3.out',transformOrigin:'50% 46%'},t);
-  tl.fromTo(tf,{opacity:0},{opacity:1,duration:.12},t+.6);bigHit(t+.6,540,880,PAPER,'mid');sweep(t+.65,.7);
+  tl.fromTo(tf,{opacity:0},{opacity:1,duration:.12},t+.6);bigHit(t+.6,540,wy-80,PAPER,'mid');sweep(t+.65,.7);
   tl.fromTo(mk,{attr:{x:140,width:800}},{attr:{x:940,width:0},duration:.5,ease:'power2.inOut'},t+.9);
   show('#endTxt',t+.9);gsap.set('#endTxt > *',{opacity:0});
   tl.to('#endTxt > *',{opacity:1,y:0,duration:.35,stagger:.3,ease:'back.out(2)'},t+.95);sfx(t+1.25,'thud',.5);

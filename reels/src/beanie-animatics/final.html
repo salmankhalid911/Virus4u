@@ -1,0 +1,148 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="base.css"></head><body>
+<div id="world"><div id="ov"></div><svg id="fx" viewBox="0 0 1080 1920"></svg><div id="sweep"></div><div id="black"></div><div id="flash"></div></div>
+<canvas id="grain" width="540" height="960"></canvas><div id="vig"></div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script><script src="common.js"></script>
+<script>
+/* FINAL — "Poured. Not printed." 19.2 s, 100 BPM (beat = 0.6 s) */
+const DUR=19.2, BT=.6;
+const ST=photo('st','assets/stack.jpg'), CR=photo('cr','assets/cross.jpg');
+const topShade=div('shade','','top:0;height:720px;background:linear-gradient(rgba(11,12,14,.88) 55%,rgba(11,12,14,0));visibility:hidden');topShade.id='tsh';
+
+/* ===== S1 0.0-3.0 HOOK: PVC pours into the mould, patch snaps out ===== */
+const s1=scene('s1');show(s1.id,0);
+const M1=patchMould(s1.svg,{x:540,y:1230,s:1.3,logo:'LOGO'});
+tl.fromTo(s1.id,{scale:1.35},{scale:1,duration:2.4,ease:'power2.out',transformOrigin:'50% 64%'},0);
+tl.to(M1.cav,{attr:{'stroke-dashoffset':0},duration:.4,ease:'power2.inOut'},0);HITS.push([0,'mid']);sfx(0,'hit',.6);
+tl.set(M1.st,{pour:1,pourX:-150},.12);tl.to(M1.st,{pourX:150,duration:1.1,ease:'power1.inOut'},.12);sfx(.12,'pour',.9);
+tl.to(M1.st,{logo:1,duration:.9,ease:'power1.in'},.2);
+tl.set(M1.st,{pourX:-150},1.1);tl.to(M1.st,{pourX:150,duration:.6},1.1);tl.to(M1.st,{base:1,duration:.6,ease:'power1.in'},1.12);tl.set(M1.st,{pour:0},1.75);
+const h1=lines('h1',190,[['This logo was',116],['poured.',220,'cy'],['Not printed.',176]]);
+textIn('h1',.1,h1,'slam',.6);
+tl.to(M1.st,{glow:1,duration:.2,yoyo:true,repeat:1},1.8);
+tl.set([M1.plate,M1.fillL,M1.fillB],{opacity:0},2.4);tl.set(M1.pat,{opacity:1},2.4);
+tl.to(M1.g,{keyframes:[{y:-90,duration:.14,ease:'power2.out'},{y:0,duration:.4,ease:'back.out(3)'}]},2.4);
+bigHit(2.4,540,1230,CYAN,'mid');sfx(2.4,'snap',1);
+textOut('h1',h1,2.75);tl.to(s1.id,{opacity:0,duration:.15},2.85);hide(s1.id,3.0);
+
+/* ===== S2 3.0-5.4 THE MOULD: engraved in reverse, flips to read right ===== */
+const s2=scene('s2');show(s2.id,3.0);tl.fromTo(s2.id,{opacity:0},{opacity:1,duration:.15},3.0);
+const c1=chapter('c1','01','The mould');chapIn(c1,3.0);
+const grid=el('g',{opacity:.5},s2.svg);for(let x=0;x<=1080;x+=60)el('line',{x1:x,x2:x,y1:560,y2:1500,stroke:'#16191F','stroke-width':2},grid);for(let y=560;y<=1500;y+=60)el('line',{x1:0,x2:1080,y1:y,y2:y,stroke:'#16191F','stroke-width':2},grid);
+const flipW=el('g',{},s2.svg);
+el('rect',{x:-380,y:-190,width:760,height:380,rx:22,fill:'#14161B',stroke:CYAN,'stroke-width':3},flipW);
+el('rect',{x:-320,y:-130,width:640,height:260,rx:18,fill:'#0C0D10',stroke:'#3E4350','stroke-width':3},flipW);
+const eng=el('text',{x:0,y:58,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':190,'letter-spacing':4,fill:'#07080A',stroke:CYAN,'stroke-width':3,'stroke-dasharray':'2200','stroke-dashoffset':'2200',transform:'scale(-1,1)'},flipW);eng.textContent='LOGO';
+const F2={k:0,rot:0};FRAME.push(()=>flipW.setAttribute('transform',`translate(540,1020) rotate(${F2.rot}) scale(${1-2*F2.k},1)`));
+tl.to(eng,{attr:{'stroke-dashoffset':0},duration:1.0,ease:'power1.inOut'},3.15);
+for(let i=0;i<8;i++) sfx(3.15+i*.12,'tick',.22,(i-4)/4);
+const dims=el('g',{opacity:0},s2.svg);
+el('path',{d:'M220,1250 L860,1250 M220,1234 L220,1266 M860,1234 L860,1266',stroke:CYAN,'stroke-width':4,fill:'none'},dims);
+el('path',{d:'M940,890 L940,1150 M924,890 L956,890 M924,1150 L956,1150',stroke:CYAN,'stroke-width':4,fill:'none'},dims);
+tl.to(dims,{opacity:1,duration:.2},3.9);
+const g2=tag('g2','Engraved in reverse','left:80px;top:1320px','c');tagIn(g2,3.95);
+tl.fromTo(F2,{rot:0},{rot:-3,duration:2.4,ease:'none'},3.0);
+tl.to(F2,{k:1,duration:.5,ease:'expo.inOut'},4.6);sfx(4.6,'whoosh',.4);
+hide(g2,5.2);tl.to(dims,{opacity:0,duration:.15},5.1);chapOut(c1,5.25);
+
+/* ===== S3 5.4-7.8 LAYER BY LAYER + HEAT-CURED ===== */
+const c2=chapter('c2','02','Layer by layer');chapIn(c2,5.4);
+tl.to(flipW,{opacity:0,duration:.15},5.35);
+const M3=patchMould(s2.svg,{x:540,y:1020,s:1.05,logo:'LOGO'});tl.set(M3.g,{opacity:0},0);tl.set(M3.g,{opacity:1},5.4);
+tl.set(M3.cav,{attr:{'stroke-dashoffset':0}},5.4);
+tl.set(M3.st,{pour:1,pourX:-200},5.45);tl.to(M3.st,{pourX:200,duration:.6},5.45);tl.to(M3.st,{logo:1,duration:.6,ease:'power1.in'},5.45);sfx(5.45,'pour',.6);
+const g3=tag('g3','PVC · dispensed by colour','left:80px;top:1260px','w');tagIn(g3,5.5);
+tl.set(M3.st,{pourX:-200},6.05);tl.to(M3.st,{pourX:200,duration:.55},6.05);tl.to(M3.st,{base:1,duration:.55,ease:'power1.in'},6.05);tl.set(M3.st,{pour:0},6.6);sfx(6.05,'pour',.5);
+// exploded isometric layers
+const iso=el('g',{opacity:0},s2.svg);
+const slab=(fill,txt)=>{const o=el('g',{},iso);const g=el('g',{transform:'translate(560,1040) skewX(-30) scale(1,.42)'},o);
+  el('rect',{x:-290,y:-115,width:580,height:230,rx:18,fill,stroke:txt?'none':PAPER,'stroke-width':4},g);
+  if(txt){const t=el('text',{x:0,y:50,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':170,fill:txt,'letter-spacing':4},g);t.textContent='LOGO';}return o;};
+const base=slab('#1B1C20',null), logoL=slab('none',PAPER);
+tl.set(M3.g,{opacity:0},6.6);tl.set(iso,{opacity:1},6.6);
+tl.fromTo(logoL,{y:0},{y:-190,duration:.4,ease:'back.out(2)'},6.62);tl.fromTo(base,{y:0},{y:60,duration:.4,ease:'back.out(2)'},6.62);sfx(6.62,'cut',.6);
+const lb1=div('lab','Logo','left:80px;top:770px');lb1.id='lb1';const lb2=div('lab','Base','left:80px;top:1060px');lb2.id='lb2';
+fadeIn(['#lb1','#lb2'],6.75,.15);
+const hb=el('path',{d:'M930,860 L930,1100 M914,860 L946,860 M914,1100 L946,1100',stroke:CYAN,'stroke-width':4,fill:'none',opacity:0},s2.svg);tl.to(hb,{opacity:1,duration:.15},6.8);
+const g4=tag('g4','Raised 3D','left:770px;top:1130px','c');tagIn(g4,6.85);
+// heat cure + compress
+const heat=el('ellipse',{cx:560,cy:1000,rx:420,ry:260,fill:'#FF5A14',opacity:0},s2.svg);
+tl.to(heat,{opacity:.38,duration:.15,yoyo:true,repeat:3},7.05);sfx(7.05,'sizzle',.7);
+const g5=tag('g5','Heat-cured','left:80px;top:1350px','r');tagIn(g5,7.1);
+tl.to(logoL,{y:-25,duration:.18,ease:EI},7.5);tl.to(base,{y:0,duration:.18,ease:EI},7.5);sfx(7.62,'thud',.9);shake(7.62,12,.25);
+hide([g3,g4,g5,'#lb1','#lb2'],7.72);tl.to(hb,{opacity:0,duration:.1},7.65);chapOut(c2,7.65);
+tl.to(iso,{y:-900,duration:.22,ease:EI},7.65);hide(s2.id,7.9);
+
+/* ===== S4 7.8-10.2 SEWN ON: stitched around the edge ===== */
+const s4=scene('s4');show(s4.id,7.8);const c3=chapter('c3','03','Sewn on');chapIn(c3,7.8);
+// cuff panel close-up
+const cuff=el('g',{},s4.svg);
+el('rect',{x:-40,y:720,width:1160,height:560,fill:'#15171C'},cuff);
+for(let x=-40;x<1120;x+=34){el('rect',{x,y:720,width:17,height:560,fill:'#1D2027'},cuff);}
+el('line',{x1:-40,x2:1120,y1:720,y2:720,stroke:'#3A3E47','stroke-width':4},cuff);el('line',{x1:-40,x2:1120,y1:1280,y2:1280,stroke:'#3A3E47','stroke-width':4},cuff);
+const PW=620,PH=230,PX=540-PW/2,PY=1000-PH/2;
+const patchG=el('g',{},s4.svg);const pIn=el('g',{},patchG);
+for(let k=4;k>=1;k--) el('rect',{x:PX+k*2,y:PY+k*4,width:PW,height:PH,rx:16,fill:'#060708'},pIn);
+el('rect',{x:PX,y:PY,width:PW,height:PH,rx:16,fill:'#1B1C20',stroke:'#3A3D45','stroke-width':3},pIn);
+for(let k=3;k>=1;k--){const t=el('text',{x:540+k*1.5,y:1062+k*3,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':170,'letter-spacing':4,fill:'#8E9097'},pIn);t.textContent='LOGO';}
+const lt=el('text',{x:540,y:1062,'text-anchor':'middle','font-family':'BS','font-weight':900,'font-size':170,'letter-spacing':4,fill:PAPER},pIn);lt.textContent='LOGO';
+const PD={k:0};FRAME.push(()=>pIn.setAttribute('transform',`translate(0,${-700*(1-PD.k)})`));
+tl.to(PD,{k:1,duration:.32,ease:'expo.in'},7.95);sfx(8.27,'thud',.8);shake(8.27,10,.2);
+const guides=el('g',{opacity:0},s4.svg);
+el('line',{x1:540,x2:540,y1:640,y2:1360,stroke:CYAN,'stroke-width':2,'stroke-dasharray':'12 9'},guides);
+el('line',{x1:40,x2:1040,y1:1000,y2:1000,stroke:CYAN,'stroke-width':2,'stroke-dasharray':'12 9'},guides);
+tl.to(guides,{opacity:1,duration:.12},8.27);tl.to(guides,{opacity:0,duration:.2},8.55);
+// stitches around the border, sewn by a moving needle
+const inset=14, per=[[PX+inset,PY+inset],[PX+PW-inset,PY+inset],[PX+PW-inset,PY+PH-inset],[PX+inset,PY+PH-inset],[PX+inset,PY+inset]];
+const segLen=[];let total=0;for(let i=0;i<4;i++){const [a,b]=[per[i],per[i+1]];const L=Math.hypot(b[0]-a[0],b[1]-a[1]);segLen.push(L);total+=L;}
+const at=d=>{let i=0;while(i<3&&d>segLen[i]){d-=segLen[i];i++;}const [a,b]=[per[i],per[i+1]],r=Math.min(1,d/segLen[i]);return [a[0]+(b[0]-a[0])*r,a[1]+(b[1]-a[1])*r];};
+const NST=Math.floor(total/26), stitches=[];
+const stG=el('g',{},s4.svg);
+for(let i=0;i<NST;i++){const [x1,y1]=at(i*26),[x2,y2]=at(i*26+16);stitches.push(el('line',{x1,y1,x2,y2,stroke:CYAN,'stroke-width':6,'stroke-linecap':'round',opacity:0},stG));}
+const head=el('g',{opacity:0},s4.svg);el('circle',{cx:0,cy:0,r:22,fill:'none',stroke:CYAN,'stroke-width':4},head);el('line',{x1:0,x2:0,y1:-360,y2:-6,stroke:'#D8DCE3','stroke-width':6},head);
+const SW={p:0};
+FRAME.push(t=>{const n=SW.p*NST;stitches.forEach((s,i)=>s.setAttribute('opacity',i<n?1:0));const [x,y]=at(Math.min(total,SW.p*total));const bob=Math.sin(t*95)*10;head.setAttribute('transform',`translate(${x},${y+bob})`);});
+tl.to(head,{opacity:1,duration:.08},8.45);tl.to(SW,{p:1,duration:1.25,ease:'none'},8.5);sfx(8.5,'sew:1.25',.8);
+tl.to(head,{opacity:0,duration:.1},9.75);
+const g6=tag('g6','Stitched around the edge','left:80px;top:1340px','c');tagIn(g6,8.9);
+tl.fromTo(s4.id,{scale:1.0},{scale:1.08,duration:2.4,ease:'none',transformOrigin:'50% 52%'},7.8);
+sweep(9.75,.45);flash(10.05,.75,.25);sfx(10.05,'whoosh',.5);
+chapOut(c3,10.0);hide([g6,s4.id],10.2);
+
+/* ===== S5 10.2-12.6 THE MATERIAL: knit diagram dissolves into the real knit ===== */
+const s5=scene('s5');show(s5.id,10.2);
+const K=knit(s5.svg,{x0:0,y0:300,w:1080,h:1500,cols:12,rows:16,color:PAPER,needles:false});
+tl.set(K.st,{p:1},10.2);tl.to(s5.id,{opacity:0,duration:.55},10.45);hide(s5.id,11.05);
+show(ST.id,10.3);tl.fromTo(ST.id,{opacity:0},{opacity:1,duration:.5},10.3);
+tl.fromTo(ST.cam,{x:1200,y:520,s:2.7,r:-8},{x:1120,y:700,s:2.35,r:-4,duration:1.2,ease:'power1.inOut'},10.3);
+tl.to(ST.cam,{x:720,y:2150,s:2.1,r:4,duration:.5,ease:'expo.inOut'},11.5);sfx(11.5,'whoosh',.4);
+tl.to(ST.cam,{y:2120,s:2.0,duration:.6,ease:'none'},12.0);
+const c4=chapter('c4','04','Heavy rib knit');show('#tsh',10.2);chapIn(c4,10.25);sfx(10.6,'knit:1.0',.3);
+const cuffB=el('path',{d:'M940,1020 L940,1400 M924,1020 L956,1020 M924,1400 L956,1400',stroke:CYAN,'stroke-width':5,fill:'none',pathLength:1,'stroke-dasharray':'1 1','stroke-dashoffset':1},$('fx'));
+tl.to(cuffB,{attr:{'stroke-dashoffset':0},duration:.3},12.0);
+const g7=tag('g7','Deep fold-over cuff','left:80px;top:1440px','w');tagIn(g7,12.05);
+chapOut(c4,12.45);hide(g7,12.55);tl.to(cuffB,{opacity:0,duration:.1},12.45);
+
+/* ===== S6 12.6-16.2 PRODUCT REVEAL ===== */
+bigHit(12.6,540,960,PAPER,'big');
+tl.set(ST.cam,{x:773,y:1481,s:2.0,r:-2},12.6);tl.to(ST.cam,{s:1.75,r:1,duration:.9,ease:'power2.out'},12.6);
+sweep(12.75,.6);
+const g8=tag('g8','Raised PVC logo','left:80px;top:1380px','c');tagIn(g8,12.8);hide(g8,13.45);
+const cw=[[1095,1056,'Red'],[1005,1365,'Black'],[824,1546,'Royal'],[580,1829,'Grey']];
+const cl=tag('cl','Red','left:80px;top:1380px','w');show(cl,13.5);
+cw.forEach(([x,y,n],i)=>{const t=13.5+i*.3;tl.set(ST.cam,{x,y,s:1.6,r:i%2?3:-3},t);tl.to(ST.cam,{s:1.5,duration:.3,ease:'none'},t);tl.set('#cl',{innerHTML:n},t);sfx(t,'cut',.6);});
+hide(cl,14.7);
+show(CR.id,14.7);hide(ST.id,14.75);
+tl.fromTo(CR.cam,{x:966,y:1288,s:1.0,r:-14},{x:966,y:1288,s:.8,r:0,duration:1.5,ease:'power3.out'},14.7);sfx(14.7,'whoosh',.5);
+const h6=lines('h6',180,[['Four colours.',160],['One standard.',160,'cy']]);
+tl.set('#h6',{visibility:'visible'},14.75);slam(h6,14.75,.3);
+sweep(15.3,.6);
+textOut('h6',h6,15.95);tl.to(CR.id,{opacity:0,duration:.2},16.0);hide(['#tsh',CR.id],16.2);
+
+/* ===== S7 16.2-19.2 END FRAME: 50 beanies under your label ===== */
+const s7=scene('s7');show(s7.id,16.2);
+const h7=lines('h7',200,[['<span class="cy">50</span> beanies.',200],['Made under',150],['your label.',150]]);
+show('#h7',16.2);slam(h7,16.2,.28);HITS.push([16.2,'mid']);
+tl.fromTo('#h7',{scale:1.04},{scale:1,duration:2.9,ease:'none',transformOrigin:'0% 0%'},16.2);
+endCard(16.95,'Custom apparel manufacturer',1150);
+boot(DUR,{payoff:12.6,pulseFrom:3.0,riserFrom:10.8,end:16.2,beat:BT});
+</script></body></html>
