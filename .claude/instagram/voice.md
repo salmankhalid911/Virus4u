@@ -68,6 +68,9 @@ Save this file to `~/.claude/instagram/voice.md`.
 - Physical sample approved by the client before bulk production.
 - MOQ 50 pieces, 2 to 3 week turnaround, worldwide shipping.
 - Several years in business, 100+ active brand clients.
+- Rubber logo patches are made in-house, from scratch (confirmed by Salman, 2026-11-25):
+  PVC, logo engraved in reverse into a mould, PVC dispensed layer by layer,
+  heat-cured, then sewn onto the garment around the edge.
 - Current offer (confirm it is still running): Black Friday 2026, free sample
   with every bulk order of 50+ pieces.
 
